@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Not allowed{% endblock %}
+
+{% comment %}
+  403 — used only where the existence of the page is not itself a secret:
+  a student reaching a marking URL, for example. Where the existence of the
+  row would leak something, the view raises Http404 instead.
+{% endcomment %}
+
+{% block content %}
+<div class="head">
+  <p class="kicker">403</p>
+  <h2>Your role can't do that</h2>
+  <p>Only a marker can judge a criterion. Your account is signed in as {{ role_label|default:"a student" }}.</p>
+</div>
+{% include "includes/_empty_state.html" with message="This isn't a bug — it's the rule the product is built on." detail="A judgement is only ever written by a tutor or a coordinator." action_url=home_url action_label="Go home" %}
+{% endblock %}

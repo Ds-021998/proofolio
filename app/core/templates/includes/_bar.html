@@ -1,0 +1,22 @@
+{% comment %}
+  Proportion bar — "14 of 20 missed this criterion".
+  Used on the tutor's tutorial brief and the coordinator's cohort view.
+
+      {% include "includes/_bar.html" with label=c.title value=c.missed total=c.total %}
+
+  label    required
+  value    integer
+  total    integer
+  percent  integer, pre-computed in the view (templates can't divide)
+  sub      optional small text under the label
+{% endcomment %}
+<div class="bar">
+  <div class="bar-top">
+    <span>{{ label }}</span>
+    <span class="mono xs">{{ value }}/{{ total }}</span>
+  </div>
+  <div class="bar-track" role="img" aria-label="{{ value }} of {{ total }} students — {{ percent }} per cent">
+    <div class="bar-fill" data-low="{% if percent < 40 %}true{% else %}false{% endif %}" style="width:{{ percent }}%"></div>
+  </div>
+  {% if sub %}<p class="xs">{{ sub }}</p>{% endif %}
+</div>

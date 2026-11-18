@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% block title %}Feedback{% endblock %}
+
+{% comment %}
+  Student — released feedback, compared against the last time the same
+  criterion was judged.
+
+  Context
+    assessment
+    results         each annotated:
+                      .verdict        "met" | "partly" | "not_met"
+                      .change         "closed" | "still_open" | "newly_open" | ""
+                      .quote          the flagged paragraph text
+                      .para_number
+                      .comment        what the marker wrote
+                      .what_to_do
+                      .verified_on    date, when verdict == met
+    my_questions    each .criterion_title .text .reply .answered_at
+    closed_count
+
+  There is nothing on this page a student can tick. That is deliberate and
+  it is the answer to the self-certification objection.
+{% endcomment %}
+
+{% block content %}
+<div class="head">
+  <p class="kicker">{{ assessment.title }} · released {{ released_at|date:"j M" }}</p>
+  <h2>{{ closed_count }} criteri{{ closed_count|pluralize:"on,a" }} closed</h2>
+  <p>Each one is compared with the last time the same criterion was judged.</p>
+</div>
+
+<div class="stack">
+
+  {% for r in results %}
+    <article class="crit">
+      {% include "includes/_criterion_head.html" with criterion=r verdict=r.verdict %}
+
+      {% if r.change == "closed" %}
+        <p><span class="chip ok"><svg width="12" height="12" aria-hidden="true"><use href="#ico-check"></use></svg>Closed by your marker</span></p>
+      {% elif r.change == "still_open" %}
+        <p><span class="chip open"><svg width="12" height="12" aria-hidden="true"><use href="#ico-dot"></use></svg>Still open</span></p>
+      {% elif r.change == "newly_open" %}
+        <p><span class="chip miss"><svg width="12" height="12" aria-hidden="true"><use href="#ico-alert"></use></svg>Newly open</span></p>
+      {% endif %}
+
+      {% if r.verdict == "met" %}
+        <p class="xs">Verified {{ r.verified_on|date:"j M Y" }} by the {{ course.code }} teaching team.</p>
+      {% else %}
+        {% if r.quote %}
+          <div>
+            <span class="lbl">Where</span>
+            <blockquote class="quote">P{{ r.para_number }}: “{{ r.quote|truncatechars:140 }}”</blockquote>
+          </div>
+        {% endif %}
+        <div>
+          <span class="lbl">Your marker wrote</span>
+          <p class="sm">{{ r.comment }}</p>
+        </div>
+        <div>
+          <span class="lbl">Next time</span>
+          <p class="sm">{{ r.what_to_do }}</p>
+        </div>
+        <div class="row">
+          <a class="btn s xs" href="{% url 'student_ask' r.id %}">Ask about this<span class="sr-only"> — {{ r.title }}</span></a>
+        </div>
+      {% endif %}
+    </article>
+  {% endfor %}
+
+  {% if my_questions %}
+    <div class="stack-sm">
+      <h3 class="kicker">Your questions</h3>
+      {% for q in my_questions %}
+        <div class="card">
+          <p class="xs">{{ q.criterion_title }}</p>
+          <p class="sm" style="margin-top:4px"><b>You:</b> {{ q.text }}</p>
+          {% if q.answered_at %}
+            <p class="sm muted" style="margin-top:8px">{{ q.reply }}</p>
+            <p class="xs" style="margin-top:6px">Answered without your marker reopening the script.</p>
+          {% else %}
+            <p class="xs" style="margin-top:6px">Waiting with your marker.</p>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+</div>
+{% endblock %}

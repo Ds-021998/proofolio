@@ -1,0 +1,29 @@
+{% comment %}
+  The marker's three-way judgement control.
+
+      {% include "includes/_verdict_control.html" with criterion=c verdict=c.verdict %}
+
+  Radio inputs inside a fieldset, not buttons:
+    · it posts with the surrounding form, so marking works with JavaScript off
+    · arrow keys move between options, which is how a radio group should behave
+    · the legend tells a screen reader which criterion is being judged
+
+  Posts as  verdict-<criterion.id> = met | partly | not_met
+  A view must reject this POST unless request.user is in the tutor or
+  coordinator group. That check is the product.
+{% endcomment %}
+<fieldset class="seg">
+  <legend class="sr-only">Judgement for {{ criterion.title }}</legend>
+
+  <input type="radio" id="v-{{ criterion.id }}-met" name="verdict-{{ criterion.id }}" value="met"
+         {% if verdict == "met" %}checked{% endif %}>
+  <label for="v-{{ criterion.id }}-met">Met</label>
+
+  <input type="radio" id="v-{{ criterion.id }}-partly" name="verdict-{{ criterion.id }}" value="partly"
+         {% if verdict == "partly" %}checked{% endif %}>
+  <label for="v-{{ criterion.id }}-partly">Partly</label>
+
+  <input type="radio" id="v-{{ criterion.id }}-not" name="verdict-{{ criterion.id }}" value="not_met"
+         {% if verdict == "not_met" %}checked{% endif %}>
+  <label for="v-{{ criterion.id }}-not">Not met</label>
+</fieldset>

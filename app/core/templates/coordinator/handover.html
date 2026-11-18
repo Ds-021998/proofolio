@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block title %}Handover{% endblock %}
+
+{% comment %}
+  Coordinator — handover to next semester's teaching team.
+
+  Context
+    criteria_with_indicators   each .title .capability_name .indicators
+    notes                      existing HandoverNote rows, each .text .author_label .created_at
+
+  Indicators and notes attach to the CRITERION, not to the person who wrote
+  them. That is the whole point: seven of eight sessional markers leave, and
+  what they noticed has to stay.
+{% endcomment %}
+
+{% block content %}
+<div class="head">
+  <p class="kicker">For next semester</p>
+  <h2>What this cohort taught us</h2>
+  <p>Nobody wrote this on top of their marking. Every line below is a by-product of marking that had to happen anyway.</p>
+</div>
+
+<div class="stack">
+
+  {% for c in criteria_with_indicators %}
+    <article class="crit">
+      <div class="crit-top">
+        <div>
+          <h4>{{ c.title }}</h4>
+          <span class="cap">
+            <svg width="13" height="13" aria-hidden="true"><use href="#ico-seal"></use></svg>
+            <b>{{ c.capability_name }}</b>
+          </span>
+        </div>
+        <span class="chip flat">{{ c.indicators.all|length }} indicator{{ c.indicators.all|length|pluralize }}</span>
+      </div>
+      {% for i in c.indicators.all %}
+        <p class="sm">· {{ i.text }}</p>
+      {% endfor %}
+    </article>
+  {% empty %}
+    {% include "includes/_empty_state.html" with message="No indicators yet." detail="Markers add these while marking — one optional line each." %}
+  {% endfor %}
+
+  <div class="card stack-sm">
+    <h3 style="font-weight:600;font-size:15px">Note to next semester's team</h3>
+    <form method="post" class="stack-sm">
+      {% csrf_token %}
+      <div class="field">
+        <label class="lbl" for="id_note">Attaches to the assessment, not to a person</label>
+        <textarea id="id_note" name="text" rows="4" placeholder="What you'd want to know if you were picking this course up cold."></textarea>
+      </div>
+      <div class="row">
+        <button class="btn brand xs" type="submit">Save note</button>
+      </div>
+    </form>
+
+    {% for n in notes %}
+      <div class="card-2">
+        <p class="sm">{{ n.text }}</p>
+        <p class="xs" style="margin-top:6px">{{ n.created_at|date:"j M Y" }}</p>
+      </div>
+    {% endfor %}
+  </div>
+
+</div>
+{% endblock %}

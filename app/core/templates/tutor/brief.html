@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block title %}Tutorial brief{% endblock %}
+
+{% comment %}
+  Tutor — the landing screen. What this tutor's own group missed most,
+  produced entirely as a by-product of marking that already happened.
+
+  Context
+    group_size
+    bars        each .label .value .total .percent .sub
+    top         the most-missed criterion:
+                  .title .capability_name
+                  .examples   list of de-identified sentences
+                  .opener     suggested ten-minute opener
+                  .covered    bool
+    tutorial_date
+{% endcomment %}
+
+{% block content %}
+<div class="head">
+  <p class="kicker">Your group · {{ group_size }} student{{ group_size|pluralize }}</p>
+  <h2>Before {{ tutorial_date|date:"l"|default:"Thursday" }}</h2>
+  <p>Nobody wrote this. It's what your marking already said, counted.</p>
+</div>
+
+<div class="stack">
+
+  <div class="card">
+    <div class="bars">
+      {% for b in bars %}
+        {% include "includes/_bar.html" with label=b.label value=b.value total=b.total percent=b.percent sub=b.sub %}
+      {% empty %}
+        <p class="sm muted">Nothing marked yet, so there is nothing to brief.</p>
+      {% endfor %}
+    </div>
+  </div>
+
+  {% if top %}
+    <article class="card stack-sm">
+      <div class="crit-top">
+        <div>
+          <h4>{{ top.title }}</h4>
+          <span class="cap">
+            <svg width="13" height="13" aria-hidden="true"><use href="#ico-seal"></use></svg>
+            <b>{{ top.capability_name }}</b>
+          </span>
+        </div>
+        {% if top.covered %}
+          <span class="chip ok"><svg width="12" height="12" aria-hidden="true"><use href="#ico-check"></use></svg>Covered</span>
+        {% endif %}
+      </div>
+
+      <span class="lbl">What it looked like in your group</span>
+      {% for ex in top.examples %}
+        <blockquote class="quote">“{{ ex }}”</blockquote>
+      {% endfor %}
+      <p class="xs">De-identified. No student is named here, and nothing links a sentence to a person.</p>
+
+      <span class="lbl">Suggested ten-minute opener</span>
+      <p class="sm">{{ top.opener }}</p>
+
+      {% if not top.covered %}
+        <form method="post" action="{% url 'tutor_mark_covered' top.id %}">
+          {% csrf_token %}
+          <button class="btn brand xs" type="submit">Mark as covered in tutorial</button>
+        </form>
+        <p class="xs">Your coordinator sees that this was covered — not who said what.</p>
+      {% endif %}
+    </article>
+  {% endif %}
+
+</div>
+{% endblock %}

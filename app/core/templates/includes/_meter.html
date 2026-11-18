@@ -1,0 +1,16 @@
+{% comment %}
+  Capability meter — one segment per criterion, green if closed, amber if open.
+
+      {% include "includes/_meter.html" with segments=meter_segments verified=verified_count total=total_count %}
+
+  segments   list of strings, each "ok" or "open", in criterion order
+  verified   integer
+  total      integer
+
+  role="img" with a text alt, because the bar itself means nothing to a
+  screen reader. The number above it is the real answer; this is decoration
+  that happens to be informative.
+{% endcomment %}
+<div class="meter" role="img" aria-label="{{ verified }} of {{ total }} capabilities verified">
+  {% for s in segments %}<i data-s="{{ s }}"></i>{% endfor %}
+</div>

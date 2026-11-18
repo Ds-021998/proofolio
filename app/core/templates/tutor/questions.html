@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block title %}Questions{% endblock %}
+
+{% comment %}
+  Tutor — questions, each one attached to a criterion and a paragraph, each
+  with a reply already drafted from the standard the coordinator wrote.
+  Answering never reopens the script.
+
+  Context
+    waiting     each .id .criterion_title .student_label .text .draft_reply
+    answered    each .id .criterion_title .student_label .text .reply .answered_at
+{% endcomment %}
+
+{% block content %}
+<div class="head">
+  <p class="kicker">{{ waiting|length }} waiting</p>
+  <h2>Questions</h2>
+  <p>Each one arrives attached to a criterion, so you're not reconstructing what they're asking about.</p>
+</div>
+
+<div class="stack">
+
+  {% for q in waiting %}
+    <article class="card stack-sm">
+      <div class="spread">
+        <p class="xs">{{ q.criterion_title }} · {{ q.student_label }}</p>
+        <span class="chip info"><svg width="12" height="12" aria-hidden="true"><use href="#ico-dot"></use></svg>Waiting</span>
+      </div>
+      <p class="sm">{{ q.text }}</p>
+      <form method="post" action="{% url 'tutor_answer' q.id %}" class="stack-sm">
+        {% csrf_token %}
+        <div class="field">
+          <label class="lbl" for="reply-{{ q.id }}">Drafted from the standard the coordinator wrote — edit or send</label>
+          <textarea id="reply-{{ q.id }}" name="reply" rows="4">{{ q.draft_reply }}</textarea>
+        </div>
+        <div class="row">
+          <button class="btn brand xs" type="submit">Send reply</button>
+        </div>
+      </form>
+    </article>
+  {% empty %}
+    {% include "includes/_empty_state.html" with message="No questions waiting." detail="Students can only ask against a criterion on released feedback." %}
+  {% endfor %}
+
+  {% if answered %}
+    <div class="stack-sm">
+      <h3 class="kicker">Answered</h3>
+      {% for q in answered %}
+        <div class="card">
+          <div class="spread">
+            <p class="xs">{{ q.criterion_title }} · {{ q.student_label }}</p>
+            <span class="chip ok"><svg width="12" height="12" aria-hidden="true"><use href="#ico-check"></use></svg>Answered</span>
+          </div>
+          <p class="sm" style="margin-top:6px">{{ q.reply }}</p>
+          <p class="xs" style="margin-top:6px">{{ q.answered_at|date:"j M, g:ia" }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+</div>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Ask about this{% endblock %}
+
+{% comment %}
+  Student — ask a question, anchored to one criterion.
+
+  Context
+    criterion       .id .title .capability_name .what_to_do
+    assessment_id   int, posted back so the redirect lands on the right page
+    marker_comment  what the marker wrote, for reference
+
+  Anchoring is the whole trick: because the question arrives attached to a
+  criterion, the tutor's reply can be pre-drafted from the standard the
+  coordinator already wrote, and nobody has to reopen the script.
+{% endcomment %}
+
+{% block content %}
+<div class="head">
+  <p class="kicker">Your question goes to your marker</p>
+  <h2>Ask about one criterion</h2>
+</div>
+
+<div class="stack">
+  <article class="crit">
+    {% include "includes/_criterion_head.html" with criterion=criterion verdict=criterion.verdict %}
+    {% if marker_comment %}
+      <div>
+        <span class="lbl">Your marker wrote</span>
+        <p class="sm">{{ marker_comment }}</p>
+      </div>
+    {% endif %}
+  </article>
+
+  <form method="post" class="stack-sm">
+    {% csrf_token %}
+    <input type="hidden" name="assessment_id" value="{{ assessment_id }}">
+    <div class="field">
+      <label class="lbl" for="id_question">What do you want to know?</label>
+      <textarea id="id_question" name="text" rows="4" required
+                placeholder="e.g. Does the brief count as a source, or does it have to be my own data?"></textarea>
+    </div>
+    <button class="btn brand full" type="submit">Send question</button>
+    <p class="xs center">Your marker sees the criterion and the paragraph it's attached to, so you don't have to explain which bit you mean.</p>
+  </form>
+</div>
+{% endblock %}

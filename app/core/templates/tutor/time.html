@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}My time{% endblock %}
+
+{% comment %}
+  Tutor — marking time, after the fact, in aggregate, to this tutor only.
+
+  Context
+    hours_marked      e.g. "9.3"
+    scripts_marked
+    average_minutes
+    paid_hours
+    over_allocation   bool (hours_marked > paid_hours)
+    difference        e.g. "2.3"
+
+  The whole design of this screen is a response to one piece of feedback:
+  a timer running while you mark reads as surveillance. So it does not run
+  where you can see it, the coordinator never sees it at all, and it is
+  never broken down per script. What's left is the only thing the number
+  was ever good for — evidence when a casual marker claims extra hours.
+{% endcomment %}
+
+{% block content %}
+<div class="head">
+  <p class="kicker">Only you can see this</p>
+  <h2>Your marking time</h2>
+  <p>Counted in the background while you mark. Never shown live, never per script, never to your coordinator.</p>
+</div>
+
+<div class="stack">
+
+  <div class="hero">
+    <div class="spread">
+      <p class="hero-num"><b>{{ hours_marked }}</b><span>hours this assessment</span></p>
+      <span class="chip flat">{{ scripts_marked }} scripts</span>
+    </div>
+    <p class="xs">About {{ average_minutes }} minutes a script.</p>
+  </div>
+
+  <div class="card-2 stack-sm">
+    <div class="spread">
+      <span class="sm">Paid allocation</span>
+      <span class="mono sm">{{ paid_hours }} h</span>
+    </div>
+    <div class="spread">
+      <span class="sm">Counted</span>
+      <span class="mono sm">{{ hours_marked }} h</span>
+    </div>
+    {% if over_allocation %}
+      <p class="note warn">
+        {{ difference }} hours over the paid allocation. If you claim additional hours, this is your evidence.
+      </p>
+    {% else %}
+      <p class="note good">Within the paid allocation.</p>
+    {% endif %}
+  </div>
+
+  <p class="xs">
+    Stored against you, visible to you. No per-script breakdown exists in the database, so there is
+    nothing for anyone to ask for.
+  </p>
+
+</div>
+{% endblock %}

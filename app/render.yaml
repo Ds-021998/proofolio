@@ -1,0 +1,27 @@
+# Render reads this when you connect the repo, so you don't fill in a form.
+#
+# Note the disk: Render's filesystem is wiped on every deploy, so without it
+# SQLite would be erased each time you push and every login would vanish.
+# The disk keeps db.sqlite3 between deploys.
+services:
+  - type: web
+    name: proofolio
+    runtime: python
+    plan: free
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn proofolio.wsgi:application"
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true        # Render generates one; it never enters the repo
+      - key: DEBUG
+        value: "False"
+      - key: PYTHON_VERSION
+        value: "3.12.6"
+      - key: DJANGO_SETTINGS_MODULE
+        value: "proofolio.settings"
+      - key: DB_DIR
+        value: "/opt/render/project/src/data"   # must match mountPath below
+    disk:
+      name: proofolio-data
+      mountPath: /opt/render/project/src/data
+      sizeGB: 1

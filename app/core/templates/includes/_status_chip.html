@@ -1,0 +1,21 @@
+{% comment %}
+  Status chip.
+
+      {% include "includes/_status_chip.html" with verdict=j.verdict %}
+      {% include "includes/_status_chip.html" with verdict="partly" label="Carried in" %}
+      {% include "includes/_status_chip.html" with verdict=None label="Not judged" %}
+
+  verdict  "met" | "partly" | "not_met" | anything else → neutral chip
+  label    optional override for the text
+
+  Colour is never the only signal: each chip carries an icon and a word.
+{% endcomment %}
+{% if verdict == "met" %}
+  <span class="chip ok"><svg width="12" height="12" aria-hidden="true"><use href="#ico-check"></use></svg>{{ label|default:"Met" }}</span>
+{% elif verdict == "partly" %}
+  <span class="chip open"><svg width="12" height="12" aria-hidden="true"><use href="#ico-dot"></use></svg>{{ label|default:"Partly met" }}</span>
+{% elif verdict == "not_met" %}
+  <span class="chip miss"><svg width="12" height="12" aria-hidden="true"><use href="#ico-alert"></use></svg>{{ label|default:"Not met" }}</span>
+{% else %}
+  <span class="chip flat">{{ label|default:"Not judged" }}</span>
+{% endif %}

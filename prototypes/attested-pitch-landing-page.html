@@ -1,0 +1,540 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Attested</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&family=JetBrains+Mono:wght@400;500&family=Schibsted+Grotesk:wght@400;500;600;700&display=swap">
+
+<style>
+  /* Layout: one ruled column, like an official record. Verdict objects break the rule line. */
+  :root {
+    --paper: #eef1ef;
+    --card: #ffffff;
+    --card-2: #f6f8f7;
+    --rule: #d4dcd8;
+    --rule-2: #c2cdc8;
+    --ink: #0d1512;
+    --ink-2: #4e5b56;
+    --ink-3: #62706a;
+
+    --seal: #06795a;
+    --seal-soft: #e0f2ea;
+    --seal-line: #b9dfcd;
+    --open: #8f6708;
+    --open-soft: #fbf1d8;
+    --miss: #a1293c;
+    --miss-soft: #fae7ea;
+
+    --display: "Bricolage Grotesque", Georgia, serif;
+    --ui: "Schibsted Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+
+    --sh: 0 1px 2px rgba(13, 21, 18, .05), 0 18px 40px -28px rgba(13, 21, 18, .5);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #0a0f0d;
+      --card: #121917;
+      --card-2: #18201d;
+      --rule: #26302c;
+      --rule-2: #36423d;
+      --ink: #e9efec;
+      --ink-2: #a3b0aa;
+      --ink-3: #8d9a94;
+      --seal: #4fcb9c;
+      --seal-soft: #10291f;
+      --seal-line: #214636;
+      --open: #efc463;
+      --open-soft: #2b2311;
+      --miss: #f07a86;
+      --miss-soft: #2e161b;
+      --sh: 0 1px 2px rgba(0,0,0,.5), 0 18px 40px -28px rgba(0,0,0,1);
+      color-scheme: dark;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --paper: #0a0f0d;
+    --card: #121917;
+    --card-2: #18201d;
+    --rule: #26302c;
+    --rule-2: #36423d;
+    --ink: #e9efec;
+    --ink-2: #a3b0aa;
+    --ink-3: #8d9a94;
+    --seal: #4fcb9c;
+    --seal-soft: #10291f;
+    --seal-line: #214636;
+    --open: #efc463;
+    --open-soft: #2b2311;
+    --miss: #f07a86;
+    --miss-soft: #2e161b;
+    --sh: 0 1px 2px rgba(0,0,0,.5), 0 18px 40px -28px rgba(0,0,0,1);
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--ui);
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3 {
+    margin: 0;
+    font-family: var(--display);
+    font-weight: 600;
+    letter-spacing: -.028em;
+    text-wrap: balance;
+    line-height: 1.04;
+  }
+
+  p { margin: 0; }
+
+  .wrap {
+    max-width: 860px;
+    margin: 0 auto;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+  }
+
+  section { border-top: 1px solid var(--rule); }
+  section:first-of-type { border-top: 0; }
+  .band { padding-block: clamp(44px, 7vw, 80px); }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+
+  .lede { font-size: clamp(16px, 2.1vw, 19px); color: var(--ink-2); max-width: 60ch; }
+
+  /* ---------- hero ---------- */
+
+  .hero { padding-block: clamp(40px, 6vw, 72px) clamp(36px, 5vw, 60px); display: grid; gap: 28px; }
+
+  .mark { display: flex; align-items: center; gap: 9px; }
+  .mark b { font-family: var(--display); font-size: 19px; font-weight: 700; letter-spacing: -.03em; }
+  .mark .seal-ico { color: var(--seal); display: grid; place-items: center; }
+
+  .hero h1 { font-size: clamp(34px, 6.4vw, 60px); font-weight: 600; max-width: 17ch; letter-spacing: -.038em; }
+
+  .hero-copy { display: grid; gap: 16px; }
+
+  .thrown {
+    display: grid;
+    gap: 2px;
+    font-size: clamp(15px, 2vw, 17px);
+    max-width: 58ch;
+  }
+  .thrown span:first-child { color: var(--ink-2); }
+  .thrown .strike { color: var(--ink-3); text-decoration: line-through; text-decoration-thickness: 1px; }
+  .thrown b { font-weight: 600; color: var(--ink); }
+
+  /* ---------- the record object ---------- */
+
+  .record {
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    box-shadow: var(--sh);
+    overflow: hidden;
+  }
+
+  .record-top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 18px 20px;
+    background: var(--card-2);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .record-top h3 { font-family: var(--ui); font-size: 16.5px; font-weight: 600; letter-spacing: -.01em; }
+  .record-top .sub { font-family: var(--mono); font-size: 11.5px; color: var(--ink-3); margin-top: 5px; }
+
+  .stamp {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 5px 12px 5px 9px;
+    border: 1px solid var(--seal-line);
+    border-radius: 999px;
+    background: var(--seal-soft);
+    color: var(--seal);
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+    animation: stamp .5s cubic-bezier(.2,1.5,.4,1) .9s both;
+  }
+  @keyframes stamp { from { transform: scale(.82); opacity: 0 } to { transform: scale(1); opacity: 1 } }
+
+  .entries { padding: 20px; display: grid; gap: 0; }
+
+  .entry {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: baseline;
+    gap: 14px;
+    padding: 13px 0 13px 28px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .entry:last-child { border-bottom: 0; padding-bottom: 2px; }
+
+  .entry::before {
+    content: "";
+    position: absolute;
+    left: 1px;
+    top: 17px;
+    width: 13px; height: 13px;
+    border-radius: 50%;
+    background: var(--dot, var(--rule-2));
+    animation: lit .45s ease both;
+    animation-delay: var(--d, 0s);
+  }
+  .entry::after {
+    content: "";
+    position: absolute;
+    left: 7px;
+    top: 30px;
+    bottom: -1px;
+    width: 1px;
+    background: var(--rule);
+  }
+  .entry:last-child::after { display: none; }
+  @keyframes lit { from { opacity: .25; transform: scale(.7) } to { opacity: 1; transform: scale(1) } }
+
+  .entry-when { font-family: var(--mono); font-size: 11.5px; color: var(--ink-3); }
+  .entry-what { font-size: 14.5px; color: var(--ink-2); }
+  .entry-what b { color: var(--ink); font-weight: 600; }
+
+  .verdict {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 3px 10px 3px 8px;
+    border-radius: 999px;
+    font-size: 11.5px; font-weight: 600; white-space: nowrap;
+  }
+  .verdict.met { color: var(--seal); background: var(--seal-soft); }
+  .verdict.partly { color: var(--open); background: var(--open-soft); }
+  .verdict.not { color: var(--miss); background: var(--miss-soft); }
+
+  .record-foot {
+    padding: 13px 20px;
+    border-top: 1px solid var(--rule);
+    background: var(--card-2);
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-3);
+    letter-spacing: .02em;
+  }
+
+  /* ---------- thesis ---------- */
+
+  .thesis { display: grid; gap: 18px; }
+  .thesis p { font-family: var(--display); font-size: clamp(21px, 3.4vw, 31px); line-height: 1.22; letter-spacing: -.025em; max-width: 24ch; font-weight: 500; }
+  .thesis .keep { color: var(--seal); }
+  .thesis .note { font-family: var(--ui); font-size: 15px; font-weight: 400; color: var(--ink-2); max-width: 56ch; letter-spacing: 0; line-height: 1.55; }
+
+  /* ---------- four moments ---------- */
+
+  .moments { display: grid; gap: 26px; }
+  .moment-grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
+
+  .moment {
+    display: grid;
+    gap: 10px;
+    align-content: start;
+    padding: 18px;
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    min-width: 0;
+  }
+  .moment .n {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--seal);
+    letter-spacing: .08em;
+  }
+  .moment h3 { font-family: var(--ui); font-size: 15px; font-weight: 600; letter-spacing: -.005em; }
+  .moment p { font-size: 13.5px; color: var(--ink-2); line-height: 1.5; }
+
+  .chip-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 2px; }
+  .mini {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    padding: 3px 8px;
+    border: 1px solid var(--rule-2);
+    border-radius: 2px;
+    color: var(--ink-3);
+    background: var(--card-2);
+  }
+  .mini.on { color: var(--seal); border-color: var(--seal-line); background: var(--seal-soft); }
+
+  .same {
+    padding: 14px 16px;
+    background: var(--card-2);
+    border: 1px dashed var(--rule-2);
+    border-radius: 2px;
+    font-size: 14px;
+    color: var(--ink-2);
+  }
+  .same b { color: var(--ink); font-weight: 600; }
+
+  /* ---------- roles ---------- */
+
+  .roles { display: grid; gap: 0; }
+  .role {
+    display: grid;
+    grid-template-columns: 170px 1fr;
+    gap: 10px 26px;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: start;
+  }
+  .role:last-child { border-bottom: 0; padding-bottom: 0; }
+  .role h3 { font-family: var(--ui); font-size: 15.5px; font-weight: 600; }
+  .role .who { font-family: var(--mono); font-size: 11px; color: var(--ink-3); margin-top: 4px; letter-spacing: .04em; }
+  .role p { font-size: 14.5px; color: var(--ink-2); max-width: 54ch; }
+  .role p + p { margin-top: 8px; }
+
+  /* ---------- never ---------- */
+
+  .never { display: grid; gap: 16px; }
+  .never ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 1px; background: var(--rule); border: 1px solid var(--rule); border-radius: 2px; }
+  .never li {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 12px;
+    align-items: baseline;
+    padding: 14px 16px;
+    background: var(--card);
+    font-size: 14.5px;
+    color: var(--ink-2);
+  }
+  .never li span { color: var(--miss); font-family: var(--mono); font-size: 13px; }
+
+  /* ---------- foot ---------- */
+
+  .foot { padding-block: 40px 56px; display: grid; gap: 14px; }
+  .foot p { font-size: 13.5px; color: var(--ink-3); max-width: 62ch; }
+  .foot .status {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--mono); font-size: 11px; letter-spacing: .06em;
+    text-transform: uppercase; color: var(--ink-3);
+  }
+  .foot .status i { width: 7px; height: 7px; border-radius: 50%; background: var(--open); display: inline-block; }
+
+  @media (max-width: 560px) {
+    .role { grid-template-columns: 1fr; gap: 8px; }
+    .entry { grid-template-columns: 1fr auto; gap: 4px 10px; }
+    .entry-when { grid-column: 1 / -1; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+</style>
+
+<header class="wrap hero">
+  <div class="mark">
+    <span class="seal-ico" aria-hidden="true">
+      <svg width="19" height="19" viewBox="0 0 16 16" fill="none">
+        <path d="M8 1.4l1.7 1.2 2-.2.7 1.9 1.7 1.1-.7 1.9.7 1.9-1.7 1.1-.7 1.9-2-.2L8 14.2l-1.7-1.2-2 .2-.7-1.9L1.9 10l.7-1.9-.7-1.9 1.7-1.1.7-1.9 2 .2L8 1.4z" stroke="currentColor" stroke-width="1.15" stroke-linejoin="round"/>
+        <path d="M5.6 8.1l1.7 1.7 3.1-3.3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </span>
+    <b>Attested</b>
+  </div>
+
+  <div class="hero-copy">
+    <h1>The criteria you were marked on, back when you need them.</h1>
+    <p class="thrown">
+      <span>Every time a marker judges a piece of work against a criterion, they make a judgement.</span>
+      <span class="strike">And the moment the mark is released, that judgement is thrown away.</span>
+      <span><b>Attested keeps it.</b></span>
+    </p>
+  </div>
+
+  <article class="record" aria-label="Example capability record">
+    <div class="record-top">
+      <div>
+        <h3>Design judgement</h3>
+        <p class="sub">States the trade-off behind each design decision · SFIA DESN 4</p>
+      </div>
+      <span class="stamp">
+        <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M8 1.4l1.7 1.2 2-.2.7 1.9 1.7 1.1-.7 1.9.7 1.9-1.7 1.1-.7 1.9-2-.2L8 14.2l-1.7-1.2-2 .2-.7-1.9L1.9 10l.7-1.9-.7-1.9 1.7-1.1.7-1.9 2 .2L8 1.4z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>
+          <path d="M5.6 8.1l1.7 1.7 3.1-3.3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Verified
+      </span>
+    </div>
+
+    <div class="entries">
+      <div class="entry" style="--dot: var(--miss); --d: .15s">
+        <span class="entry-when">12 Aug</span>
+        <span class="entry-what"><b>Assignment 1</b> — names the decision, not who it affects</span>
+        <span class="verdict not">Not met</span>
+      </div>
+      <div class="entry" style="--dot: var(--open); --d: .4s">
+        <span class="entry-when">03 Sep</span>
+        <span class="entry-what"><b>Assignment 2</b> — one trade-off named, three left implied</span>
+        <span class="verdict partly">Partly met</span>
+      </div>
+      <div class="entry" style="--dot: var(--seal); --d: .65s">
+        <span class="entry-when">24 Sep</span>
+        <span class="entry-what"><b>Assignment 3</b> — every decision names its stakeholder</span>
+        <span class="verdict met">Met</span>
+      </div>
+    </div>
+
+    <p class="record-foot">Verified by the COMP7110 teaching team · not a grade, not a self-assessment</p>
+  </article>
+</header>
+
+<section>
+  <div class="wrap band thesis">
+    <p class="eyebrow">Why now</p>
+    <p>AI made explaining feedback abundant and free. It made <span class="keep">attested evidence of ability</span> scarce.</p>
+    <p class="note">
+      Any model will explain a rubric to a student at two in the morning. None of them can vouch for what
+      that student can actually do. We don't compete on explanation — we keep the thing a model cannot produce:
+      a dated judgement, against a named capability, made by someone the institution stands behind.
+    </p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap band moments">
+    <div class="thesis">
+      <p class="eyebrow">The mechanic</p>
+      <h2 style="font-size: clamp(25px, 4vw, 36px); max-width: 20ch">One criterion, used four times instead of once.</h2>
+      <p class="lede">
+        We don't add an artefact. The coordinator already writes these — we stop throwing them away after marking.
+      </p>
+    </div>
+
+    <div class="same">
+      Every panel below shows the <b>same criterion</b>: <i>States the trade-off behind each design decision.</i>
+    </div>
+
+    <div class="moment-grid">
+      <div class="moment">
+        <p class="n">01 · BEFORE</p>
+        <h3>The student sees the standard</h3>
+        <p>Published before they write, on the submission page itself — not in a notification they'd have to remember.</p>
+        <div class="chip-row"><span class="mini on">Good looks like</span><span class="mini">Clause</span></div>
+      </div>
+
+      <div class="moment">
+        <p class="n">02 · MARKING</p>
+        <h3>The marker clicks, doesn't type</h3>
+        <p>Three buttons. The comment written once at setup attaches itself; the marker edits only where this script differs.</p>
+        <div class="chip-row"><span class="mini">Met</span><span class="mini on">Partly</span><span class="mini">Not met</span></div>
+      </div>
+
+      <div class="moment">
+        <p class="n">03 · THE QUESTION</p>
+        <h3>The question arrives anchored</h3>
+        <p>A student asks about this criterion, so the reply is already drafted from the standard. The script is never reopened.</p>
+        <div class="chip-row"><span class="mini on">Pre-drafted reply</span></div>
+      </div>
+
+      <div class="moment">
+        <p class="n">04 · NEXT TIME</p>
+        <h3>It carries forward until it closes</h3>
+        <p>Still open, so it appears on the next submission page. It closes only when a marker next judges it met.</p>
+        <div class="chip-row"><span class="mini on">Carried in</span><span class="mini">New here</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap band">
+    <div class="thesis" style="margin-bottom: 26px">
+      <p class="eyebrow">Who it's for</p>
+      <h2 style="font-size: clamp(25px, 4vw, 36px); max-width: 20ch">Three roles, and nobody does extra work.</h2>
+    </div>
+
+    <div class="roles">
+      <div class="role">
+        <div>
+          <h3>The student</h3>
+          <p class="who">Sees only their own</p>
+        </div>
+        <div>
+          <p>The criteria before writing, the ones still open carried into the next submission, and feedback compared against the last time the same criterion was judged — closed, still open, or newly open.</p>
+          <p>They can point a marker at where they addressed something. They cannot mark it done. Whether it's fixed is the marker's call.</p>
+        </div>
+      </div>
+
+      <div class="role">
+        <div>
+          <h3>The sessional marker</h3>
+          <p class="who">Their group only</p>
+        </div>
+        <div>
+          <p>Judging instead of typing, and a tutorial brief counted from their own marking — the three things their group missed most, with de-identified sentences from the scripts.</p>
+          <p>Nobody wrote that brief. No timer runs while they mark; time accrues quietly and only they ever see the total.</p>
+        </div>
+      </div>
+
+      <div class="role">
+        <div>
+          <h3>The coordinator</h3>
+          <p class="who">Cohort, aggregated</p>
+        </div>
+        <div>
+          <p>They own the criteria. They see where the cohort is failing while there are still weeks of teaching left, and a handover built from what markers noticed on the page.</p>
+          <p>Indicators attach to the criterion, not the marker — which is what makes them survive seven of eight sessionals leaving.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap band never">
+    <p class="eyebrow">Guardrails</p>
+    <h2 style="font-size: clamp(25px, 4vw, 36px); max-width: 18ch">What it will never do.</h2>
+    <p class="lede" style="margin-bottom: 4px">
+      Written down before the first line of code, because the easiest version of this product is the one nobody should build.
+    </p>
+    <ul>
+      <li><span>×</span> Produce text a student could submit as their own</li>
+      <li><span>×</span> Rank students publicly, or run a leaderboard on assessment</li>
+      <li><span>×</span> Put a label on a student's own submitted work</li>
+      <li><span>×</span> Grade, re-grade, or predict a grade</li>
+      <li><span>×</span> Let anything leave the course that a marker hasn't closed</li>
+    </ul>
+  </div>
+</section>
+
+<footer class="wrap foot">
+  <p class="status"><i aria-hidden="true"></i> Iteration 3 · coded prototype</p>
+  <p>
+    Attested is a student project, not a commercial product. Built by <b>Thundering Qilins</b> — Group 35,
+    COMP7110 Introduction to Software Innovation, University of Queensland, Semester 2 2026.
+  </p>
+  <p>
+    The design on these screens came out of our own participant research across two iterations, including
+    the decisions we reversed: student self-certification was removed because a course coordinator told us
+    it wasn't acceptable, and the marking timer was hidden because a tutor read it as surveillance.
+  </p>
+</footer>
+
+</body></html>

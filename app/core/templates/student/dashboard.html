@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block title %}Your record{% endblock %}
+
+{% comment %}
+  Student home.
+
+  Context — see docs/template-context.md
+    verified_count, total_count, meter_segments
+    next_assessment        .id .title .due_date
+    open_criteria          each annotated .verdict, .open_since
+    tutorial_note          optional string
+    courses                optional list for the cross-course strip
+
+  The view must build open_criteria from the signed-in student's own
+  judgements only. There is no "student_id" in the URL anywhere on this side
+  of the app, so there is nothing to tamper with.
+{% endcomment %}
+
+{% block content %}
+<div class="head">
+  <p class="kicker">{{ term_label|default:"Semester 2" }}{% if week_label %} · {{ week_label }}{% endif %}</p>
+  <h2>Your record, so far</h2>
+  <p>{{ total_count }} criteria run across this course's assessments. Each one closes only when a marker verifies it.</p>
+</div>
+
+<div class="stack">
+
+  <div class="hero">
+    <div class="spread">
+      <p class="hero-num"><b>{{ verified_count }}</b><span>of {{ total_count }} capabilities verified</span></p>
+      <span class="attest">
+        <svg width="13" height="13" aria-hidden="true"><use href="#ico-seal"></use></svg>
+        {{ course.code }} teaching team
+      </span>
+    </div>
+    {% include "includes/_meter.html" with segments=meter_segments verified=verified_count total=total_count %}
+    <p class="xs">Verified means a marker judged your work met the criterion. Amber means still open.</p>
+  </div>
+
+  {% if next_assessment %}
+    <div class="card-2 spread">
+      <div>
+        <p style="font-weight:600">{{ next_assessment.title }}</p>
+        <p class="xs">
+          Due {{ next_assessment.due_date|date:"j M" }} ·
+          {{ open_criteria|length }} open criteri{{ open_criteria|length|pluralize:"on,a" }} carried in
+        </p>
+      </div>
+      <a class="btn brand xs" href="{% url 'student_assessment' next_assessment.id %}">Open</a>
+    </div>
+  {% endif %}
+
+  {% if tutorial_note %}
+    <p class="note">{{ tutorial_note }}</p>
+  {% endif %}
+
+  <div class="stack-sm">
+    <h3 class="kicker">Still open</h3>
+    {% for c in open_criteria %}
+      {% include "includes/_criterion_card.html" with criterion=c verdict=c.verdict open_since=c.open_since %}
+    {% empty %}
+      {% include "includes/_empty_state.html" with message="Nothing is open. Every criterion in this course has been judged met." detail="New criteria appear here when your coordinator publishes the next assessment." %}
+    {% endfor %}
+  </div>
+
+  {% if courses %}
+    <div class="card-2 stack-sm">
+      <h3 class="kicker">Your other courses</h3>
+      {% for co in courses %}
+        <div class="spread">
+          <span class="sm">{{ co.code }} — {{ co.name }}</span>
+          {% if co.is_live %}
+            <span class="chip ok"><svg width="12" height="12" aria-hidden="true"><use href="#ico-check"></use></svg>{{ co.verified }} verified</span>
+          {% else %}
+            <span class="chip flat">Not using Proofolio</span>
+          {% endif %}
+        </div>
+      {% endfor %}
+      <p class="xs">A record only exists for courses that run on Proofolio. We don't guess at the others.</p>
+    </div>
+  {% endif %}
+
+</div>
+{% endblock %}

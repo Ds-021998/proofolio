@@ -1,0 +1,647 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found]){display:none!important}</style></head><body>
+<title>Feedback Loop Canvas</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:wght@500;600&display=swap">
+<style>
+  :root{
+    --ground:#FBFAFC; --paper:#FFFFFF; --ink:#1C1A22; --muted:#6B6675;
+    --line:#DFDBE6; --line-soft:#EDEAF1;
+    --plum:#4A2A5E; --plum-soft:#F2ECF6;
+    --accept:#17548F; --accept-ink:#FFFFFF; --accept-soft:#E4EEF8; --accept-line:#17548F;
+    --emerge:#4E86BE; --emerge-soft:#F0F6FC;
+    --assume-bg:#F4F2F6; --assume-line:#B9B2C4;
+    --refute:#B01F38; --refute-soft:#FBECEF;
+    --shadow:0 1px 2px rgba(28,26,34,.06), 0 4px 14px rgba(28,26,34,.05);
+    --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+    --sans:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    --serif:"IBM Plex Serif",Georgia,"Times New Roman",serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ground:#141319; --paper:#1C1A22; --ink:#EDEBF0; --muted:#9C96A8;
+      --line:#332F3D; --line-soft:#282533;
+      --plum:#C9A9E0; --plum-soft:#2A2033;
+      --accept:#6FA9DE; --accept-ink:#0E1B28; --accept-soft:#1B2A3A; --accept-line:#4E86BE;
+      --emerge:#6FA9DE; --emerge-soft:#1A222C;
+      --assume-bg:#232030; --assume-line:#5A5369;
+      --refute:#F08098; --refute-soft:#2E1922;
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 4px 14px rgba(0,0,0,.3);
+    }
+  }
+  :root[data-theme="dark"]{
+    --ground:#141319; --paper:#1C1A22; --ink:#EDEBF0; --muted:#9C96A8;
+    --line:#332F3D; --line-soft:#282533;
+    --plum:#C9A9E0; --plum-soft:#2A2033;
+    --accept:#6FA9DE; --accept-ink:#0E1B28; --accept-soft:#1B2A3A; --accept-line:#4E86BE;
+    --emerge:#6FA9DE; --emerge-soft:#1A222C;
+    --assume-bg:#232030; --assume-line:#5A5369;
+    --refute:#F08098; --refute-soft:#2E1922;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 4px 14px rgba(0,0,0,.3);
+  }
+
+  *{box-sizing:border-box}
+  body{background:var(--ground);color:var(--ink);font-family:var(--sans);line-height:1.55;
+       -webkit-font-smoothing:antialiased;margin:0}
+  .wrap{max-width:1180px;margin:0 auto;padding:56px 28px 96px}
+  .narrow{max-width:760px}
+
+  h1,h2,h3,h4{font-family:var(--serif);font-weight:600;text-wrap:balance;margin:0}
+  h1{font-size:2.6rem;line-height:1.1;letter-spacing:-.015em}
+  h2{font-size:1.55rem;line-height:1.2;margin-bottom:.3em}
+  h3{font-size:1.1rem;margin-bottom:.4em}
+  h4{font-family:var(--sans);font-size:.78rem;font-weight:600;text-transform:uppercase;
+     letter-spacing:.09em;color:var(--muted)}
+  p{margin:0 0 1em}
+  a{color:var(--accept)}
+
+  .eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;
+           color:var(--plum);margin:0 0 14px}
+  .lede{font-size:1.08rem;color:var(--muted);max-width:64ch}
+
+  header.masthead{border-bottom:2px solid var(--plum);padding-bottom:28px;margin-bottom:8px}
+  .meta{display:flex;flex-wrap:wrap;gap:8px 28px;margin-top:22px;
+        font-family:var(--mono);font-size:.75rem;color:var(--muted)}
+  .meta b{color:var(--ink);font-weight:500}
+
+  section{margin-top:56px}
+  section > .sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:18px;
+    border-bottom:1px solid var(--line);padding-bottom:10px}
+  .sec-num{font-family:var(--mono);font-size:.8rem;color:var(--plum);font-weight:600}
+
+  /* ---- tier chips ---- */
+  .tier{display:inline-flex;align-items:center;gap:5px;font-family:var(--mono);font-size:.66rem;
+        font-weight:600;letter-spacing:.05em;text-transform:uppercase;padding:2px 7px;
+        border-radius:3px;white-space:nowrap;vertical-align:middle}
+  .t-accept{background:var(--accept);color:var(--accept-ink)}
+  .t-emerge{background:var(--emerge-soft);color:var(--emerge);border:1px solid var(--emerge)}
+  .t-assume{background:var(--assume-bg);color:var(--muted);border:1px dashed var(--assume-line)}
+  .t-refute{background:var(--refute-soft);color:var(--refute);border:1px solid var(--refute)}
+  .t-open{background:var(--assume-bg);color:var(--muted);border:1px solid var(--assume-line)}
+
+  .key{display:grid;grid-template-columns:repeat(auto-fit,minmax(228px,1fr));gap:12px;
+       background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:18px}
+  .key .k{display:flex;flex-direction:column;gap:6px}
+  .key .k p{margin:0;font-size:.83rem;color:var(--muted)}
+
+  /* ---- the canvas ---- */
+  .canvas-scroll{overflow-x:auto;padding-bottom:6px}
+  .bmc{display:grid;min-width:940px;
+       grid-template-columns:repeat(5,1fr);
+       grid-template-rows:auto auto auto;
+       gap:0;border:1.5px solid var(--ink);border-radius:4px;overflow:hidden;background:var(--paper)}
+  .cell{border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:12px 12px 14px;
+        display:flex;flex-direction:column;gap:8px;min-height:0}
+  .cell:last-child{border-right:none}
+  .cell-title{font-family:var(--sans);font-size:.72rem;font-weight:700;text-transform:uppercase;
+    letter-spacing:.07em;color:var(--plum);display:flex;justify-content:space-between;
+    align-items:center;gap:8px;border-bottom:1px solid var(--line-soft);padding-bottom:6px}
+  .cell-title .n{font-family:var(--mono);font-weight:500;color:var(--muted);font-size:.68rem}
+
+  .kp{grid-column:1;grid-row:1 / span 2}
+  .ka{grid-column:2;grid-row:1}
+  .kr{grid-column:2;grid-row:2}
+  .vp{grid-column:3;grid-row:1 / span 2;background:var(--plum-soft)}
+  .cr{grid-column:4;grid-row:1}
+  .ch{grid-column:4;grid-row:2}
+  .cs{grid-column:5;grid-row:1 / span 2;background:var(--plum-soft)}
+  .cost{grid-column:1 / span 2;grid-row:3;border-bottom:none}
+  .rev{grid-column:3 / span 3;grid-row:3;border-bottom:none;border-right:none}
+
+  /* ---- sticky notes ---- */
+  .note{border-radius:3px;padding:7px 9px;font-size:.78rem;line-height:1.4;
+        border:1px solid var(--assume-line);background:var(--assume-bg);border-style:dashed}
+  .note strong{display:block;font-weight:600;font-size:.79rem;margin-bottom:2px}
+  .note .ids{font-family:var(--mono);font-size:.65rem;color:var(--muted);display:block;margin-top:4px;
+             word-spacing:-.1em}
+  .note.accepted{background:var(--accept-soft);border:1.5px solid var(--accept-line);border-style:solid}
+  .note.accepted strong{color:var(--accept)}
+  .note.emerging{background:var(--emerge-soft);border:1.5px dashed var(--emerge);}
+  .note.emerging strong{color:var(--emerge)}
+  .note.refuted{background:var(--refute-soft);border:1.5px solid var(--refute);border-style:solid}
+  .note.refuted strong{color:var(--refute);text-decoration:line-through;text-decoration-thickness:1.5px}
+  .note.empty{color:var(--muted);font-style:italic}
+  .sub{font-size:.72rem;color:var(--muted);margin:2px 0 0;padding-left:2px}
+
+  /* ---- vpc ---- */
+  .vpc{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1.5px solid var(--ink);
+       border-radius:4px;overflow:hidden;background:var(--paper);margin-top:16px}
+  .vpc > div{padding:18px 18px 22px}
+  .vpc .map{border-right:1px solid var(--line)}
+  .vpc h4{margin-bottom:14px}
+  .banner{background:var(--emerge-soft);border:1px solid var(--emerge);border-radius:5px;
+          padding:12px 14px;font-size:.85rem;color:var(--ink);margin-top:14px}
+  .banner b{color:var(--emerge)}
+  .stack{display:flex;flex-direction:column;gap:9px}
+  .grp{margin-bottom:20px}
+  .grp:last-child{margin-bottom:0}
+  .grp h5{font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--plum);margin:0 0 9px;font-weight:600}
+
+  /* ---- tables ---- */
+  .tbl-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:6px;background:var(--paper)}
+  table{width:100%;border-collapse:collapse;font-size:.86rem;min-width:620px}
+  th{text-align:left;font-family:var(--sans);font-size:.7rem;text-transform:uppercase;
+     letter-spacing:.07em;color:var(--muted);font-weight:600;padding:11px 14px;
+     border-bottom:1.5px solid var(--line);white-space:nowrap}
+  td{padding:11px 14px;border-bottom:1px solid var(--line-soft);vertical-align:top}
+  tr:last-child td{border-bottom:none}
+  td.id{font-family:var(--mono);font-weight:600;white-space:nowrap;font-size:.8rem}
+  td .ids{font-family:var(--mono);font-size:.72rem;color:var(--muted)}
+  .num{font-variant-numeric:tabular-nums}
+
+  .callout{border-left:3px solid var(--plum);background:var(--plum-soft);padding:14px 18px;
+    border-radius:0 5px 5px 0;margin:18px 0;font-size:.92rem}
+  .callout strong{color:var(--plum)}
+  .warn{border-left-color:var(--refute);background:var(--refute-soft)}
+  .warn strong{color:var(--refute)}
+
+  ul.tight{margin:0 0 1em;padding-left:1.15em}
+  ul.tight li{margin-bottom:.4em}
+
+  .cols2{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+  .todo{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:18px 20px;
+        box-shadow:var(--shadow)}
+  .todo li{margin-bottom:.55em}
+
+  footer{margin-top:64px;padding-top:22px;border-top:1px solid var(--line);
+    font-size:.82rem;color:var(--muted)}
+
+  @media (max-width:860px){
+    .wrap{padding:36px 18px 72px}
+    h1{font-size:2rem}
+    .cols2{grid-template-columns:1fr}
+    .vpc{grid-template-columns:1fr}
+    .vpc .map{border-right:none;border-bottom:1px solid var(--line)}
+  }
+  @media print{
+    body{background:#fff}
+    .wrap{max-width:none;padding:0}
+    section{break-inside:avoid}
+    .bmc{min-width:0}
+  }
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">COMP7110 · Iteration 1 · Testing the problem</p>
+  <h1>Business Model Canvas &amp; Value Proposition Canvas</h1>
+  <p class="lede">An evidence-tagged canvas built from 32 participant interviews. Every item on it
+  is marked with what earned it a place: an accepted hypothesis, an emerging signal, an untested
+  assumption, or a hypothesis our own evidence refuted.</p>
+  <div class="meta">
+    <span>Team <b>Thundering Qilins</b></span>
+    <span>Prepared <b>3 September 2026</b></span>
+    <span>Evidence base <b class="num">32 participants · 5 researchers</b></span>
+    <span>Status <b>Iteration 1 — problem testing</b></span>
+  </div>
+</header>
+
+<section>
+  <div class="sec-head"><span class="sec-num">01</span><h2>How to read this canvas</h2></div>
+  <p class="narrow">The Week&nbsp;2 method marks canvas items as hypothesis, fact, or killed. We use four
+  states rather than three, because our tutor-side evidence is our most decision-relevant material and
+  also our thinnest — collapsing "two participants said this" into the same bucket as "nobody said this,
+  we inferred it" would misrepresent what we know.</p>
+
+  <div class="key">
+    <div class="k"><span class="tier t-accept">Accepted</span>
+      <p>≥3 participants across ≥2 independent researchers, consistent direction, no contradicting
+      evidence held. The only claims stated as fact.</p></div>
+    <div class="k"><span class="tier t-emerge">Emerging</span>
+      <p>1–2 participants, or 3+ from a single researcher. Real evidence, below threshold. Carried
+      to iteration 2.</p></div>
+    <div class="k"><span class="tier t-assume">Assumption</span>
+      <p>No interview evidence. Literature, desk research or team reasoning only.</p></div>
+    <div class="k"><span class="tier t-refute">Refuted</span>
+      <p>Contradicted by evidence in our own set. Shown struck through.</p></div>
+  </div>
+
+  <div class="callout"><strong>Provenance is separate from strength.</strong> Following our synthesis's
+  evidence-handling principle, interview evidence and literature evidence are kept apart. An item
+  supported only by published literature is an <em>assumption</em> on this canvas, however strong the
+  source — because no participant of ours has confirmed it.</div>
+
+  <h4 style="margin-top:26px">Evidence base</h4>
+  <div class="tbl-scroll" style="margin-top:10px">
+    <table>
+      <thead><tr><th>Researcher</th><th>Participants</th><th>Type</th><th>Focus</th></tr></thead>
+      <tbody>
+        <tr><td class="id">ZL</td><td class="ids num">ZL-P001–P006</td><td>Students</td><td>Feedback usefulness, specificity, follow-up</td></tr>
+        <tr><td class="id">PC</td><td class="ids num">PC-P001–P012</td><td>Students, 3 tutors, 1 alumnus</td><td>Timing, tutor workflows, tracking</td></tr>
+        <tr><td class="id">AM</td><td class="ids num">AM-P001–P004</td><td>Students</td><td>Personalised support, human feedback</td></tr>
+        <tr><td class="id">TZ</td><td class="ids num">TZ-P001–P005</td><td>Students</td><td>Actionability, examples, transfer</td></tr>
+        <tr><td class="id">DS</td><td class="ids num">DS-P001–P005</td><td>Students</td><td>Specificity, peer workarounds, marker consistency</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="sub" style="margin-top:8px">Approx. 28 students, 3 tutors, 1 alumnus. Qualitative sample —
+  not a statistical representation of the student or tutor population.</p>
+</section>
+
+<section>
+  <div class="sec-head"><span class="sec-num">02</span><h2>The Business Model Canvas</h2></div>
+  <p class="narrow">Customer Segments and Value Propositions carry the detail this iteration requires.
+  The remaining blocks are populated but deliberately thin — at problem-testing stage they are almost
+  entirely assumptions, and are marked as such rather than padded.</p>
+
+  <div class="canvas-scroll">
+  <div class="bmc">
+
+    <div class="cell kp">
+      <div class="cell-title">Key partners <span class="n">KP</span></div>
+      <div class="note"><strong>Course coordinators</strong>Control marking allocation, moderation and
+      tutor access.<span class="ids">A1 · none interviewed</span></div>
+      <div class="note"><strong>Teaching &amp; learning units</strong>Plausible institutional sponsor
+      and route to adoption.<span class="ids">A1 · inferred</span></div>
+      <div class="note"><strong>LMS / institutional IT</strong>Feedback already lives in their system.
+      <span class="ids">A8 · desk research</span></div>
+      <div class="note"><strong>Tutor cohorts</strong>Where the existing private workarounds already
+      circulate.<span class="ids">from W1</span></div>
+    </div>
+
+    <div class="cell ka">
+      <div class="cell-title">Key activities <span class="n">KA</span></div>
+      <div class="note"><strong>Capture at the point of marking</strong>Record the diagnosis while it
+      exists, without adding marking minutes.<span class="ids">assumption</span></div>
+      <div class="note"><strong>Surface prior feedback against the current task</strong>
+      <span class="ids">assumption · derived from J3</span></div>
+      <div class="note"><strong>Preserve human authorship</strong>Students distrust generated judgement
+      on subjective work.<span class="ids">constraint from W5</span></div>
+    </div>
+
+    <div class="cell kr">
+      <div class="cell-title">Key resources <span class="n">KR</span></div>
+      <div class="note"><strong>Access to prior feedback data</strong>The whole model depends on it and
+      we do not have it.<span class="ids">assumption</span></div>
+      <div class="note"><strong>Ethics &amp; privacy clearance</strong>No real student data in the
+      prototype.<span class="ids">team constraint</span></div>
+      <div class="note"><strong>Tutor trust</strong>Adoption is individual, not mandated.
+      <span class="ids">assumption</span></div>
+    </div>
+
+    <div class="cell vp">
+      <div class="cell-title">Value propositions <span class="n">VP</span></div>
+      <div class="note"><strong>VP1 · A located problem with one next action</strong>Not "be more
+      critical" — <em>this paragraph</em>, <em>do this</em>.<span class="ids">hypothesis · derived from accepted E1, G1</span></div>
+      <div class="note"><strong>VP2 · Does last month's feedback apply to this task?</strong>The
+      transfer judgement students currently make alone.<span class="ids">hypothesis · derived from accepted J3, P4</span></div>
+      <div class="note"><strong>VP3 · Three prioritised issues, not thirty generic ones</strong>
+      <span class="ids">hypothesis · derived from refuted X1</span></div>
+      <div class="note"><strong>VP4 · See what you already told this student</strong>Tutor-side.
+      Replaces the private spreadsheet.<span class="ids">hypothesis · derived from accepted TC5</span></div>
+      <div class="note"><strong>VP5 · Marking insight that outlives the contract</strong>Tutor-side.
+      Weakest of the five.<span class="ids">hypothesis · H3 conditional</span></div>
+      <div class="note refuted"><strong>More feedback</strong>DS-P005 prefers a few detailed comments
+      to many generic ones.<span class="ids">refuted · X1</span></div>
+      <div class="note refuted"><strong>Faster feedback</strong>Raw speed was not the primary concern.
+      <span class="ids">refuted · X4 · PC-P001, PC-P002, PC-P009</span></div>
+      <div class="note refuted"><strong>AI-written feedback</strong>Rejected for subjective work.
+      <span class="ids">provisionally refuted · X5</span></div>
+    </div>
+
+    <div class="cell cr">
+      <div class="cell-title">Customer relationships <span class="n">CR</span></div>
+      <div class="note accepted"><strong>Peer-to-peer, self-organised</strong>Students already recover
+      meaning from each other.<span class="ids">ZL-P001 · DS-P003 · AM-P002</span></div>
+      <div class="note emerging"><strong>Occasional direct contact with staff</strong>
+      <span class="ids">ZL-P002 · AM-P002</span></div>
+      <div class="note"><strong>Embedded, not a new relationship</strong>Adoption must not require a
+      new habit.<span class="ids">assumption</span></div>
+    </div>
+
+    <div class="cell ch">
+      <div class="cell-title">Channels <span class="n">CH</span></div>
+      <div class="note accepted"><strong>Classmates</strong>The real channel when feedback is unclear.
+      <span class="ids">ZL-P001 · DS-P003 · AM-P002</span></div>
+      <div class="note accepted"><strong>Rubrics, task sheets, course materials</strong>
+      <span class="ids">TZ-P002 · TZ-P003 · TZ-P005 · DS-P002</span></div>
+      <div class="note emerging"><strong>A tutor's private spreadsheet</strong>
+      <span class="ids">PC-P010 · PC-P012</span></div>
+      <div class="note"><strong>The LMS feedback release</strong>Assumed, never verified with a
+      participant.<span class="ids">assumption</span></div>
+    </div>
+
+    <div class="cell cs">
+      <div class="cell-title">Customer segments <span class="n">CS</span></div>
+      <div class="note accepted"><strong>CS-1 · Students receiving assessment feedback</strong>
+      Segmented by coping behaviour, not demographics.<span class="ids">28 participants · 5 researchers</span></div>
+      <p class="sub">S1 Peer-comparers <span class="tier t-accept">acc</span> · S2 Self-directed
+      decoders <span class="tier t-accept">acc</span> · S3 Staff-approachers
+      <span class="tier t-emerge">em</span> · S4 Passive receivers <span class="tier t-accept">acc</span>
+      · S5 Self-correctors <span class="tier t-emerge">em</span></p>
+      <div class="note accepted"><strong>Context split</strong>Connected vs disconnected next
+      assessment changes everything.<span class="ids">TZ-P003/004/005 · PC-P003/004/007</span></div>
+      <div class="note emerging"><strong>CS-2 · Tutors &amp; sessional markers</strong>
+      T1 no visibility · T2 self-tracking · T3 coordinator-supported.<span class="ids">PC-P009 · PC-P010 · PC-P012 — one researcher</span></div>
+      <div class="note empty"><strong>CS-3 · Coordinators &amp; lecturers</strong>Hypothesised to
+      control every constraint above. Zero participants. Deliberately left empty.<span class="ids">assumption · A1</span></div>
+      <div class="note refuted"><strong>Alumni as a segment</strong>One retrospective participant;
+      neither user nor buyer.<span class="ids">dropped</span></div>
+      <div class="note refuted"><strong>Academic-integrity cases</strong>A different institutional
+      process.<span class="ids">out of scope · PC-P006</span></div>
+    </div>
+
+    <div class="cell cost">
+      <div class="cell-title">Cost structure <span class="n">C$</span></div>
+      <div class="note"><strong>Development, hosting, LMS integration, privacy compliance</strong>
+      No figures attempted at problem-testing stage. Prototype constraint: no real student data.
+      <span class="ids">assumption</span></div>
+    </div>
+
+    <div class="cell rev">
+      <div class="cell-title">Revenue streams <span class="n">R$</span></div>
+      <div class="note"><strong>Every participant is a user. None is a buyer.</strong>
+      Candidate payers — faculty or institutional licence, course-level budget, free-to-student —
+      are all untested. This is the single largest assumption on the canvas.
+      <span class="ids">assumption · A2 · zero evidence of any kind</span></div>
+    </div>
+
+  </div>
+  </div>
+  <p class="sub" style="margin-top:10px">Struck-through items were held by the team and refuted by our
+  own interviews. They are shown rather than deleted because they eliminate the two solutions this
+  problem space invites first.</p>
+</section>
+
+<section>
+  <div class="sec-head"><span class="sec-num">03</span><h2>Value Proposition Canvas · CS-1 Students</h2></div>
+  <p class="narrow">Built right-side-first: the customer profile is drawn entirely from interview
+  evidence, and the value map is then derived from it. Nothing in the value map is validated — no
+  solution has been tested — so every item on the left carries a kill condition.</p>
+
+  <div class="vpc">
+    <div class="map">
+      <h4>Value map — all hypotheses</h4>
+
+      <div class="grp"><h5>Products &amp; services</h5><div class="stack">
+        <div class="note"><strong>Located comments</strong>Each comment anchored to a place in the work.</div>
+        <div class="note"><strong>One action per issue</strong>A required "do this next" field.</div>
+        <div class="note"><strong>Carry-forward view</strong>Prior feedback surfaced beside the current task brief.</div>
+        <div class="note"><strong>Top-three priority</strong>A hard cap on how many issues are raised.</div>
+        <div class="note"><strong>Exemplar links</strong>What "better" looks like, attached to the issue.</div>
+      </div></div>
+
+      <div class="grp"><h5>Pain relievers</h5><div class="stack">
+        <div class="note"><strong>Removes the decoding step</strong>Answers P1, P6 — no interpretation
+        needed to know where and what.<span class="ids">kill if: students say located comments still don't tell them what to do</span></div>
+        <div class="note"><strong>Answers the transfer question</strong>Addresses P4 — whether old
+        feedback applies here.<span class="ids">kill if: students say they never wonder this</span></div>
+        <div class="note"><strong>Ends the reading-is-the-end pattern</strong>Addresses P5 by making an
+        action explicit.<span class="ids">kill if: prompted action is ignored as readily as a comment</span></div>
+        <div class="note"><strong>Cuts volume, raises signal</strong>Addresses P7.
+        <span class="ids">kill if: students want the minor comments back</span></div>
+      </div></div>
+
+      <div class="grp"><h5>Gain creators</h5><div class="stack">
+        <div class="note"><strong>A concrete next step attached to a located problem</strong> → G1</div>
+        <div class="note"><strong>Exemplars in context</strong> → G2</div>
+        <div class="note"><strong>Relevance surfaced while a related task is open</strong> → G3</div>
+        <div class="note"><strong>Confirmation without needing a classmate</strong> → G5</div>
+      </div></div>
+    </div>
+
+    <div class="profile">
+      <h4>Customer profile — evidence-derived</h4>
+
+      <div class="grp"><h5>Customer jobs</h5><div class="stack">
+        <div class="note accepted"><strong>J1 · Work out what specifically was wrong</strong><span class="ids">ZL-P001/002/005/006 · DS-P001 · TZ-P001–P005 · PC-P002/003/006</span></div>
+        <div class="note accepted"><strong>J2 · Work out what to do differently next time</strong><span class="ids">ZL-P003/004/005/006 · TZ-P001–P005 · DS-P001/005 · AM-P003</span></div>
+        <div class="note accepted"><strong>J3 · Decide whether past feedback applies to this task</strong><span class="ids">TZ-P003/004/005 · PC-P003/004/007</span></div>
+        <div class="note accepted"><strong>J4 · Decode tacit standards into something concrete</strong><span class="ids">DS-P001 · DS-P003 · PC-P002 · TZ-P002</span></div>
+        <div class="note accepted"><strong>J5 · Avoid repeating the same mistake</strong><span class="ids">DS-P002 · PC-P003/004/007/012 · ZL-P004/005/006</span></div>
+        <div class="note emerging"><strong>J6 · Get clarification when a comment is unclear</strong><span class="ids">ZL-P002 · AM-P002</span></div>
+        <div class="note accepted"><strong>J7 · Check my reading against classmates</strong> <em>(social)</em><span class="ids">ZL-P001 · DS-P003 · AM-P002</span></div>
+        <div class="note emerging"><strong>J9 · Feel effort was recognised</strong> <em>(emotional)</em><span class="ids">PC-P008</span></div>
+        <div class="note emerging"><strong>J10 · Feel the mark was fairly and consistently applied</strong><span class="ids">DS-P004</span></div>
+        <div class="note"><strong>J8 · Ask for help without appearing incompetent</strong>Our inference. No participant said this.<span class="ids">assumption — test or drop</span></div>
+      </div></div>
+
+      <div class="grp"><h5>Pains</h5><div class="stack">
+        <div class="note accepted"><strong>P1 · Names a problem without locating it or stating an action</strong> <em>extreme</em><span class="ids">5 researchers · ~14 participants</span></div>
+        <div class="note accepted"><strong>P2 · Understands the feedback and repeats the mistake anyway</strong> <em>extreme</em><span class="ids">PC-P012 · PC-P003/004/007 · ZL-P004/005/006 · TZ-P001</span></div>
+        <div class="note accepted"><strong>P3 · Arrives when no related task remains</strong> <em>high</em><span class="ids">PC-P003/004/007/009/010 · ZL-P004/005/006</span></div>
+        <div class="note accepted"><strong>P4 · Can't tell whether old feedback transfers</strong> <em>high</em><span class="ids">TZ-P004 · TZ-P005 · PC-P007</span></div>
+        <div class="note accepted"><strong>P5 · Reading it is where the process ends</strong> <em>high</em><span class="ids">TZ-P001 · ZL-P004/005/006</span></div>
+        <div class="note accepted"><strong>P6 · Tacit criteria never made explicit</strong> <em>high</em><span class="ids">DS-P001 · DS-P003 · PC-P002</span></div>
+        <div class="note accepted"><strong>P7 · Many generic comments, no priority signal</strong><span class="ids">DS-P005 · TZ-P001/002 · PC-P006</span></div>
+        <div class="note emerging"><strong>P8 · Unpaid decoding time</strong><span class="ids">DS-P002</span></div>
+        <div class="note emerging"><strong>P9 · Depth varies by marker</strong><span class="ids">DS-P004</span></div>
+      </div></div>
+
+      <div class="grp"><h5>Gains</h5><div class="stack">
+        <div class="note accepted"><strong>G1 · A located problem with a concrete action</strong><span class="ids">DS-P001 · TZ-P001–P005 · ZL-P003/004 · PC-P004/007</span></div>
+        <div class="note accepted"><strong>G2 · Examples of what better looks like</strong><span class="ids">TZ-P001–P005 · PC-P006</span></div>
+        <div class="note accepted"><strong>G3 · Feedback while a related task is still open</strong><span class="ids">TZ-P003 · PC-P003/004/007 · AM-P003</span></div>
+        <div class="note accepted"><strong>G4 · A few prioritised issues, not many minor ones</strong><span class="ids">DS-P005 · TZ-P002 · PC-P006</span></div>
+        <div class="note accepted"><strong>G5 · Confirmation their reading is correct</strong><span class="ids">ZL-P001 · DS-P003 · AM-P002</span></div>
+        <div class="note emerging"><strong>G6 · Recognition, not only correction</strong><span class="ids">PC-P008 · AM-P004</span></div>
+        <div class="note emerging"><strong>G8 · Human judgement kept where work is subjective</strong><span class="ids">AM-P003 · AM-P004</span></div>
+      </div></div>
+    </div>
+  </div>
+
+  <div class="callout warn"><strong>Fit check — the honest gap.</strong> The value map addresses P1,
+  P4, P5, P6 and P7 and creates G1–G5. It does <em>not</em> reliably address <strong>P2</strong> —
+  understanding feedback and repeating the mistake anyway — which is our most severe accepted pain.
+  X3 shows specificity alone does not produce behaviour change (PC-P012 understood and repeated;
+  TZ-P004 acted). Until we know whether P2 is caused by retention, transfer, motivation, practice or
+  feedback design, no value proposition can honestly claim to solve it. This is the central open
+  question of iteration 2.</div>
+</section>
+
+<section>
+  <div class="sec-head"><span class="sec-num">04</span><h2>Value Proposition Canvas · CS-2 Tutors &amp; markers</h2></div>
+  <div class="banner"><b>Provisional.</b> This canvas rests on three participants interviewed by a
+  single researcher (PC-P009, PC-P010, PC-P012). It is included because TC5 is the only Critical test
+  card that met its stated criterion — but it must not be read as validated. Promoting it requires
+  8–10 tutor interviews across at least two researchers.</div>
+
+  <div class="vpc">
+    <div class="map">
+      <h4>Value map — all hypotheses</h4>
+      <div class="grp"><h5>Products &amp; services</h5><div class="stack">
+        <div class="note"><strong>Shared feedback history per student</strong>What this student was already told, before you mark.</div>
+        <div class="note"><strong>Capture at marking time</strong>A tap, not a sentence. Zero added minutes.</div>
+        <div class="note"><strong>Cohort pattern view</strong>What recurred across the batch.</div>
+        <div class="note"><strong>Handover record</strong>Survives the end of a contract.</div>
+      </div></div>
+      <div class="grp"><h5>Pain relievers</h5><div class="stack">
+        <div class="note"><strong>Replaces the private spreadsheet</strong>The workaround PC-P010 built unpaid.<span class="ids">kill if: tutors prefer their own file</span></div>
+        <div class="note"><strong>Removes the rediscovery cost</strong>Addresses no-visibility marking.<span class="ids">kill if: tutors don't want prior feedback before marking (bias concern)</span></div>
+      </div></div>
+      <div class="grp"><h5>Gain creators</h5><div class="stack">
+        <div class="note"><strong>Consistency support without extra marking time</strong></div>
+        <div class="note"><strong>Evidence that feedback landed</strong>Currently absent entirely.</div>
+      </div></div>
+    </div>
+    <div class="profile">
+      <h4>Customer profile — emerging evidence</h4>
+      <div class="grp"><h5>Jobs</h5><div class="stack">
+        <div class="note emerging"><strong>Mark consistently across a batch</strong><span class="ids">PC-P009/010/012</span></div>
+        <div class="note emerging"><strong>Get through the batch within paid time</strong><span class="ids">§4.1 tutor constraints</span></div>
+        <div class="note emerging"><strong>Know what this student was already told</strong><span class="ids">PC-P010 · PC-P012</span></div>
+        <div class="note"><strong>Hand on what was noticed while marking</strong><span class="ids">assumption · H3 second clause untested</span></div>
+      </div></div>
+      <div class="grp"><h5>Pains</h5><div class="stack">
+        <div class="note emerging"><strong>No visibility of a student's prior feedback</strong><span class="ids">PC-P009</span></div>
+        <div class="note emerging"><strong>Maintaining a personal tracker is unpaid work</strong><span class="ids">PC-P010</span></div>
+        <div class="note emerging"><strong>No signal whether feedback was acted on</strong><span class="ids">TC2</span></div>
+        <div class="note"><strong>Paid minutes cap what can be written</strong>Literature only. Never asked in our interviews.<span class="ids">assumption · A3</span></div>
+      </div></div>
+      <div class="grp"><h5>Gains</h5><div class="stack">
+        <div class="note emerging"><strong>Feedback history without building it yourself</strong><span class="ids">PC-P010 · PC-P012</span></div>
+        <div class="note emerging"><strong>Quality-control support</strong><span class="ids">PC-P012</span></div>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><span class="sec-num">05</span><h2>Hypothesis register</h2></div>
+  <p class="narrow">Verdicts are judged against the criteria we wrote <em>before</em> the interviews.
+  Two structural caveats apply to all of them, stated here rather than buried.</p>
+
+  <div class="callout warn"><strong>Caveat 1 — the test plan and the evidence point at different
+  people.</strong> Four of six test cards examine tutors, markers or coordinators, three of them marked
+  Critical. Our evidence is 28 students and 3 tutors from one researcher, with no coordinators.
+  <br><br><strong>Caveat 2 — our criteria are percentages; our synthesis is qualitative.</strong> With
+  n&nbsp;=&nbsp;3 tutors each person is worth 33 percentage points, so the 70% and 90% thresholds are
+  unusable by construction. We report them honestly as not met rather than reinterpreting them after
+  the fact.</div>
+
+  <h3 style="margin-top:30px">Pre-registered test cards</h3>
+  <div class="tbl-scroll" style="margin-top:12px">
+    <table>
+      <thead><tr><th>Card</th><th>Criterion as written</th><th>Verdict</th><th>Evidence</th></tr></thead>
+      <tbody>
+        <tr><td class="id">TC1<br><span class="ids">critical</span></td>
+          <td>&lt;50% of students can name a specific action</td>
+          <td><span class="tier t-emerge">Partially accepted</span><br><span class="ids">mechanism confirmed, blanket claim refuted</span></td>
+          <td>Could name an action: TZ-P002/003/004/005, DS-P002, ZL-P002/003. Could not: TZ-P001,
+          ZL-P004/005/006, PC-P003/004/007, PC-P012. Roughly even — threshold not met. The causal
+          clause holds: general comments → no action. <b>Action follows when feedback is specific
+          <em>and</em> a related task is open.</b></td></tr>
+        <tr><td class="id">TC2<br><span class="ids">critical</span></td>
+          <td>≥70% of tutors have no way of knowing</td>
+          <td><span class="tier t-refute">Not met</span><br><span class="ids">rewrite, don't re-run</span></td>
+          <td>Only PC-P009 is straightforwardly blind; PC-P010 built a tracker, PC-P012 has a
+          coordinator process. 1 of 3 = 33%. <b>The right claim is that no institutional mechanism
+          exists, so those who need one build it privately.</b></td></tr>
+        <tr><td class="id">TC3</td>
+          <td>≥40% students recall repeats <em>and</em> ≥90% tutors lack visibility</td>
+          <td><span class="tier t-open">Inconclusive</span><br><span class="ids">denominator unknown</span></td>
+          <td>Repeats reported by PC-P003/004/007, DS-P002 (~4 of 28). But not every participant was
+          asked, so the true denominator isn't recorded. Framing also partly refuted: PC-P004 found
+          repetition reassuring, PC-P008 had none.</td></tr>
+        <tr><td class="id">TC4</td>
+          <td>≥60% notice shared misconceptions, &lt;30% act structurally</td>
+          <td><span class="tier t-assume">Untested</span></td>
+          <td>Nothing in the evidence set addresses noticing or acting on cohort-wide patterns. No
+          coordinator interviewed. Card not run — reported, not dropped.</td></tr>
+        <tr><td class="id">TC5<br><span class="ids">critical</span></td>
+          <td>≥50% describe an existing workaround or wish for visibility</td>
+          <td><span class="tier t-accept">Accepted</span><br><span class="ids">criterion met</span></td>
+          <td>PC-P010 (personal Excel tracking feedback history and improvement) and PC-P012
+          (coordinator spreadsheet + QC) = <b class="num">2 of 3 = 67%</b>. Provisional at n = 3, one
+          researcher. <b>Our strongest result.</b></td></tr>
+        <tr><td class="id">TC6<br><span class="ids">critical</span></td>
+          <td>≥50% prioritise efficiency over improvement; distinguish attitude vs structure</td>
+          <td><span class="tier t-refute">Leans refuted</span><br><span class="ids">resolves in TC5's favour</span></td>
+          <td>PC-P010 built and maintained an <em>unpaid</em> tracker — behavioural evidence of
+          motivation beyond efficiency. Workload and efficiency appear as constraints, not
+          preferences. <b>On current evidence the limiter is structural, not attitudinal.</b></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout"><strong>TC6 was built to kill TC5, and didn't.</strong> We wrote a falsification
+  test for our own most attractive hypothesis, ran it, and the evidence pointed the other way. That is
+  the result we would most want a reader to notice.</div>
+
+  <h3 style="margin-top:34px">Direction hypotheses H1–H4</h3>
+  <div class="tbl-scroll" style="margin-top:12px">
+    <table>
+      <thead><tr><th>ID</th><th>Hypothesis</th><th>Verdict</th><th>Note</th></tr></thead>
+      <tbody>
+        <tr><td class="id">H1</td><td>Feedback arrives too late to be usable</td>
+          <td><span class="tier t-refute">Refuted → refined</span></td>
+          <td>Its own kill condition fired. Replacement: usefulness depends on whether a
+          <em>related task is still open</em>, not on elapsed time.</td></tr>
+        <tr><td class="id">H2</td><td>Quality is capped by the economics of casual marking</td>
+          <td><span class="tier t-assume">Untested</span></td>
+          <td>The load-bearing claim of our direction, and no interview recorded paid minutes versus
+          actual marking time. Carried to iteration 2.</td></tr>
+        <tr><td class="id">H3</td><td>What a marker learns reaches neither coordinator nor next semester</td>
+          <td><span class="tier t-emerge">Partially supported</span></td>
+          <td>Supported by PC-P009, PC-P010; contradicted by PC-P012, where a coordinator process does
+          capture it. Conditional on course QC structure. Second clause untested.</td></tr>
+        <tr><td class="id">H4</td><td>People already work around this, informally and privately</td>
+          <td><span class="tier t-accept">Accepted</span></td>
+          <td>Tutor side: PC-P010, PC-P012. Student side: ZL-P001, DS-P003, AM-P002,
+          TZ-P002/003/005, DS-P002. The hypothesis with no literature support is now our best-evidenced.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 style="margin-top:34px">Implicit assumptions, refuted</h3>
+  <p class="sub" style="margin-bottom:12px">These were never written as hypotheses. They were team
+  assumptions surfaced during synthesis and contradicted by our own evidence — labelled as such rather
+  than presented as pre-registered.</p>
+  <div class="tbl-scroll">
+    <table>
+      <thead><tr><th>ID</th><th>Assumption</th><th>Refuted by</th><th>What it eliminates</th></tr></thead>
+      <tbody>
+        <tr><td class="id">X1</td><td>Students want <em>more</em> feedback</td><td class="ids">DS-P005</td><td>Any volume- or AI-generation-led value proposition</td></tr>
+        <tr><td class="id">X2</td><td>Repeated comments signal failure</td><td class="ids">PC-P004 (reassuring) vs PC-P003/007 · PC-P008</td><td>"Detect and suppress duplicate feedback" features</td></tr>
+        <tr><td class="id">X3</td><td>Specific feedback produces behaviour change</td><td class="ids">PC-P012 vs TZ-P004</td><td>The assumption that comment quality alone closes the loop</td></tr>
+        <tr><td class="id">X4</td><td>The core problem is feedback speed</td><td class="ids">PC-P001 · PC-P002 · PC-P009</td><td>"Faster turnaround" as the proposition</td></tr>
+        <tr><td class="id">X5</td><td>Generated feedback will be accepted</td><td class="ids">AM-P003 · AM-P004 · PC-P008</td><td>Full automation <em>(provisional — rests on emerging evidence)</em></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 style="margin-top:34px">Assumptions still carried</h3>
+  <div class="tbl-scroll" style="margin-top:12px">
+    <table>
+      <thead><tr><th>ID</th><th>Assumption</th><th>Origin</th><th>Risk</th></tr></thead>
+      <tbody>
+        <tr><td class="id">A1</td><td>Coordinators control allocation, access and moderation</td><td class="ids">inference + literature</td><td>Named gap. Nobody interviewed.</td></tr>
+        <tr><td class="id">A2</td><td>Someone will pay, and it is the institution</td><td class="ids">inference</td><td><b>Largest on the canvas.</b> 32 users, 0 buyers.</td></tr>
+        <tr><td class="id">A3</td><td>Paid minutes per script are the binding constraint</td><td class="ids">literature</td><td>Centre of our problem statement; never tested by us.</td></tr>
+        <tr><td class="id">A4</td><td>Turnover destroys accumulated marking knowledge</td><td class="ids">literature</td><td>Zero interview coverage.</td></tr>
+        <tr><td class="id">A5</td><td>~60% of students never access LMS feedback</td><td class="ids">literature</td><td>US instructor estimates; not measured, not local.</td></tr>
+        <tr><td class="id">A6</td><td>Marker inconsistency is systemic across courses</td><td class="ids">inference from DS-P004</td><td>One participant generalised to a population.</td></tr>
+        <tr><td class="id">A7</td><td>Coping modes are stable traits, not situations</td><td class="ids">inference</td><td>AM-P002 appears in two modes — mild evidence against.</td></tr>
+        <tr><td class="id">A8</td><td>Existing tools don't address this</td><td class="ids">desk research</td><td>No participant was asked what they currently use.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><span class="sec-num">06</span><h2>Limitations</h2></div>
+  <ul class="tight narrow">
+    <li>Small qualitative sample; no population-level claims are made or supported.</li>
+    <li>Student evidence is substantially stronger than tutor or institutional evidence; no lecturer or
+    course coordinator has been interviewed.</li>
+    <li>Interview guides were not identical across researchers, and some topics were not explored in
+    every interview — absence of evidence is not evidence of absence.</li>
+    <li>PC-P011's grade/feedback misattribution evidence is secondhand and remains an investigation lead.</li>
+    <li>DS-P004's marker-inconsistency finding rests on one participant and is not generalised.</li>
+    <li>AI-related concerns (AM-P003, AM-P004) remain an emerging finding on a limited base.</li>
+    <li>The literature synthesis has not yet been integrated into theme-level evidence.</li>
+    <li>The mechanism behind the feedback-to-application gap remains undetermined.</li>
+  </ul>
+</section>
+
+<footer>
+  <p><b>AI assistance disclosure.</b> AI was used to help organise existing research materials, apply a
+  consistent evidence-tiering convention across the canvas, and format this document. All interview
+  evidence, participant coding, hypotheses and test criteria are the team's own work.</p>
+  <p style="margin:0">COMP7110 Introduction to Software Innovation · Iteration 1 · Testing the problem</p>
+</footer>
+
+</div>
+
+</body></html>

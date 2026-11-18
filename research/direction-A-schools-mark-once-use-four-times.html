@@ -1,0 +1,436 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}</style></head><body>
+<title>Mark Once, Use Four Times</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+
+<style>
+:root {
+  --ground: #FCFAF9;
+  --surface: #FFFFFF;
+  --sunk: #F4F0EE;
+  --ink: #1A1614;
+  --ink-soft: #574E4B;
+  --ink-faint: #877D79;
+  --rule: #E4DDD9;
+  --rule-strong: #CFC5C0;
+  --accent: #C5192D;
+  --accent-soft: #FAEAEC;
+  --strong: #1C6349;
+  --caution: #8A5A1A;
+  --shadow: 0 1px 2px rgba(26,22,20,.05);
+
+  --f-display: "Newsreader", Georgia, "Times New Roman", serif;
+  --f-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #141110; --surface: #1D1917; --sunk: #262120;
+    --ink: #F2ECE9; --ink-soft: #B3A8A3; --ink-faint: #857A76;
+    --rule: #332C2A; --rule-strong: #473E3B;
+    --accent: #F2707F; --accent-soft: #381D21;
+    --strong: #6BC69C; --caution: #DCA950;
+    --shadow: 0 1px 2px rgba(0,0,0,.3);
+  }
+}
+
+:root[data-theme="dark"] {
+  --ground: #141110; --surface: #1D1917; --sunk: #262120;
+  --ink: #F2ECE9; --ink-soft: #B3A8A3; --ink-faint: #857A76;
+  --rule: #332C2A; --rule-strong: #473E3B;
+  --accent: #F2707F; --accent-soft: #381D21;
+  --strong: #6BC69C; --caution: #DCA950;
+  --shadow: 0 1px 2px rgba(0,0,0,.3);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--f-body);
+  font-size: 16.5px;
+  line-height: 1.62;
+  margin: 0;
+  padding: 0 1.5rem 6rem;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap { max-width: 50rem; margin: 0 auto; display: flex; flex-direction: column; gap: 3.25rem; }
+.prose { max-width: 38rem; }
+
+p { margin: 0 0 1rem; }
+p:last-child { margin-bottom: 0; }
+em { font-style: italic; }
+
+a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+
+.eyebrow {
+  font-family: var(--f-mono); font-size: .705rem; letter-spacing: .13em;
+  text-transform: uppercase; color: var(--ink-faint); margin: 0;
+}
+
+header.masthead { padding-top: 4rem; display: flex; flex-direction: column; gap: 1.25rem; }
+
+h1 {
+  font-family: var(--f-display); font-weight: 500;
+  font-size: clamp(2.5rem, 6.5vw, 3.9rem); line-height: 1.03;
+  letter-spacing: -.02em; margin: 0; text-wrap: balance;
+}
+
+.standfirst {
+  font-family: var(--f-display); font-size: clamp(1.12rem, 2.4vw, 1.32rem);
+  line-height: 1.5; color: var(--ink-soft); max-width: 34rem; margin: 0;
+}
+
+.meta-strip {
+  display: flex; flex-wrap: wrap; gap: .5rem 1.5rem;
+  padding-top: 1rem; border-top: 1px solid var(--rule);
+  font-family: var(--f-mono); font-size: .72rem; letter-spacing: .05em; color: var(--ink-faint);
+}
+.meta-strip b { color: var(--ink-soft); font-weight: 500; }
+
+section { display: flex; flex-direction: column; gap: 1.5rem; }
+.sec-head { display: flex; flex-direction: column; gap: .45rem; }
+
+h2 {
+  font-family: var(--f-display); font-weight: 500;
+  font-size: clamp(1.6rem, 3.4vw, 2.1rem); line-height: 1.15;
+  letter-spacing: -.015em; margin: 0; text-wrap: balance;
+}
+h3 { font-family: var(--f-body); font-weight: 600; font-size: 1rem; margin: 0; }
+
+.thesis {
+  border-left: 3px solid var(--accent);
+  background: var(--sunk);
+  padding: 1.3rem 1.5rem;
+  font-family: var(--f-display);
+  font-size: 1.2rem;
+  line-height: 1.48;
+  color: var(--ink);
+}
+
+.statement {
+  border: 1px solid var(--accent);
+  background: var(--surface);
+  padding: 1.4rem 1.5rem;
+  display: flex; flex-direction: column; gap: .75rem;
+}
+.statement .tagline {
+  font-family: var(--f-mono); font-size: .68rem; letter-spacing: .11em;
+  text-transform: uppercase; color: var(--accent);
+}
+.statement .body { font-family: var(--f-display); font-size: 1.24rem; line-height: 1.45; color: var(--ink); }
+.statement .caveat { font-size: .9rem; color: var(--ink-soft); }
+
+/* fan-out */
+.fan { display: flex; flex-direction: column; gap: .9rem; }
+.fan-source {
+  background: var(--surface); border: 1px solid var(--accent);
+  padding: 1rem 1.2rem; display: flex; flex-direction: column; gap: .25rem;
+}
+.fan-source .t { font-weight: 600; color: var(--ink); font-size: 1rem; }
+.fan-source .s { font-size: .93rem; color: var(--ink-soft); }
+.fan-arrow {
+  font-family: var(--f-mono); font-size: .7rem; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--ink-faint); text-align: center;
+}
+.fan-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); gap: .9rem; }
+.fan-card {
+  background: var(--surface); border: 1px solid var(--rule);
+  padding: .95rem 1.1rem; display: flex; flex-direction: column; gap: .3rem;
+  box-shadow: var(--shadow);
+}
+.fan-card .n {
+  font-family: var(--f-mono); font-size: .68rem; letter-spacing: .1em; color: var(--accent);
+}
+.fan-card .t { font-weight: 600; font-size: .95rem; color: var(--ink); }
+.fan-card .s { font-size: .9rem; color: var(--ink-soft); }
+
+/* generic card list */
+.cards { display: flex; flex-direction: column; gap: 1rem; }
+.card {
+  background: var(--surface); border: 1px solid var(--rule);
+  box-shadow: var(--shadow); padding: 1.25rem 1.35rem;
+  display: flex; flex-direction: column; gap: .55rem;
+}
+.card h3 { font-size: 1.03rem; }
+.card p, .card li { font-size: .95rem; color: var(--ink-soft); }
+.card ul { margin: 0; padding-left: 1.15rem; display: flex; flex-direction: column; gap: .45rem; }
+.card .verdict {
+  font-family: var(--f-mono); font-size: .68rem; letter-spacing: .09em;
+  text-transform: uppercase; color: var(--accent);
+}
+
+ul.plain { margin: 0; padding-left: 1.15rem; display: flex; flex-direction: column; gap: .55rem; }
+ul.plain li { font-size: .96rem; color: var(--ink-soft); }
+ul.plain li strong { color: var(--ink); font-weight: 600; }
+
+ol.qs { list-style: none; counter-reset: q; margin: 0; padding: 0; }
+ol.qs li {
+  counter-increment: q; display: grid; grid-template-columns: 2.2rem 1fr;
+  gap: .25rem 1rem; padding: 1rem 0; border-top: 1px solid var(--rule);
+}
+ol.qs li:last-child { border-bottom: 1px solid var(--rule); }
+ol.qs li::before {
+  content: "Q" counter(q); font-family: var(--f-mono); font-size: .72rem;
+  color: var(--accent); padding-top: .25rem;
+}
+ol.qs .q { font-weight: 600; color: var(--ink); font-size: .98rem; }
+ol.qs .a { grid-column: 2; font-size: .93rem; color: var(--ink-soft); }
+
+.kill {
+  border-top: 1px dashed var(--rule-strong); padding-top: .8rem;
+  font-size: .92rem; color: var(--ink-soft);
+}
+.kill b { color: var(--ink); font-weight: 600; }
+
+.scroller { overflow-x: auto; border: 1px solid var(--rule); background: var(--surface); }
+table { border-collapse: collapse; width: 100%; min-width: 34rem; font-size: .9rem; }
+th, td { text-align: left; padding: .72rem .9rem; border-bottom: 1px solid var(--rule); vertical-align: top; }
+thead th {
+  font-family: var(--f-mono); font-size: .665rem; letter-spacing: .09em;
+  text-transform: uppercase; color: var(--ink-faint); font-weight: 400;
+  border-bottom: 1px solid var(--rule-strong); background: var(--sunk);
+}
+tbody tr:last-child td { border-bottom: none; }
+tbody th { font-weight: 600; font-size: .92rem; white-space: nowrap; }
+
+.sources { border-top: 1px solid var(--rule); padding-top: 1.25rem; font-size: .875rem; color: var(--ink-soft); }
+.sources ul { margin: .6rem 0 0; padding-left: 1.1rem; display: flex; flex-direction: column; gap: .35rem; }
+
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+</style>
+
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">COMP7110 · Direction brief · Area B × Segment 3</p>
+  <h1>Mark once, use four times</h1>
+  <p class="standfirst">Fusing &ldquo;feedback that arrives too late&rdquo; with &ldquo;teachers losing evenings to administration&rdquo; — and the single causal story that makes them one project rather than two stapled together.</p>
+  <div class="meta-strip">
+    <span><b>For</b> Brisbane secondary teachers</span>
+    <span><b>SDG</b> 4.c primary, 4.1 secondary</span>
+    <span><b>Status</b> Hypothesis — unvalidated</span>
+  </div>
+</header>
+
+<section>
+  <div class="sec-head">
+    <p class="eyebrow">The fusion</p>
+    <h2>Why these are one problem, not two</h2>
+  </div>
+  <div class="prose">
+    <p>Merging two areas usually produces a Frankenstein — two half-projects sharing a title. This one survives because there is a single mechanism underneath both symptoms.</p>
+    <p>A teacher marks thirty pieces of work on a Tuesday night. In doing it, they learn a great deal: this student has confused two concepts, a third of the class skipped the same step, that one is coasting. That knowledge is the most valuable thing produced in the entire evening.</p>
+    <p>Then it evaporates. It exists in a scribble in a margin, a tick, a number, and the teacher's fading memory. So when the next lesson is planned on Thursday, it's rebuilt from scratch. When the student asks what to do better, they get the mark. When report comments are due in November, they're reconstructed from a column of grades, months after the observation that would have made them specific. When a parent asks at interview night, the teacher improvises.</p>
+  </div>
+  <p class="thesis">Feedback in schools isn't late because teachers are slow. It's late because the knowledge that makes feedback useful is created during marking and then thrown away — and rebuilding it four separate times, from grades alone, <em>is</em> the administrative burden.</p>
+  <div class="prose">
+    <p>That's why the two areas are the same area. Fix the discard, and the admin load and the feedback lag both move. Fix either one alone and you've built something that already exists.</p>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <p class="eyebrow">Working hypothesis</p>
+    <h2>The statement you have to earn</h2>
+  </div>
+  <div class="statement">
+    <span class="tagline">Not yet validated — this is what interviews must confirm or destroy</span>
+    <p class="body">A Brisbane secondary teacher struggles to give feedback that changes what a student does next, because the diagnosis they form while marking is never captured anywhere — and today they cope by writing it in the margin, remembering what they can, and reconstructing the rest from grades months later.</p>
+    <p class="caveat">Write it on the whiteboard at your next meeting. Every interview either strengthens a clause or breaks one. If after ten interviews the last clause is still my words rather than a teacher's, the hypothesis is wrong and you should say so in iteration 1 — that's a finding, not a failure.</p>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <p class="eyebrow">The wedge</p>
+    <h2>Capture the diagnosis once. Spend it four times.</h2>
+  </div>
+  <div class="prose">
+    <p>The intervention is deliberately small: at the moment of marking, the teacher records <em>why</em>, not just <em>what</em> — in less time than writing the margin note they already write. Everything downstream then draws on the same captured observation instead of reconstructing it.</p>
+  </div>
+  <div class="fan">
+    <div class="fan-source">
+      <span class="t">One capture, at the moment of marking</span>
+      <span class="s">A tap, not a sentence. The diagnosis while it is still in the teacher's head.</span>
+    </div>
+    <p class="fan-arrow">↓ &nbsp; feeds &nbsp; ↓</p>
+    <div class="fan-grid">
+      <div class="fan-card">
+        <span class="n">Use 1 · Days</span>
+        <span class="t">Thursday's lesson</span>
+        <span class="s">What a third of the class missed, surfaced while there's still time to reteach it.</span>
+      </div>
+      <div class="fan-card">
+        <span class="n">Use 2 · Days</span>
+        <span class="t">The student's next step</span>
+        <span class="s">One specific action instead of a grade — the loop actually closes, because you see them Monday.</span>
+      </div>
+      <div class="fan-card">
+        <span class="n">Use 3 · Months</span>
+        <span class="t">Report comments</span>
+        <span class="s">Written from observations recorded across the semester, not invented from a column of marks.</span>
+      </div>
+      <div class="fan-card">
+        <span class="n">Use 4 · Months</span>
+        <span class="t">The parent conversation</span>
+        <span class="s">Evidence to point at, rather than improvisation under pressure.</span>
+      </div>
+    </div>
+  </div>
+  <div class="prose">
+    <p>Note what schools have that universities don't: <strong>the teacher sees the student again next week.</strong> A closed feedback loop is structurally possible here in a way it simply isn't in a twelve-week university course. That's the reason this is a better version of area B than the university one would have been.</p>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <p class="eyebrow">Competitive picture</p>
+    <h2>What I found — and it changes the plan</h2>
+  </div>
+  <div class="prose">
+    <p>Two things happened while I was checking this, and you need both before your next meeting.</p>
+  </div>
+  <div class="cards">
+    <div class="card">
+      <span class="verdict">Occupied — do not enter</span>
+      <h3>Report comment generation is saturated</h3>
+      <p>MagicSchool, ReportRocket, ReportCardWizard, Monsha, and a Queensland-specific comment generator all do this, plus every general-purpose model. But look closely at what they automate: <strong>the writing, not the remembering.</strong> Every one of them asks the teacher to supply the substance — which is the hard part, and the part that has already evaporated by November. That gap is your opening, and it is also the sentence that explains your project in one line.</p>
+    </div>
+    <div class="card">
+      <span class="verdict">The state is your competitor now</span>
+      <h3>Queensland is actively solving teacher admin</h3>
+      <p>The government has committed to cutting teacher administrative burden 25% by 2028. Corella, an AI tool being rolled out across state schools, is reported to save 3–5 hours a week on lesson planning, admin, research and note-taking. A Behaviour Insights Dashboard automates behaviour reporting, and OneSchool ships &ldquo;simplifiers&rdquo; each term.</p>
+      <ul>
+        <li><strong>What this kills:</strong> any generic &ldquo;AI reduces teacher admin&rdquo; pitch aimed at Queensland state schools. That ground is taken, by an actor with more resources than you.</li>
+        <li><strong>What it leaves open:</strong> none of it captures what a teacher learns while marking, or routes it anywhere. Lesson planning and behaviour logging are not the feedback loop.</li>
+        <li><strong>Who it leaves out:</strong> independent and Catholic schools. They're not on OneSchool, aren't getting Corella, and Brisbane has a great many of them. That is an uncontested segment <em>and</em> an easier one for you to reach.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <span class="verdict">Watch, don't fight</span>
+      <h3>The real incumbent is the margin note</h3>
+      <p>Gradebooks record marks. Formative-assessment tools (Formative, Kahoot, Quizizz) only see auto-markable digital work, which is a minority of secondary marking. What actually holds the diagnosis today is a scribble, a sticky note, a private spreadsheet, and memory. Beat those. If your thing is slower than a scribble, it loses — and it deserves to.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <p class="eyebrow">Constraints</p>
+    <h2>Five things that decide whether this works</h2>
+  </div>
+  <ul class="plain">
+    <li><strong>Zero added time, and that's not a target — it's the whole design problem.</strong> A teacher marking ninety books at 9pm will not type extra notes. Capture must be <em>faster</em> than the margin note it replaces: a tap on a reusable tag, not a text field. If your demo asks a teacher to write a sentence, you've already lost them.</li>
+    <li><strong>It must work on paper.</strong> A large share of secondary marking is handwritten work in books. A tool that assumes digital submission serves a fraction of the job and will read as built by people who've never marked.</li>
+    <li><strong>No real student data in the prototype.</strong> Student information in schools is heavily regulated. Use pseudonymous identifiers, say so explicitly in your canvas, and never ask a teacher to enter real names into a student project. This protects you and it markedly increases the chance a teacher will actually trial it.</li>
+    <li><strong>One teacher must be able to adopt it alone.</strong> If it needs the principal, the IT department, or a procurement process, you cannot validate it before November. Design for a single teacher trialling it with one class, unauthorised, on their own laptop.</li>
+    <li><strong>Export by copy and paste. Do not plan OneSchool integration.</strong> You will not get API access to a state education system, and pursuing it will eat your semester. Output that pastes cleanly into whatever the school already uses is not a compromise — it's the correct architecture for a tool nobody has approved yet.</li>
+  </ul>
+</section>
+
+<section>
+  <div class="sec-head">
+    <p class="eyebrow">Before you build</p>
+    <h2>Narrow it once more</h2>
+  </div>
+  <div class="prose">
+    <p>&ldquo;Secondary teachers&rdquo; is still too wide to build for. Misconceptions in mathematics are enumerable and repeat year after year — the same errors, the same confusions, reliably. In English or humanities, the diagnosis is far more discursive and a tag list will feel like a straitjacket.</p>
+    <p>So pick <strong>one subject and one year level</strong> — my suggestion is junior secondary maths or science, years 8 to 10 — and say so out loud in your canvas. A narrow, honest scope reads as judgement. A tool claiming to serve every subject reads as a team that hasn't talked to anyone yet.</p>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <p class="eyebrow">Falsification</p>
+    <h2>What would kill this, and the questions that reveal it fast</h2>
+  </div>
+  <div class="prose">
+    <p>Ask these in your first five interviews. Each is aimed at a specific way this idea could be wrong. Notice that none of them mentions your solution — if you describe the tool, you'll get politeness instead of data.</p>
+  </div>
+  <ol class="qs">
+    <li>
+      <span class="q">&ldquo;Walk me through the last set of work you marked. What did you do with it after you finished?&rdquo;</span>
+      <span class="a">Tests the core claim. If the diagnosis genuinely goes nowhere, they'll describe a pile, a mark column, and nothing else. If they already have a system, you need to hear it in detail.</span>
+    </li>
+    <li>
+      <span class="q">&ldquo;When you wrote report comments last time, what did you have in front of you?&rdquo;</span>
+      <span class="a">Tests the reconstruction claim directly. &ldquo;Just the marks&rdquo; confirms it. &ldquo;My notes from the semester&rdquo; weakens it badly — find out how many teachers have those notes.</span>
+    </li>
+    <li>
+      <span class="q">&ldquo;Think of a student you were worried about last term. When did you first know, and what did you do?&rdquo;</span>
+      <span class="a">Tests the lag. The gap between knowing and acting is the thing you'd be compressing — measure it in their words, in weeks.</span>
+    </li>
+    <li>
+      <span class="q">&ldquo;What's the single administrative task you'd most want to disappear?&rdquo;</span>
+      <span class="a">The honesty check. If nobody says anything to do with marking or reporting, your fusion is wrong — and half of Queensland teachers named behaviour incident reporting as their top burden, so be ready to hear that instead.</span>
+    </li>
+    <li>
+      <span class="q">&ldquo;Show me where your notes about students actually live right now.&rdquo;</span>
+      <span class="a">Ask them to open it. The workaround you're replacing becomes visible, and its shape tells you what yours must beat.</span>
+    </li>
+  </ol>
+  <p class="kill"><b>Be genuinely willing to lose.</b> Behaviour reporting was the top-named workload burden in a survey of over fifteen thousand Queensland teachers. If your interviews keep landing there instead, that is a real finding and pivoting toward it in iteration 2 is exactly what this course rewards. Coming back with &ldquo;we were wrong, here's what we heard&rdquo; beats defending a hypothesis for three months.</p>
+</section>
+
+<section>
+  <div class="sec-head">
+    <p class="eyebrow">The hard part</p>
+    <h2>How to actually reach Brisbane teachers</h2>
+  </div>
+  <div class="prose">
+    <p>This is the weakness of the whole plan. Teachers are the right people and they are harder to reach than the students on your own campus. Work several channels at once rather than waiting on schools to reply.</p>
+  </div>
+  <div class="scroller">
+    <table>
+      <thead>
+        <tr><th scope="col">Channel</th><th scope="col">Why it works</th></tr>
+      </thead>
+      <tbody>
+        <tr><th scope="row">Independent &amp; Catholic schools</th><td>Outside the state system, so outside Corella — your differentiated segment and a warmer audience. Brisbane has many, and they answer their own email.</td></tr>
+        <tr><th scope="row">Pre-service teachers on prac</th><td>UQ's own education students are in schools right now, and each has a mentor teacher. The single best bridge available to you.</td></tr>
+        <tr><th scope="row">Relief &amp; supply teachers</th><td>Flexible hours, work across many schools, and unusually candid about systems because they use several.</td></tr>
+        <tr><th scope="row">Early-career teachers</th><td>Reachable on LinkedIn, closest to the workload problem, and often keen to talk to someone who'll listen.</td></tr>
+        <tr><th scope="row">Teacher communities online</th><td>Large active Australian teacher groups on Facebook and Reddit. Post honestly as students doing coursework — that framing gets replies.</td></tr>
+        <tr><th scope="row">Your own former teachers</th><td>Everyone on the team has one. Highest response rate of any channel on this list, and nobody ever uses it.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="kill"><b>Interview teachers, never students.</b> It keeps you clear of parental consent and minors entirely, and teachers are the customer anyway.</p>
+</section>
+
+<section>
+  <div class="sec-head">
+    <p class="eyebrow">13 November</p>
+    <h2>What the prototype should be</h2>
+  </div>
+  <div class="prose">
+    <p>Scope it now so October isn't a panic. The demo that proves this idea is small:</p>
+  </div>
+  <ul class="plain">
+    <li><strong>The capture surface.</strong> One class list, a growing bank of reusable tags, and marking of a real set of work in under the time it takes today. This is the only part that must feel genuinely fast — spend your engineering here.</li>
+    <li><strong>Two of the four uses, not all four.</strong> The next-lesson view and the report-comment draft are the most convincing pair, because one is days-scale and one is months-scale, which demonstrates the whole thesis.</li>
+    <li><strong>Nothing else.</strong> No accounts, no LMS integration, no mobile app, no analytics dashboard. Every one of those is a place where student teams disappear in October.</li>
+    <li><strong>Commit early and often.</strong> Individual contribution is assessed from repository logs, not from claims about who did what.</li>
+  </ul>
+</section>
+
+<section class="sources">
+  <p class="eyebrow">Sources</p>
+  <ul>
+    <li><a href="https://www.abc.net.au/news/2024-07-29/queensland-state-school-reporting-student-behaviour-teachers/104152344">Queensland teachers on behaviour reporting workload — ABC News</a></li>
+    <li><a href="https://statements.qld.gov.au/statements/105722">New technology and smarter systems reduces red tape for teachers — Queensland Government</a></li>
+    <li><a href="https://www.aitsl.edu.au/research/australian-teacher-workforce-data/atwd-reports/national-trends-teacher-workforce-june-2026">National Trends: Teacher Workforce, June 2026 — AITSL</a></li>
+    <li><a href="https://education.qld.gov.au/parents-and-carers/school-information/oneschool">OneSchool — Education Queensland</a></li>
+    <li><a href="https://course-profiles.uq.edu.au/course-profiles/COMP7110-62309-7660#course-overview">COMP7110 course profile — UQ</a></li>
+  </ul>
+</section>
+
+</div>
+
+</body></html>

@@ -1,0 +1,23 @@
+{% comment %}
+  Django messages framework output.
+
+      from django.contrib import messages
+      messages.success(request, "Feedback released to 20 students.")
+
+  role="status" means a screen reader announces it without stealing focus.
+  It sits on a wrapping div, not on the <ul>: a role on the list itself
+  overrides the list semantics and orphans every <li> inside it.
+
+  These stay on the page rather than fading — nobody should have to read fast.
+{% endcomment %}
+{% if messages %}
+  <div role="status" aria-live="polite">
+    <ul class="messages">
+      {% for message in messages %}
+        <li class="note{% if message.tags == 'success' %} good{% elif message.tags == 'warning' %} warn{% elif message.tags == 'error' %} bad{% endif %}">
+          {{ message }}
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endif %}

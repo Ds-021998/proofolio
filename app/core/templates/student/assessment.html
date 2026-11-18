@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% block title %}{{ assessment.title }}{% endblock %}
+
+{% comment %}
+  Student — the published criteria, and the submit step.
+
+  Context
+    assessment        .id .title .due_date
+    criteria          each annotated:
+                        .carried_in   bool — unmet at the last marking
+                        .pointer      the student's saved pointer text, or ""
+    submission        the student's Submission for this assessment, or None
+    feedback_ready    bool
+
+  This screen is the whole carry-forward argument: the open criteria appear
+  at the step the student is already passing through, not in a place they
+  have to remember to visit.
+{% endcomment %}
+
+{% block content %}
+
+{% if submission %}
+  <div class="head">
+    <p class="kicker">{{ assessment.title }}</p>
+    <h2>Submitted</h2>
+    <p>{% if feedback_ready %}Your feedback has been released.{% else %}Waiting on marking. Nothing for you to do.{% endif %}</p>
+  </div>
+  {% if feedback_ready %}
+    {% include "includes/_empty_state.html" with message="Feedback is ready." action_url=feedback_url action_label="Read feedback" %}
+  {% else %}
+    <div class="empty">
+      <p>Your script is in the marking queue.</p>
+      <p class="xs">Submitted {{ submission.submitted_at|date:"j M, g:ia" }}.</p>
+    </div>
+  {% endif %}
+
+{% else %}
+
+  <div class="head">
+    <p class="kicker">{{ assessment.title }} · due {{ assessment.due_date|date:"j M" }}</p>
+    <h2>What this is marked on</h2>
+    <p>Published by your coordinator before the assignment opened. The amber ones came in unmet from the last assessment.</p>
+  </div>
+
+  <form method="post" class="stack">
+    {% csrf_token %}
+
+    {% for c in criteria %}
+      <article class="crit{% if c.carried_in %} carried{% endif %}">
+        {% if c.carried_in %}
+          {% include "includes/_criterion_head.html" with criterion=c verdict="partly" chip_label="Carried in" %}
+        {% else %}
+          {% include "includes/_criterion_head.html" with criterion=c verdict=None chip_label="New here" %}
+        {% endif %}
+
+        <p class="sm muted">{{ c.clause }}</p>
+        <p class="xs">Good looks like: {{ c.good_looks_like }}</p>
+
+        {% if c.carried_in %}
+          <div class="field">
+            <label class="lbl" for="ptr-{{ c.id }}">Point the marker at where you addressed it (optional)</label>
+            <input type="text" id="ptr-{{ c.id }}" name="pointer-{{ c.id }}"
+                   value="{{ c.pointer|default:'' }}"
+                   placeholder="e.g. section 2, paragraph 3"
+                   aria-describedby="ptr-help-{{ c.id }}">
+            <p class="xs" id="ptr-help-{{ c.id }}">
+              This is a pointer, not a claim. Only the marker decides whether it's met.
+            </p>
+          </div>
+        {% endif %}
+      </article>
+    {% endfor %}
+
+    <div class="field">
+      <label class="lbl" for="id_text">Your submission</label>
+      <textarea id="id_text" name="text" rows="8" required
+                placeholder="Paste or write your submission here."></textarea>
+    </div>
+
+    <button class="btn brand full" type="submit">Submit {{ assessment.title }}</button>
+    <p class="xs center">You see this list because you're submitting — not because we sent you a notification.</p>
+  </form>
+
+{% endif %}
+{% endblock %}

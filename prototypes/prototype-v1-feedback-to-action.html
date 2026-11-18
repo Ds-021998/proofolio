@@ -1,0 +1,1887 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Feedback to Action</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Newsreader:opsz,wght@6..72,500;6..72,600&display=swap"
+/>
+<style>
+  :root {
+    --ground: #f6f5f8;
+    --surface: #ffffff;
+    --surface-2: #fbfafc;
+    --line: #e4e1ea;
+    --line-strong: #cec9da;
+    --ink: #1c1a24;
+    --ink-2: #57526a;
+    --ink-3: #88829a;
+    --accent: #51247a;
+    --accent-soft: #efe8f5;
+    --accent-line: #dccdea;
+    --tutor: #8a5316;
+    --tutor-soft: #f8efe1;
+    --tutor-line: #e8d5b9;
+    --met: #2f6b4f;
+    --met-soft: #e6f1ea;
+    --partly: #8a6510;
+    --partly-soft: #f8f0da;
+    --miss: #9e3b3b;
+    --miss-soft: #f8e8e8;
+    --note: #2b4a7a;
+    --note-soft: #e8eef8;
+    --radius: 10px;
+    --shadow: 0 1px 2px rgba(28, 26, 36, 0.05), 0 12px 28px -22px rgba(28, 26, 36, 0.5);
+    --sans: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --serif: Newsreader, Georgia, "Times New Roman", serif;
+    --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #131218;
+      --surface: #1c1a23;
+      --surface-2: #23202b;
+      --line: #322e3c;
+      --line-strong: #453f54;
+      --ink: #ece9f2;
+      --ink-2: #a9a3b7;
+      --ink-3: #7d778c;
+      --accent: #c2a2dd;
+      --accent-soft: #2a2036;
+      --accent-line: #473657;
+      --tutor: #ddb17c;
+      --tutor-soft: #2d2418;
+      --tutor-line: #4e3e27;
+      --met: #7cc59c;
+      --met-soft: #1b2a22;
+      --partly: #dab35f;
+      --partly-soft: #2b2417;
+      --miss: #e28c8c;
+      --miss-soft: #2f1e1e;
+      --note: #9db9e4;
+      --note-soft: #1b2331;
+      --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 12px 28px -22px rgba(0, 0, 0, 0.9);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --ground: #131218;
+    --surface: #1c1a23;
+    --surface-2: #23202b;
+    --line: #322e3c;
+    --line-strong: #453f54;
+    --ink: #ece9f2;
+    --ink-2: #a9a3b7;
+    --ink-3: #7d778c;
+    --accent: #c2a2dd;
+    --accent-soft: #2a2036;
+    --accent-line: #473657;
+    --tutor: #ddb17c;
+    --tutor-soft: #2d2418;
+    --tutor-line: #4e3e27;
+    --met: #7cc59c;
+    --met-soft: #1b2a22;
+    --partly: #dab35f;
+    --partly-soft: #2b2417;
+    --miss: #e28c8c;
+    --miss-soft: #2f1e1e;
+    --note: #9db9e4;
+    --note-soft: #1b2331;
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 12px 28px -22px rgba(0, 0, 0, 0.9);
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    margin: 0;
+  }
+
+  body {
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body[data-role="tutor"] {
+    --accent: var(--tutor);
+    --accent-soft: var(--tutor-soft);
+    --accent-line: var(--tutor-line);
+  }
+
+  button,
+  input,
+  textarea,
+  select {
+    font: inherit;
+    color: inherit;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--serif);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+    margin: 0;
+  }
+
+  h1 {
+    font-size: 27px;
+    line-height: 1.15;
+  }
+
+  h2 {
+    font-size: 19px;
+    line-height: 1.25;
+  }
+
+  h3 {
+    font-size: 16px;
+    line-height: 1.3;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  /* ---------- shell ---------- */
+
+  .topbar {
+    position: sticky;
+    top: env(safe-area-inset-top, 0px);
+    z-index: 20;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px 14px;
+    padding: 10px 16px;
+    background: color-mix(in srgb, var(--surface) 88%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .brand {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-right: auto;
+  }
+
+  .brand-name {
+    font-family: var(--serif);
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  .brand-tag {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+
+  .segmented {
+    display: inline-flex;
+    padding: 3px;
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+  }
+
+  .segmented button {
+    padding: 5px 13px;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--ink-2);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+  }
+
+  .segmented button[aria-pressed="true"] {
+    background: var(--accent);
+    color: var(--surface);
+  }
+
+  :root[data-theme="dark"] .segmented button[aria-pressed="true"],
+  .ghost-dark {
+    color: #17151d;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .segmented button[aria-pressed="true"] {
+      color: #17151d;
+    }
+  }
+
+  .icon-btn {
+    padding: 5px 11px;
+    background: transparent;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: var(--ink-2);
+    font-size: 12.5px;
+    cursor: pointer;
+  }
+
+  .icon-btn[aria-pressed="true"] {
+    border-color: var(--note);
+    color: var(--note);
+    background: var(--note-soft);
+  }
+
+  .tabs {
+    display: flex;
+    gap: 2px;
+    overflow-x: auto;
+    padding: 0 8px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--line);
+    scrollbar-width: none;
+  }
+
+  .tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tabs button {
+    position: relative;
+    flex: 0 0 auto;
+    padding: 11px 12px;
+    border: 0;
+    background: transparent;
+    color: var(--ink-3);
+    font-size: 13.5px;
+    font-weight: 500;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  .tabs button[aria-selected="true"] {
+    color: var(--ink);
+  }
+
+  .tabs button[aria-selected="true"]::after {
+    content: "";
+    position: absolute;
+    inset: auto 10px -1px 10px;
+    height: 2px;
+    background: var(--accent);
+  }
+
+  .tab-dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    margin-left: 5px;
+    border-radius: 50%;
+    background: var(--miss);
+    vertical-align: 2px;
+  }
+
+  main {
+    width: 100%;
+    max-width: 940px;
+    margin: 0 auto;
+    padding: 22px 16px 64px;
+  }
+
+  .stack {
+    display: grid;
+    gap: 16px;
+  }
+
+  .stack-sm {
+    display: grid;
+    gap: 9px;
+  }
+
+  .view-head {
+    display: grid;
+    gap: 7px;
+    margin-bottom: 18px;
+  }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .lede {
+    max-width: 62ch;
+    color: var(--ink-2);
+  }
+
+  /* ---------- surfaces ---------- */
+
+  .panel {
+    padding: 16px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+  }
+
+  .panel-quiet {
+    padding: 14px 16px;
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+  }
+
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .spread {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .grid-2 {
+    display: grid;
+    gap: 12px;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  }
+
+  .muted {
+    color: var(--ink-2);
+  }
+
+  .small {
+    font-size: 13px;
+  }
+
+  .tiny {
+    font-size: 12px;
+    color: var(--ink-3);
+  }
+
+  .cp-id {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    letter-spacing: 0.02em;
+    color: var(--ink-3);
+  }
+
+  .criterion {
+    font-size: 12.5px;
+    color: var(--ink-2);
+  }
+
+  .criterion strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  /* ---------- checkpoint object ---------- */
+
+  .cp {
+    display: grid;
+    gap: 9px;
+    padding: 14px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+  }
+
+  .cp-head {
+    display: grid;
+    gap: 3px;
+  }
+
+  .cp-title {
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  .verdict {
+    border-left: 3px solid var(--line-strong);
+  }
+
+  .verdict.met {
+    border-left-color: var(--met);
+  }
+
+  .verdict.partly {
+    border-left-color: var(--partly);
+  }
+
+  .verdict.miss {
+    border-left-color: var(--miss);
+  }
+
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 2px 9px;
+    border-radius: 999px;
+    font-size: 11.5px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .pill.met {
+    color: var(--met);
+    background: var(--met-soft);
+  }
+
+  .pill.partly {
+    color: var(--partly);
+    background: var(--partly-soft);
+  }
+
+  .pill.miss {
+    color: var(--miss);
+    background: var(--miss-soft);
+  }
+
+  .pill.flat {
+    color: var(--ink-2);
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+  }
+
+  .pill.accent {
+    color: var(--accent);
+    background: var(--accent-soft);
+  }
+
+  .anchor {
+    padding: 10px 12px;
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--accent-line);
+    border-radius: 8px;
+    font-size: 13.5px;
+    line-height: 1.45;
+  }
+
+  .label {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+
+  /* ---------- controls ---------- */
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    min-height: 38px;
+    padding: 0 15px;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: var(--surface);
+  }
+
+  :root[data-theme="dark"] .btn-primary {
+    color: #17151d;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .btn-primary {
+      color: #17151d;
+    }
+  }
+
+  .btn-secondary {
+    background: var(--accent-soft);
+    color: var(--accent);
+    border-color: var(--accent-line);
+  }
+
+  .btn-quiet {
+    background: var(--surface);
+    color: var(--ink-2);
+    border-color: var(--line);
+  }
+
+  .btn-sm {
+    min-height: 31px;
+    padding: 0 11px;
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  .btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+
+  .btn-full {
+    width: 100%;
+  }
+
+  .verdict-set {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .verdict-set button {
+    flex: 1 1 auto;
+    min-height: 33px;
+    padding: 0 10px;
+    border-radius: 7px;
+    border: 1px solid var(--line);
+    background: var(--surface-2);
+    color: var(--ink-2);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+  }
+
+  .verdict-set button[aria-pressed="true"][data-v="met"] {
+    color: var(--met);
+    background: var(--met-soft);
+    border-color: var(--met);
+  }
+
+  .verdict-set button[aria-pressed="true"][data-v="partly"] {
+    color: var(--partly);
+    background: var(--partly-soft);
+    border-color: var(--partly);
+  }
+
+  .verdict-set button[aria-pressed="true"][data-v="miss"] {
+    color: var(--miss);
+    background: var(--miss-soft);
+    border-color: var(--miss);
+  }
+
+  textarea,
+  input[type="text"] {
+    display: block;
+    width: 100%;
+    padding: 10px 12px;
+    background: var(--surface-2);
+    color: var(--ink);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    font-size: 13.5px;
+    line-height: 1.45;
+    resize: vertical;
+  }
+
+  textarea::placeholder,
+  input::placeholder {
+    color: var(--ink-3);
+  }
+
+  .check {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    padding: 11px 12px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 9px;
+    cursor: pointer;
+  }
+
+  .check input {
+    margin: 2px 0 0;
+    width: 17px;
+    height: 17px;
+    accent-color: var(--accent);
+    flex: 0 0 auto;
+  }
+
+  .check[data-carried="true"] {
+    border-color: var(--partly);
+    background: var(--partly-soft);
+  }
+
+  /* ---------- misc blocks ---------- */
+
+  .callout {
+    padding: 12px 14px;
+    border-radius: 9px;
+    font-size: 13px;
+    line-height: 1.45;
+    background: var(--note-soft);
+    color: var(--note);
+    border: 1px solid color-mix(in srgb, var(--note) 25%, transparent);
+  }
+
+  .callout strong {
+    font-weight: 600;
+  }
+
+  .bar-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 5px;
+    padding: 11px 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .bar-row:last-child {
+    border-bottom: 0;
+  }
+
+  .bar-track {
+    position: relative;
+    height: 9px;
+    border-radius: 999px;
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+    overflow: hidden;
+  }
+
+  .bar-fill {
+    height: 100%;
+    background: var(--miss);
+    opacity: 0.75;
+  }
+
+  .num {
+    font-family: var(--mono);
+    font-variant-numeric: tabular-nums;
+    font-size: 12.5px;
+    color: var(--ink-2);
+  }
+
+  .script {
+    max-height: 340px;
+    overflow-y: auto;
+    padding: 4px 2px;
+    display: grid;
+    gap: 12px;
+  }
+
+  .para {
+    display: grid;
+    grid-template-columns: 30px 1fr;
+    gap: 10px;
+    align-items: start;
+    font-size: 13.5px;
+    line-height: 1.5;
+    color: var(--ink-2);
+  }
+
+  .para span.pno {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-3);
+    padding-top: 2px;
+  }
+
+  .para[data-flagged="true"] {
+    color: var(--ink);
+  }
+
+  .para[data-flagged="true"] p {
+    background: var(--miss-soft);
+    box-shadow: 0 0 0 4px var(--miss-soft);
+    border-radius: 2px;
+  }
+
+  .timer {
+    font-family: var(--mono);
+    font-variant-numeric: tabular-nums;
+    font-size: 13px;
+    color: var(--ink-2);
+  }
+
+  .course-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 14px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 9px;
+  }
+
+  .course-row[data-live="false"] {
+    background: var(--surface-2);
+    border-style: dashed;
+  }
+
+  .qa {
+    display: grid;
+    gap: 8px;
+    padding: 14px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+  }
+
+  .research {
+    display: grid;
+    gap: 10px;
+    margin-bottom: 18px;
+    padding: 13px 15px;
+    background: var(--note-soft);
+    border: 1px dashed color-mix(in srgb, var(--note) 45%, transparent);
+    border-radius: var(--radius);
+    color: var(--note);
+    font-size: 13px;
+    line-height: 1.45;
+  }
+
+  .research h3 {
+    font-family: var(--sans);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  .toast {
+    position: fixed;
+    left: 50%;
+    bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+    transform: translateX(-50%) translateY(8px);
+    z-index: 50;
+    max-width: min(92vw, 420px);
+    padding: 11px 16px;
+    background: var(--ink);
+    color: var(--ground);
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 500;
+    text-align: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.18s ease, transform 0.18s ease;
+  }
+
+  .toast[data-show="true"] {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .toast {
+      transition: none;
+    }
+  }
+
+  .empty {
+    display: grid;
+    gap: 10px;
+    justify-items: start;
+    padding: 22px;
+    background: var(--surface-2);
+    border: 1px dashed var(--line-strong);
+    border-radius: var(--radius);
+    color: var(--ink-2);
+    font-size: 13.5px;
+  }
+</style>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-name">Feedback&nbsp;→&nbsp;Action</span>
+    <span class="brand-tag">Team 35 · prototype</span>
+  </div>
+  <div class="segmented" role="group" aria-label="Role">
+    <button type="button" data-act="role" data-role="student" aria-pressed="true">Student</button>
+    <button type="button" data-act="role" data-role="tutor" aria-pressed="false">Tutor</button>
+  </div>
+  <button class="icon-btn" type="button" data-act="research" aria-pressed="false">Research layer</button>
+  <button class="icon-btn" type="button" data-act="reset">Reset</button>
+</header>
+
+<nav class="tabs" id="tabs" aria-label="Sections"></nav>
+
+<main id="main"></main>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+  // ---------------------------------------------------------------- content
+  const BRIEF = `COMP7110 Assignment 2 — Solution validation report (25%)
+Due Friday week 10, 4pm, via Blackboard.
+
+In no more than 2000 words, report the second iteration of your Business Model
+Canvas. You must: restate the problem you are solving and who has it; list the
+hypotheses you tested this iteration and how you tested them; present the
+evidence from your own interviews; show what changed in the canvas and why; and
+justify your value proposition against the pains your interviewees named.
+
+Marked against the course rubric: problem framing, experiment design, evidence,
+iteration, business model. AI-generated interview data is not permitted.`;
+
+  const TEMPLATE = [
+    {
+      id: "CP-01",
+      title: "Problem statement names a person, not a group",
+      criterion: "Problem framing",
+      clause:
+        "The problem is stated as a specific person, a specific task, the constraint that blocks them, and what they do today instead.",
+      good: "A reader can name someone you could email this afternoon.",
+      flaw: "The problem statement names a group (“students”), and the current-workaround clause is missing.",
+      why: "Without a workaround there is no evidence that anyone feels this problem enough to have acted on it already.",
+      action:
+        "Rewrite as: [person] struggles to [task] because [constraint], and today they cope by [workaround]. Fill the last clause from an interview quote.",
+      para: 1,
+    },
+    {
+      id: "CP-02",
+      title: "Every hypothesis states what would kill it",
+      criterion: "Experiment design",
+      clause: "Each hypothesis is paired with a test and the observation that would disprove it.",
+      good: "For each hypothesis, a reader can say what result would end it.",
+      flaw: "Three hypotheses are listed. None states the result that would disprove it.",
+      why: "A hypothesis that cannot fail is a belief, and its test card cannot be scored either way.",
+      action: "Add one “killed if” line per hypothesis, naming an observation rather than an opinion.",
+      para: 2,
+    },
+    {
+      id: "CP-03",
+      title: "Interview evidence is quoted and attributed",
+      criterion: "Evidence",
+      clause: "Claims about users are supported by attributed quotes from the team's own interviews.",
+      good: "Every user claim traces to a participant code, a date, and the member who ran the interview.",
+      flaw: "Findings are paraphrased in the team's words. One interview is quoted; none is attributed to the member who ran it.",
+      why: "Iteration 1 lost this criterion for exactly this reason — interviews appeared under the wrong member's name.",
+      action: "Attach participant code, date and interviewer to each finding, and quote at least one line per claim.",
+      para: 3,
+    },
+    {
+      id: "CP-04",
+      title: "Canvas changes trace to a learning card",
+      criterion: "Iteration",
+      clause: "Each change to the Business Model Canvas is traced to a specific learning card.",
+      good: "A reader can point at a canvas block and find the interview that moved it.",
+      flaw: "The value proposition changed between iterations with no learning card cited.",
+      why: "An untraceable change is indistinguishable from a preference, which is what iteration is meant to replace.",
+      action: "Add a two-column table: canvas block changed → learning card ID that caused the change.",
+      para: 4,
+    },
+    {
+      id: "CP-05",
+      title: "Pain relievers map to a pain someone named",
+      criterion: "Business model",
+      clause: "Gain creators and pain relievers link to pains named by real interviewees.",
+      good: "No pain reliever exists without a pain a real person described.",
+      flaw: "Two pain relievers have no matching pain anywhere in the customer profile.",
+      why: "This is the point where a canvas stops describing users and starts describing the team.",
+      action: "Delete or re-anchor the two unmatched relievers, citing the interview that names the pain.",
+      para: 5,
+    },
+  ];
+
+  const DRAFT = [
+    "Students often struggle to act on the feedback they receive from tutors, which reduces the value of assessment across the university and leads to repeated mistakes in later assignments.",
+    "We tested three hypotheses this iteration: that feedback arrives too late to be usable, that its quality is capped by paid marking time, and that what a marker learns never reaches the teaching team.",
+    "Our interviews confirmed that feedback is often unclear. Several participants said they did not know what the tutor wanted. One participant said: “I read the comment, and I still had no idea what to change.”",
+    "Following these findings we revised our value proposition to focus on turning feedback into specific next actions, and updated the customer segment to postgraduate coursework students.",
+    "Our pain relievers are: explaining feedback in plain language, showing worked examples, tracking progress across assessments, and a market-skills newsletter for career planning.",
+  ];
+
+  const A1_RESULTS = { "CP-01": "miss", "CP-02": "partly", "CP-03": "miss", "CP-04": "met", "CP-05": "met" };
+
+  const COHORT = { "CP-01": 27, "CP-02": 31, "CP-03": 19, "CP-04": 24, "CP-05": 12 };
+
+  const RESEARCH = {
+    dash: {
+      assumption: "A1 — a student will open this at all when nothing is due today.",
+      watch: "Which tile do they touch first? If it is never “Carried forward”, the whole carry-forward thesis is in trouble.",
+    },
+    prepare: {
+      assumption: "A3 — seeing last assignment's issues *before* submitting beats asking ChatGPT after.",
+      watch: "Do they read the standards, or scroll straight to the paste box? Ask what they do today instead.",
+    },
+    feedback: {
+      assumption: "A2 — real tutor feedback contains enough signal to locate where and why.",
+      watch: "Can they restate the issue in their own words? Time to naming one concrete change. Any tap on “This doesn't match”.",
+    },
+    progress: {
+      assumption: "A5 — private recurrence is motivating; a public leaderboard would not be.",
+      watch: "Ask directly whether they would want this visible to classmates. Expect a strong no from the students who need it most.",
+    },
+    setup: {
+      assumption: "A4 — a sessional tutor will spend ten minutes once per assignment to save time on 42 scripts.",
+      watch: "Time this. If setup takes longer than the marking it saves, the product is dead. Ask who would actually do it — tutor or coordinator?",
+    },
+    mark: {
+      assumption: "A4b — checkpoint-anchored marking is faster than free-text comments.",
+      watch: "The timer is the measurement. Compare with their stated real time per script. Do they edit the pre-draft, or send it as-is?",
+    },
+    cohort: {
+      assumption: "A6 — the coordinator wants causes, not a mark distribution (Loop 2).",
+      watch: "This is the screen to show a course coordinator, not a tutor. Does anything here change what they would do next semester?",
+    },
+    questions: {
+      assumption: "A7 — answering is cheap enough that a casual tutor will actually do it.",
+      watch: "Seconds per answer. Ask what their limit is per week before they would switch it off.",
+    },
+  };
+
+  // ---------------------------------------------------------------- state
+  const START = () => ({
+    role: "student",
+    view: "dash",
+    research: false,
+    checkpoints: [],
+    published: false,
+    submitted: false,
+    released: false,
+    brief: BRIEF,
+    draft: DRAFT.slice(),
+    marks: {},
+    comments: {},
+    selfCheck: {},
+    applied: {},
+    disputed: {},
+    markStart: null,
+    markElapsed: 0,
+    questions: [
+      {
+        id: "q0",
+        cp: "CP-02",
+        from: "Student 0418",
+        text: "What counts as a “killed if” line? Is “the hypothesis is wrong” enough?",
+        answer:
+          "No — it has to be an observation. “Killed if fewer than 2 of 6 interviewees can name a workaround” is a killed-if line; “the hypothesis is wrong” is not.",
+        answered: true,
+        seconds: 34,
+      },
+    ],
+    carry: {},
+  });
+
+  let state = START();
+
+  // ---------------------------------------------------------------- helpers
+  const $ = (sel) => document.querySelector(sel);
+  const esc = (s) =>
+    String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+  const VERDICT_LABEL = { met: "Met", partly: "Partly met", miss: "Not met" };
+
+  function toast(msg) {
+    const el = $("#toast");
+    el.textContent = msg;
+    el.dataset.show = "true";
+    clearTimeout(el._t);
+    el._t = setTimeout(() => (el.dataset.show = "false"), 2600);
+  }
+
+  function cpById(id) {
+    return state.checkpoints.find((c) => c.id === id) || TEMPLATE.find((c) => c.id === id);
+  }
+
+  function carriedIds() {
+    return Object.keys(A1_RESULTS).filter((id) => A1_RESULTS[id] !== "met" && !state.applied[id]);
+  }
+
+  function openQuestions() {
+    return state.questions.filter((q) => !q.answered).length;
+  }
+
+  function markedVerdicts() {
+    return state.checkpoints.filter((c) => state.marks[c.id]);
+  }
+
+  // ---------------------------------------------------------------- tabs
+  const TABS = {
+    student: [
+      ["dash", "Dashboard"],
+      ["prepare", "Assignment 2"],
+      ["feedback", "Feedback"],
+      ["progress", "Progress"],
+    ],
+    tutor: [
+      ["setup", "Set checkpoints"],
+      ["mark", "Marking"],
+      ["cohort", "Cohort"],
+      ["questions", "Questions"],
+    ],
+  };
+
+  function renderTabs() {
+    $("#tabs").innerHTML = TABS[state.role]
+      .map(([id, label]) => {
+        const dot = state.role === "tutor" && id === "questions" && openQuestions() ? '<span class="tab-dot"></span>' : "";
+        return `<button type="button" data-act="view" data-view="${id}" aria-selected="${
+          state.view === id
+        }">${label}${dot}</button>`;
+      })
+      .join("");
+  }
+
+  // ---------------------------------------------------------------- views
+  function researchBlock() {
+    if (!state.research) return "";
+    const r = RESEARCH[state.view];
+    if (!r) return "";
+    const jump =
+      state.role === "student"
+        ? ""
+        : `<div class="row"><span class="label">Jump to state</span>
+             <button class="btn btn-quiet btn-sm" type="button" data-act="jump" data-to="published">Checkpoints published</button>
+             <button class="btn btn-quiet btn-sm" type="button" data-act="jump" data-to="submitted">Submitted</button>
+             <button class="btn btn-quiet btn-sm" type="button" data-act="jump" data-to="released">Marked &amp; released</button>
+           </div>`;
+    return `<section class="research">
+        <h3>Research layer — turn off before a test session</h3>
+        <p><strong>Assumption:</strong> ${esc(r.assumption)}</p>
+        <p><strong>Watch for:</strong> ${esc(r.watch)}</p>
+        ${jump}
+      </section>`;
+  }
+
+  function viewDash() {
+    const carried = carriedIds();
+    const carriedCards = carried.length
+      ? carried
+          .map((id) => {
+            const c = cpById(id);
+            return `<article class="cp verdict ${A1_RESULTS[id]}">
+                <div class="cp-head">
+                  <span class="cp-id">${id} · Assignment 1</span>
+                  <p class="cp-title">${esc(c.title)}</p>
+                </div>
+                <p class="small muted">${esc(c.action)}</p>
+                <div class="row">
+                  <button class="btn btn-secondary btn-sm" type="button" data-act="view" data-view="prepare">Use in Assignment 2</button>
+                  <button class="btn btn-quiet btn-sm" type="button" data-act="apply" data-cp="${id}">Mark as applied</button>
+                </div>
+              </article>`;
+          })
+          .join("")
+      : `<div class="empty"><p>Nothing carried forward. Every issue from Assignment 1 has been marked as applied.</p></div>`;
+
+    return `
+      <div class="view-head">
+        <p class="eyebrow">Semester 2, week 8</p>
+        <h1>${
+          carried.length
+            ? `${["Nothing", "One criterion", "Two criteria", "Three criteria", "Four criteria", "Five criteria"][
+                carried.length
+              ] || carried.length + " criteria"} still open from Assignment 1`
+            : "Assignment 1 is fully closed out"
+        }</h1>
+        <p class="lede">These are the criteria you did not meet last time. They stay here until you use them — not until the next mark arrives.</p>
+      </div>
+      ${researchBlock()}
+      <div class="stack">
+        <section class="stack-sm">
+          <div class="spread"><h2>Carried forward</h2><span class="tiny">${carried.length} open</span></div>
+          ${carriedCards}
+        </section>
+
+        <section class="stack-sm">
+          <h2>Your courses</h2>
+          <div class="course-row" data-live="true">
+            <div>
+              <p style="font-weight:600">COMP7110 · Introduction to Software Innovation</p>
+              <p class="tiny">Assignment 2 due week 10 · ${
+                state.published ? state.checkpoints.length + " checkpoints published" : "standards not published yet"
+              }</p>
+            </div>
+            <button class="btn btn-secondary btn-sm" type="button" data-act="view" data-view="prepare">Open</button>
+          </div>
+          <div class="course-row" data-live="false">
+            <div>
+              <p style="font-weight:600">INFS7900 · Database Management</p>
+              <p class="tiny">Not using checkpoints — feedback arrives as a mark and a comment</p>
+            </div>
+            <span class="pill flat">No data</span>
+          </div>
+          <div class="course-row" data-live="false">
+            <div>
+              <p style="font-weight:600">CSSE7023 · Advanced Software Engineering</p>
+              <p class="tiny">Not using checkpoints — feedback arrives as a mark and a comment</p>
+            </div>
+            <span class="pill flat">No data</span>
+          </div>
+          <p class="tiny">Two of three courses are empty on purpose. A cross-course view is only as good as the courses that opt in — that cold start is a finding to test, not a screen to fake.</p>
+        </section>
+      </div>`;
+  }
+
+  function viewPrepare() {
+    if (!state.published) {
+      return `
+        <div class="view-head">
+          <p class="eyebrow">COMP7110 · Assignment 2</p>
+          <h1>Standards not published yet</h1>
+          <p class="lede">Your tutor has not set the checkpoints for this assignment. Until they do, you would be guessing what good looks like — which is the problem this app exists to remove.</p>
+        </div>
+        ${researchBlock()}
+        <div class="empty">
+          <p>To continue the walkthrough, switch to the <strong>Tutor</strong> role and publish checkpoints from the brief.</p>
+          <button class="btn btn-primary" type="button" data-act="role" data-role="tutor">Switch to tutor</button>
+        </div>`;
+    }
+
+    if (state.submitted) {
+      return `
+        <div class="view-head">
+          <p class="eyebrow">COMP7110 · Assignment 2</p>
+          <h1>Submitted — waiting on marking</h1>
+          <p class="lede">You submitted against ${state.checkpoints.length} published checkpoints. ${
+        state.released ? "Your feedback has been released." : "Your tutor has not released feedback yet."
+      }</p>
+        </div>
+        ${researchBlock()}
+        <div class="empty">
+          ${
+            state.released
+              ? `<p>Feedback is ready.</p><button class="btn btn-primary" type="button" data-act="view" data-view="feedback">Read feedback</button>`
+              : `<p>Switch to the <strong>Tutor</strong> role to mark this script and release feedback.</p>
+                 <button class="btn btn-primary" type="button" data-act="role" data-role="tutor">Switch to tutor</button>`
+          }
+        </div>`;
+    }
+
+    const carried = carriedIds();
+    const done = state.checkpoints.filter((c) => state.selfCheck[c.id]).length;
+    const list = state.checkpoints
+      .map((c) => {
+        const isCarried = carried.includes(c.id);
+        return `<label class="check" data-carried="${isCarried}">
+            <input type="checkbox" data-act="selfcheck" data-cp="${c.id}" ${state.selfCheck[c.id] ? "checked" : ""} />
+            <span>
+              <span class="cp-id">${c.id}${isCarried ? " · you lost marks here last time" : ""}</span>
+              <span style="display:block;font-weight:600">${esc(c.title)}</span>
+              <span class="criterion" style="display:block;margin-top:3px"><strong>${esc(
+                c.criterion
+              )}:</strong> ${esc(c.clause)}</span>
+              <span class="tiny" style="display:block;margin-top:4px">Good looks like: ${esc(c.good)}</span>
+            </span>
+          </label>`;
+      })
+      .join("");
+
+    return `
+      <div class="view-head">
+        <p class="eyebrow">COMP7110 · Assignment 2 · due week 10</p>
+        <h1>What this assignment is marked on</h1>
+        <p class="lede">Published by your tutor before you start. The two highlighted below are the criteria you did not meet in Assignment 1.</p>
+      </div>
+      ${researchBlock()}
+      <div class="stack">
+        <section class="stack-sm">
+          <div class="spread"><h2>Checkpoints</h2><span class="num">${done} / ${state.checkpoints.length} self-checked</span></div>
+          ${list}
+        </section>
+
+        <section class="panel stack-sm">
+          <h2>Check a paragraph against a checkpoint</h2>
+          <p class="small muted">Paste one paragraph of your draft. This checks structure only and returns the criterion and questions to ask yourself.</p>
+          <textarea id="checkText" rows="4" placeholder="Paste one paragraph of your own draft..."></textarea>
+          <div class="row">
+            <select id="checkCp" style="padding:9px 11px;border-radius:8px;border:1px solid var(--line);background:var(--surface-2)">
+              ${state.checkpoints.map((c) => `<option value="${c.id}">${c.id} — ${esc(c.title)}</option>`).join("")}
+            </select>
+            <button class="btn btn-secondary btn-sm" type="button" data-act="runcheck">Check structure</button>
+          </div>
+          <div id="checkOut"></div>
+          <p class="callout"><strong>This never rewrites your work.</strong> It does not produce sentences you can paste into your assignment. That line is what makes it usable under UQ's academic integrity rules — and it is the thing to test with a course coordinator, not with students.</p>
+        </section>
+
+        <button class="btn btn-primary btn-full" type="button" data-act="submit">Submit Assignment 2</button>
+      </div>`;
+  }
+
+  function structureCheck(text, cp) {
+    const t = text.trim();
+    const words = t ? t.split(/\s+/).length : 0;
+    const has = {
+      implication: /\b(suggests?|implies|because|therefore|which means|indicates?|as a result|so that)\b/i.test(t),
+      quote: /["“”]|\b(participant|interviewee|P\d|respondent)\b/i.test(t),
+      specific: /\b(one|a|the)\s+(tutor|student|marker|coordinator|participant)\b/i.test(t) || /\bP\d\b/.test(t),
+      hedge: /\b(some|many|often|people|generally|a lot of|students often)\b/i.test(t),
+      killed: /\b(killed if|disprove|falsif|would fail|if fewer|if no one)\b/i.test(t),
+      trace: /\b(learning card|LC-?\d|test card|TC-?\d|iteration 1)\b/i.test(t),
+    };
+    const rules = {
+      "CP-01": [
+        [has.specific && !has.hedge, "Names a specific person rather than a group", "Who exactly? Replace “students” with one person you interviewed."],
+        [/\bbecause\b|\bcannot\b|\bblocked\b/i.test(t), "States the constraint", "What stops them — time, money, permission, information?"],
+        [/\b(today|currently|instead|they cope|workaround|they use)\b/i.test(t), "States what they do today instead", "What is their current workaround? Without it, the problem may just be tolerated."],
+      ],
+      "CP-02": [
+        [has.killed, "States a falsification condition", "What observation would end this hypothesis? Write the “killed if” line."],
+        [/\b(we asked|test|interview|we will)\b/i.test(t), "Names how it was tested", "How was it tested, and on whom?"],
+      ],
+      "CP-03": [
+        [has.quote, "Contains a quote or participant reference", "Quote one line. A paraphrase is your words, not theirs."],
+        [/\b(P\d|\d{1,2}\s?(Aug|Sep|Oct|Nov)|interviewed by)\b/i.test(t), "Attributes the evidence", "Add participant code, date, and who ran the interview."],
+      ],
+      "CP-04": [
+        [has.trace, "Cites the learning card behind the change", "Which learning card caused this change? Name its ID."],
+        [/\b(changed|revised|updated|moved)\b/i.test(t), "Names what changed", "Say which canvas block changed, not just that the canvas changed."],
+      ],
+      "CP-05": [
+        [has.quote || has.specific, "Anchors to a pain someone named", "Which interviewee named this pain? If none did, it is a team idea."],
+        [has.implication, "Links the reliever to the pain", "Say how the reliever removes that specific pain."],
+      ],
+    };
+    const checks = rules[cp.id] || [];
+    return { words, checks };
+  }
+
+  function viewFeedback() {
+    if (!state.released) {
+      return `
+        <div class="view-head">
+          <p class="eyebrow">COMP7110</p>
+          <h1>Assignment 1 feedback</h1>
+          <p class="lede">Released week 8. Assignment 2 feedback appears here once your tutor releases it.</p>
+        </div>
+        ${researchBlock()}
+        ${a1FeedbackList()}`;
+    }
+
+    const cards = state.checkpoints
+      .map((c) => {
+        const v = state.marks[c.id] || "met";
+        const comment = state.comments[c.id] || "";
+        const prior = A1_RESULTS[c.id];
+        const changed =
+          prior && prior !== "met" && v === "met"
+            ? `<span class="pill met">Resolved since Assignment 1</span>`
+            : prior && prior !== "met" && v !== "met"
+            ? `<span class="pill partly">Still present</span>`
+            : prior === "met" && v !== "met"
+            ? `<span class="pill miss">New</span>`
+            : "";
+        if (v === "met")
+          return `<article class="cp verdict met">
+              <div class="spread"><span class="cp-id">${c.id}</span><span class="pill met">Met</span></div>
+              <p class="cp-title">${esc(c.title)}</p>
+              ${changed}
+            </article>`;
+        return `<article class="cp verdict ${v}">
+            <div class="spread"><span class="cp-id">${c.id} · ${esc(c.criterion)}</span><span class="pill ${v}">${
+          VERDICT_LABEL[v]
+        }</span></div>
+            <p class="cp-title">${esc(c.title)}</p>
+            ${changed}
+            <div class="stack-sm">
+              <div><p class="label">Where</p><div class="anchor">Paragraph ${c.para}: “${esc(
+          (state.draft[c.para - 1] || "").slice(0, 120)
+        )}…”</div></div>
+              <div><p class="label">What your tutor wrote</p><p class="small">${esc(comment)}</p></div>
+              <div><p class="label">The criterion</p><p class="small muted">${esc(c.clause)}</p></div>
+              <div><p class="label">What to do next time</p><p class="small">${esc(c.action)}</p></div>
+            </div>
+            <div class="row">
+              <button class="btn btn-secondary btn-sm" type="button" data-act="ask" data-cp="${c.id}">Ask about this</button>
+              <button class="btn btn-quiet btn-sm" type="button" data-act="dispute" data-cp="${c.id}" ${
+          state.disputed[c.id] ? "disabled" : ""
+        }>${state.disputed[c.id] ? "Flagged for your tutor" : "This doesn't match my work"}</button>
+              <button class="btn btn-quiet btn-sm" type="button" data-act="apply" data-cp="${c.id}" ${
+          state.applied[c.id] ? "disabled" : ""
+        }>${state.applied[c.id] ? "Applied" : "Mark as applied"}</button>
+            </div>
+          </article>`;
+      })
+      .join("");
+
+    const answered = state.questions.filter((q) => q.answered && q.from === "You");
+    const answers = answered.length
+      ? `<section class="stack-sm"><h2>Answers from your tutor</h2>${answered
+          .map(
+            (q) => `<article class="qa">
+              <span class="cp-id">${q.cp}</span>
+              <p class="small"><strong>You asked:</strong> ${esc(q.text)}</p>
+              <p class="small">${esc(q.answer)}</p>
+              <p class="tiny">Answered in ${q.seconds}s — the tutor did not reopen your assignment.</p>
+            </article>`
+          )
+          .join("")}</section>`
+      : "";
+
+    const pending = state.questions.filter((q) => !q.answered && q.from === "You").length;
+
+    return `
+      <div class="view-head">
+        <p class="eyebrow">COMP7110 · Assignment 2</p>
+        <h1>What changed since Assignment 1</h1>
+        <p class="lede">Each checkpoint is compared with the same checkpoint last time. This is a comparison of criteria, not of marks.</p>
+      </div>
+      ${researchBlock()}
+      <div class="stack">
+        <section class="stack-sm">${cards}</section>
+        ${pending ? `<p class="callout">${pending} question waiting with your tutor.</p>` : ""}
+        ${answers}
+      </div>`;
+  }
+
+  function a1FeedbackList() {
+    return `<div class="stack-sm">${TEMPLATE.map((c) => {
+      const v = A1_RESULTS[c.id];
+      if (v === "met")
+        return `<article class="cp verdict met"><div class="spread"><span class="cp-id">${c.id}</span><span class="pill met">Met</span></div><p class="cp-title">${esc(
+          c.title
+        )}</p></article>`;
+      return `<article class="cp verdict ${v}">
+          <div class="spread"><span class="cp-id">${c.id} · ${esc(c.criterion)}</span><span class="pill ${v}">${
+        VERDICT_LABEL[v]
+      }</span></div>
+          <p class="cp-title">${esc(c.title)}</p>
+          <div class="stack-sm">
+            <div><p class="label">Why it was flagged</p><p class="small">${esc(c.flaw)}</p></div>
+            <div><p class="label">What to do next time</p><p class="small">${esc(c.action)}</p></div>
+          </div>
+          <div class="row">
+            <button class="btn btn-quiet btn-sm" type="button" data-act="apply" data-cp="${c.id}" ${
+        state.applied[c.id] ? "disabled" : ""
+      }>${state.applied[c.id] ? "Applied" : "Mark as applied"}</button>
+          </div>
+        </article>`;
+    }).join("")}</div>`;
+  }
+
+  function viewProgress() {
+    const rows = TEMPLATE.map((c) => {
+      const a1 = A1_RESULTS[c.id];
+      const a2 = state.released ? state.marks[c.id] : null;
+      const cell = (v) =>
+        v ? `<span class="pill ${v}">${VERDICT_LABEL[v]}</span>` : `<span class="pill flat">Not marked</span>`;
+      return `<article class="cp">
+          <div class="spread"><span class="cp-id">${c.id}</span><span class="criterion"><strong>${esc(
+        c.criterion
+      )}</strong></span></div>
+          <p class="cp-title">${esc(c.title)}</p>
+          <div class="row"><span class="tiny">Assignment 1</span>${cell(a1)}<span class="tiny">Assignment 2</span>${cell(
+        a2
+      )}</div>
+        </article>`;
+    }).join("");
+
+    return `
+      <div class="view-head">
+        <p class="eyebrow">Private to you</p>
+        <h1>The same criteria, across assessments</h1>
+        <p class="lede">Not a grade, not a rank. The only useful comparison is with your own previous work — which criteria keep recurring, and which you have closed.</p>
+      </div>
+      ${researchBlock()}
+      <div class="stack">
+        <section class="stack-sm">${rows}</section>
+        <p class="callout"><strong>There is deliberately no leaderboard here.</strong> Ranking students on assessment performance discourages exactly the students least likely to act on feedback, and performance data is not ours to publish to a cohort. If recognition matters, it belongs on optional extension tasks that are opt-in, not on marked work.</p>
+      </div>`;
+  }
+
+  // ---------------- tutor views
+  function viewSetup() {
+    const generated = state.checkpoints.length > 0;
+    const cards = state.checkpoints
+      .map(
+        (c, i) => `<article class="cp">
+          <div class="spread">
+            <span class="cp-id">${c.id} · ${esc(c.criterion)}</span>
+            <button class="btn btn-quiet btn-sm" type="button" data-act="removecp" data-cp="${c.id}">Remove</button>
+          </div>
+          <input type="text" data-act="cptitle" data-cp="${c.id}" value="${esc(c.title)}" aria-label="Checkpoint title" />
+          <p class="criterion">${esc(c.clause)}</p>
+          <div>
+            <p class="label">Pre-drafted comment, used when you mark this “not met”</p>
+            <textarea rows="3" data-act="cpflaw" data-cp="${c.id}" aria-label="Pre-drafted comment">${esc(
+          c.flaw
+        )}</textarea>
+          </div>
+          <label class="row small" style="gap:8px">
+            <input type="checkbox" data-act="cpvisible" data-cp="${c.id}" ${c.visible ? "checked" : ""} />
+            <span>Visible to students before they submit</span>
+          </label>
+          ${
+            !c.visible
+              ? `<p class="callout">Hidden. Students will be marked against a standard they were never shown — UQ requires published criteria, and hiding them reproduces the guesswork this tool exists to remove. Keep the <em>judgements</em> private, not the standard.</p>`
+              : ""
+          }
+        </article>`
+      )
+      .join("");
+
+    return `
+      <div class="view-head">
+        <p class="eyebrow">COMP7110 · Assignment 2 · 42 enrolled</p>
+        <h1>Set the checkpoints once</h1>
+        <p class="lede">Ten minutes here replaces a paragraph of typing on every one of 42 scripts. The checkpoints are also what the student sees before they start, and what carries into the next assignment.</p>
+      </div>
+      ${researchBlock()}
+      <div class="stack">
+        <section class="panel stack-sm">
+          <div class="spread"><h2>Assignment brief</h2><span class="tiny">Paste or edit</span></div>
+          <textarea rows="7" data-act="brief">${esc(state.brief)}</textarea>
+          <button class="btn btn-primary" type="button" data-act="generate">${
+            generated ? "Regenerate checkpoints from brief" : "Draft checkpoints from brief"
+          }</button>
+          <p class="tiny">Drafted from the brief and the course rubric. You edit them — the draft is a starting point, not a decision.</p>
+        </section>
+
+        ${
+          generated
+            ? `<section class="stack-sm">
+                 <div class="spread"><h2>Checkpoints</h2><span class="num">${state.checkpoints.length} set</span></div>
+                 ${cards}
+                 <button class="btn btn-secondary" type="button" data-act="addcp">Add a checkpoint</button>
+                 <button class="btn btn-primary btn-full" type="button" data-act="publish">${
+                   state.published ? "Update what students see" : "Publish to students"
+                 }</button>
+               </section>`
+            : `<div class="empty"><p>No checkpoints yet. Draft them from the brief above, then edit.</p></div>`
+        }
+      </div>`;
+  }
+
+  function viewMark() {
+    if (!state.published) {
+      return `<div class="view-head"><h1>Publish checkpoints first</h1><p class="lede">Marking is anchored to checkpoints, so they have to exist before a script can be marked.</p></div>
+        ${researchBlock()}
+        <div class="empty"><button class="btn btn-primary" type="button" data-act="view" data-view="setup">Go to setup</button></div>`;
+    }
+    if (!state.submitted) {
+      return `<div class="view-head"><h1>No submission yet</h1><p class="lede">Switch to the student role and submit Assignment 2 to mark it here.</p></div>
+        ${researchBlock()}
+        <div class="empty"><button class="btn btn-primary" type="button" data-act="role" data-role="student">Switch to student</button></div>`;
+    }
+
+    const flagged = {};
+    state.checkpoints.forEach((c) => {
+      if (state.marks[c.id] && state.marks[c.id] !== "met") flagged[c.para] = true;
+    });
+
+    const script = state.draft
+      .map(
+        (p, i) =>
+          `<div class="para" data-flagged="${!!flagged[i + 1]}"><span class="pno">P${i + 1}</span><p>${esc(p)}</p></div>`
+      )
+      .join("");
+
+    const rows = state.checkpoints
+      .map((c) => {
+        const v = state.marks[c.id];
+        return `<article class="cp verdict ${v || ""}">
+            <div class="spread"><span class="cp-id">${c.id} · P${c.para}</span><span class="criterion"><strong>${esc(
+          c.criterion
+        )}</strong></span></div>
+            <p class="cp-title">${esc(c.title)}</p>
+            <div class="verdict-set" role="group" aria-label="Verdict for ${c.id}">
+              <button type="button" data-act="verdict" data-cp="${c.id}" data-v="met" aria-pressed="${
+          v === "met"
+        }">Met</button>
+              <button type="button" data-act="verdict" data-cp="${c.id}" data-v="partly" aria-pressed="${
+          v === "partly"
+        }">Partly</button>
+              <button type="button" data-act="verdict" data-cp="${c.id}" data-v="miss" aria-pressed="${
+          v === "miss"
+        }">Not met</button>
+            </div>
+            ${
+              v && v !== "met"
+                ? `<div><p class="label">Comment sent to the student — edit if you want</p>
+                     <textarea rows="3" data-act="comment" data-cp="${c.id}">${esc(
+                    state.comments[c.id] || ""
+                  )}</textarea></div>`
+                : ""
+            }
+          </article>`;
+      })
+      .join("");
+
+    const done = markedVerdicts().length;
+    return `
+      <div class="view-head">
+        <p class="eyebrow">Script 19 of 42 · anonymous marking</p>
+        <h1>Mark against the checkpoints</h1>
+        <p class="lede">Choosing “not met” attaches the comment you already wrote at setup. You edit it only where this script needs something different.</p>
+      </div>
+      ${researchBlock()}
+      <div class="stack">
+        <div class="panel-quiet spread">
+          <span class="timer">Time on this script <strong id="timer">0:00</strong></span>
+          <span class="num">${done} / ${state.checkpoints.length} judged</span>
+        </div>
+        <section class="panel stack-sm">
+          <div class="spread"><h2>Submission</h2><span class="tiny">Flagged paragraphs highlight as you mark</span></div>
+          <div class="script">${script}</div>
+        </section>
+        <section class="stack-sm">${rows}</section>
+        <button class="btn btn-primary btn-full" type="button" data-act="release" ${
+          done < state.checkpoints.length ? "disabled" : ""
+        }>${state.released ? "Feedback released" : "Release feedback to student"}</button>
+        ${
+          done < state.checkpoints.length
+            ? `<p class="tiny">Judge every checkpoint to release. A partial release is how a student ends up guessing again.</p>`
+            : ""
+        }
+      </div>`;
+  }
+
+  function viewCohort() {
+    const total = 42;
+    const rows = TEMPLATE.map((c) => {
+      const n = COHORT[c.id] + (state.released && state.marks[c.id] && state.marks[c.id] !== "met" ? 1 : 0);
+      const pct = Math.round((n / total) * 100);
+      return `<div class="bar-row">
+          <div class="spread"><span class="small"><span class="cp-id">${c.id}</span> ${esc(
+        c.title
+      )}</span><span class="num">${n}/${total} · ${pct}%</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:${pct}%"></div></div>
+        </div>`;
+    }).join("");
+
+    return `
+      <div class="view-head">
+        <p class="eyebrow">COMP7110 · Assignment 2 · coordinator view</p>
+        <h1>Where the cohort is losing marks</h1>
+        <p class="lede">A mark distribution shows the shape. This shows the causes, while there is still teaching time left in the semester.</p>
+      </div>
+      ${researchBlock()}
+      <div class="stack">
+        <section class="panel">${rows}</section>
+        <section class="panel stack-sm">
+          <h2>Carry to next semester</h2>
+          <p class="small muted">Eight sessional tutors marked this assignment. Seven will not teach the course again. This note is attached to the checkpoint, not to a person.</p>
+          <textarea rows="3" data-act="handover" placeholder="e.g. CP-05 fails because the lecture example shows relievers without pains. Fix the example in week 6, not the rubric.">${esc(
+            state.handover || ""
+          )}</textarea>
+          <button class="btn btn-secondary btn-sm" type="button" data-act="savehandover">Attach to checkpoint set</button>
+        </section>
+        <p class="callout">This screen is the one the course coordinator cares about, and the one no existing marking tool produces. It is also the weakest-tested part of the concept — nobody on the team has interviewed a coordinator yet.</p>
+      </div>`;
+  }
+
+  function viewQuestions() {
+    if (!state.questions.length) return `<div class="empty"><p>No questions.</p></div>`;
+    const cards = state.questions
+      .map((q) => {
+        const c = cpById(q.cp);
+        if (q.answered)
+          return `<article class="qa">
+              <div class="spread"><span class="cp-id">${q.cp} · ${esc(q.from)}</span><span class="pill met">Answered in ${
+            q.seconds
+          }s</span></div>
+              <p class="small"><strong>Q:</strong> ${esc(q.text)}</p>
+              <p class="small muted">${esc(q.answer)}</p>
+            </article>`;
+        return `<article class="qa">
+            <div class="spread"><span class="cp-id">${q.cp} · ${esc(q.from)}</span><span class="pill accent">Waiting</span></div>
+            <p class="small"><strong>Q:</strong> ${esc(q.text)}</p>
+            <div class="anchor"><span class="label">Checkpoint</span><br />${esc(c.title)} — ${esc(c.clause)}</div>
+            <div><p class="label">Suggested reply — edit or send as is</p><textarea rows="3" data-act="answer" data-q="${
+              q.id
+            }">${esc(q.draft || c.action)}</textarea></div>
+            <button class="btn btn-primary btn-sm" type="button" data-act="send" data-q="${q.id}">Send reply</button>
+          </article>`;
+      })
+      .join("");
+
+    return `
+      <div class="view-head">
+        <p class="eyebrow">Question queue</p>
+        <h1>Answer without reopening the assignment</h1>
+        <p class="lede">Every question arrives attached to a checkpoint and a paragraph, with a reply already drafted from the standard you wrote. Asynchronous on purpose — an open live chat is unbounded time, and unbounded time is what a sessional tutor does not have.</p>
+      </div>
+      ${researchBlock()}
+      <div class="stack-sm">${cards}</div>`;
+  }
+
+  // ---------------------------------------------------------------- render
+  const VIEWS = {
+    dash: viewDash,
+    prepare: viewPrepare,
+    feedback: viewFeedback,
+    progress: viewProgress,
+    setup: viewSetup,
+    mark: viewMark,
+    cohort: viewCohort,
+    questions: viewQuestions,
+  };
+
+  function render() {
+    document.body.dataset.role = state.role;
+    document.querySelectorAll("[data-act='role']").forEach((b) => {
+      b.setAttribute("aria-pressed", String(b.dataset.role === state.role));
+    });
+    $("[data-act='research']").setAttribute("aria-pressed", String(state.research));
+    renderTabs();
+    $("#main").innerHTML = (VIEWS[state.view] || viewDash)();
+    if (state.view === "mark" && state.submitted && !state.released) startTimer();
+    else stopTimer();
+  }
+
+  // ---------------------------------------------------------------- timer
+  let timerId = null;
+  function startTimer() {
+    if (!state.markStart) state.markStart = Date.now();
+    if (timerId) return;
+    const tick = () => {
+      const el = document.getElementById("timer");
+      if (!el) return;
+      const s = Math.floor((Date.now() - state.markStart) / 1000) + state.markElapsed;
+      el.textContent = `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
+    };
+    tick();
+    timerId = setInterval(tick, 1000);
+  }
+  function stopTimer() {
+    if (timerId) clearInterval(timerId);
+    timerId = null;
+  }
+
+  // ---------------------------------------------------------------- actions
+  document.addEventListener("click", (e) => {
+    const el = e.target.closest("[data-act]");
+    if (!el) return;
+    const act = el.dataset.act;
+    const cp = el.dataset.cp;
+
+    if (act === "role") {
+      state.role = el.dataset.role;
+      state.view = TABS[state.role][0][0];
+      if (state.role === "student" && state.released) state.view = "feedback";
+      if (state.role === "tutor" && state.submitted && !state.released) state.view = "mark";
+      if (state.role === "tutor" && openQuestions()) state.view = "questions";
+      render();
+      return;
+    }
+    if (act === "view") {
+      state.view = el.dataset.view;
+      render();
+      return;
+    }
+    if (act === "research") {
+      state.research = !state.research;
+      render();
+      return;
+    }
+    if (act === "reset") {
+      stopTimer();
+      state = START();
+      render();
+      toast("Reset — ready for the next test session");
+      return;
+    }
+    if (act === "jump") {
+      const to = el.dataset.to;
+      if (!state.checkpoints.length) generate();
+      state.published = true;
+      if (to === "submitted" || to === "released") state.submitted = true;
+      if (to === "released") {
+        const demo = { "CP-01": "met", "CP-02": "met", "CP-03": "miss", "CP-04": "met", "CP-05": "miss" };
+        state.checkpoints.forEach((c) => {
+          state.marks[c.id] = demo[c.id] || "met";
+          if (state.marks[c.id] !== "met") state.comments[c.id] = c.flaw;
+        });
+        state.released = true;
+      }
+      render();
+      toast("Jumped to: " + to);
+      return;
+    }
+    if (act === "generate") {
+      generate();
+      render();
+      toast(state.checkpoints.length + " checkpoints drafted — edit before publishing");
+      return;
+    }
+    if (act === "addcp") {
+      const n = state.checkpoints.length + 1;
+      state.checkpoints.push({
+        id: "CP-" + String(n).padStart(2, "0"),
+        title: "New checkpoint",
+        criterion: "Custom",
+        clause: "Describe what a script must show to meet this checkpoint.",
+        good: "Describe what good looks like.",
+        flaw: "Describe the flaw you expect to see.",
+        why: "",
+        action: "Describe what the student should do differently.",
+        para: Math.min(n, state.draft.length),
+        visible: true,
+      });
+      render();
+      return;
+    }
+    if (act === "removecp") {
+      state.checkpoints = state.checkpoints.filter((c) => c.id !== cp);
+      render();
+      return;
+    }
+    if (act === "publish") {
+      if (!state.checkpoints.length) return;
+      state.published = true;
+      render();
+      toast("Published — students can see the standards now");
+      return;
+    }
+    if (act === "selfcheck") return; // handled on change
+    if (act === "runcheck") {
+      const text = document.getElementById("checkText").value;
+      const id = document.getElementById("checkCp").value;
+      const c = cpById(id);
+      const out = document.getElementById("checkOut");
+      if (!text.trim()) {
+        out.innerHTML = `<p class="callout">Paste a paragraph first.</p>`;
+        return;
+      }
+      const res = structureCheck(text, c);
+      out.innerHTML = `<div class="panel-quiet stack-sm" style="margin-top:10px">
+          <p class="label">${c.id} · ${esc(c.criterion)} · ${res.words} words</p>
+          ${res.checks
+            .map(
+              ([pass, label, ask]) =>
+                `<p class="small"><span class="pill ${pass ? "met" : "partly"}">${
+                  pass ? "Present" : "Not found"
+                }</span> ${esc(label)}${pass ? "" : ` — <span class="muted">${esc(ask)}</span>`}</p>`
+            )
+            .join("")}
+          <p class="tiny">Structure only. Whether the content is any good is your tutor's judgement, not this app's.</p>
+        </div>`;
+      return;
+    }
+    if (act === "submit") {
+      state.submitted = true;
+      state.view = "prepare";
+      render();
+      toast("Submitted — switch to the tutor role to mark it");
+      return;
+    }
+    if (act === "verdict") {
+      const v = el.dataset.v;
+      state.marks[cp] = v;
+      const c = cpById(cp);
+      if (v !== "met" && !state.comments[cp]) state.comments[cp] = c.flaw;
+      if (v === "met") delete state.comments[cp];
+      render();
+      return;
+    }
+    if (act === "release") {
+      state.released = true;
+      state.markElapsed = Math.floor((Date.now() - state.markStart) / 1000) + state.markElapsed;
+      stopTimer();
+      render();
+      toast(`Released — ${Math.floor(state.markElapsed / 60)}m ${state.markElapsed % 60}s on this script`);
+      return;
+    }
+    if (act === "ask") {
+      const c = cpById(cp);
+      state.questions.push({
+        id: "q" + Date.now(),
+        cp: cp,
+        from: "You",
+        text: `Can you explain what you meant on ${cp}? I am not sure what to change.`,
+        draft: c.action,
+        answered: false,
+      });
+      render();
+      toast("Question sent — it arrives attached to " + cp);
+      return;
+    }
+    if (act === "dispute") {
+      state.disputed[cp] = true;
+      state.questions.push({
+        id: "d" + Date.now(),
+        cp: cp,
+        from: "You (disagreement)",
+        text: `I don't think ${cp} applies to my submission — can you point at where you saw it?`,
+        draft: `Looking again at paragraph ${cpById(cp).para}.`,
+        answered: false,
+      });
+      render();
+      toast("Flagged. Disagreements go to the tutor, and are counted.");
+      return;
+    }
+    if (act === "apply") {
+      state.applied[cp] = true;
+      render();
+      toast("Marked as applied — it stops carrying forward");
+      return;
+    }
+    if (act === "send") {
+      const q = state.questions.find((x) => x.id === el.dataset.q);
+      const ta = document.querySelector(`[data-act='answer'][data-q='${el.dataset.q}']`);
+      q.answer = ta ? ta.value : q.draft;
+      q.answered = true;
+      q.seconds = 20 + Math.floor(Math.random() * 25);
+      render();
+      toast("Sent in " + q.seconds + "s — you never reopened the assignment");
+      return;
+    }
+    if (act === "savehandover") {
+      render();
+      toast("Attached to the checkpoint set for next semester");
+      return;
+    }
+  });
+
+  document.addEventListener("change", (e) => {
+    const el = e.target.closest("[data-act]");
+    if (!el) return;
+    if (el.dataset.act === "selfcheck") {
+      state.selfCheck[el.dataset.cp] = el.checked;
+      const done = state.checkpoints.filter((c) => state.selfCheck[c.id]).length;
+      const n = document.querySelector(".spread .num");
+      if (n) n.textContent = `${done} / ${state.checkpoints.length} self-checked`;
+      return;
+    }
+    if (el.dataset.act === "cpvisible") {
+      const c = cpById(el.dataset.cp);
+      c.visible = el.checked;
+      render();
+      return;
+    }
+  });
+
+  document.addEventListener("input", (e) => {
+    const el = e.target.closest("[data-act]");
+    if (!el) return;
+    const act = el.dataset.act;
+    if (act === "brief") state.brief = el.value;
+    if (act === "cptitle") cpById(el.dataset.cp).title = el.value;
+    if (act === "cpflaw") cpById(el.dataset.cp).flaw = el.value;
+    if (act === "comment") state.comments[el.dataset.cp] = el.value;
+    if (act === "handover") state.handover = el.value;
+    if (act === "answer") {
+      const q = state.questions.find((x) => x.id === el.dataset.q);
+      if (q) q.draft = el.value;
+    }
+  });
+
+  function generate() {
+    state.checkpoints = TEMPLATE.map((c) => Object.assign({}, c, { visible: true }));
+  }
+
+  render();
+</script>
+
+</body></html>

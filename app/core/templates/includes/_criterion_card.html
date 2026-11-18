@@ -1,0 +1,18 @@
+{% comment %}
+  Read-only criterion card — the "still open" list on the student dashboard
+  and anywhere a criterion is shown without controls.
+
+  criterion     needs .title, .capability_name, .what_to_do, optional .sfia_code
+  verdict       "met" | "partly" | "not_met" | None
+  open_since    optional assessment title, e.g. "Assignment 1"
+
+  The last line is the rule the coordinator asked for, stated to the student
+  on the screen rather than buried in help text: only a marker can close it.
+{% endcomment %}
+<article class="crit">
+  {% include "includes/_criterion_head.html" with criterion=criterion verdict=verdict %}
+  <p class="sm muted">{{ criterion.what_to_do }}</p>
+  {% if open_since %}
+    <p class="xs">Open since {{ open_since }} · closes when a marker next judges it met. You can't close it yourself.</p>
+  {% endif %}
+</article>

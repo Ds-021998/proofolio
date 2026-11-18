@@ -1,0 +1,722 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}</style></head><body>
+<title>Where the Gaps Are</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+
+<style>
+:root {
+  --ground: #FCFAF9;
+  --surface: #FFFFFF;
+  --sunk: #F4F0EE;
+  --ink: #1A1614;
+  --ink-soft: #574E4B;
+  --ink-faint: #877D79;
+  --rule: #E4DDD9;
+  --rule-strong: #CFC5C0;
+  --accent: #C5192D;
+  --accent-soft: #FAEAEC;
+  --strong: #1C6349;
+  --caution: #8A5A1A;
+  --weak: #8B817D;
+  --shadow: 0 1px 2px rgba(26,22,20,.05);
+
+  --f-display: "Newsreader", Georgia, "Times New Roman", serif;
+  --f-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #141110;
+    --surface: #1D1917;
+    --sunk: #262120;
+    --ink: #F2ECE9;
+    --ink-soft: #B3A8A3;
+    --ink-faint: #857A76;
+    --rule: #332C2A;
+    --rule-strong: #473E3B;
+    --accent: #F2707F;
+    --accent-soft: #381D21;
+    --strong: #6BC69C;
+    --caution: #DCA950;
+    --weak: #8B807C;
+    --shadow: 0 1px 2px rgba(0,0,0,.3);
+  }
+}
+
+:root[data-theme="dark"] {
+  --ground: #141110;
+  --surface: #1D1917;
+  --sunk: #262120;
+  --ink: #F2ECE9;
+  --ink-soft: #B3A8A3;
+  --ink-faint: #857A76;
+  --rule: #332C2A;
+  --rule-strong: #473E3B;
+  --accent: #F2707F;
+  --accent-soft: #381D21;
+  --strong: #6BC69C;
+  --caution: #DCA950;
+  --weak: #8B807C;
+  --shadow: 0 1px 2px rgba(0,0,0,.3);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--f-body);
+  font-size: 16.5px;
+  line-height: 1.62;
+  margin: 0;
+  padding: 0 1.5rem 6rem;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap {
+  max-width: 52rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 3.25rem;
+}
+
+.prose { max-width: 38rem; }
+
+p { margin: 0 0 1rem; }
+p:last-child { margin-bottom: 0; }
+
+a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+
+em { font-style: italic; }
+
+.eyebrow {
+  font-family: var(--f-mono);
+  font-size: .705rem;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin: 0;
+}
+
+header.masthead {
+  padding-top: 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+h1 {
+  font-family: var(--f-display);
+  font-weight: 500;
+  font-size: clamp(2.5rem, 6.5vw, 3.9rem);
+  line-height: 1.03;
+  letter-spacing: -.02em;
+  margin: 0;
+  text-wrap: balance;
+}
+
+.standfirst {
+  font-family: var(--f-display);
+  font-size: clamp(1.12rem, 2.4vw, 1.32rem);
+  line-height: 1.5;
+  color: var(--ink-soft);
+  max-width: 34rem;
+  margin: 0;
+}
+
+.meta-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--rule);
+  font-family: var(--f-mono);
+  font-size: .72rem;
+  letter-spacing: .05em;
+  color: var(--ink-faint);
+}
+.meta-strip b { color: var(--ink-soft); font-weight: 500; }
+
+section { display: flex; flex-direction: column; gap: 1.5rem; }
+
+h2 {
+  font-family: var(--f-display);
+  font-weight: 500;
+  font-size: clamp(1.6rem, 3.4vw, 2.1rem);
+  line-height: 1.15;
+  letter-spacing: -.015em;
+  margin: 0;
+  text-wrap: balance;
+}
+
+.sec-head { display: flex; flex-direction: column; gap: .45rem; }
+
+h3 { font-family: var(--f-body); font-weight: 600; font-size: 1rem; margin: 0; }
+
+/* ---------- areas ---------- */
+
+.areas { display: flex; flex-direction: column; gap: 1.5rem; }
+
+article.area {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  box-shadow: var(--shadow);
+  padding: 1.7rem 1.6rem 1.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.3rem;
+}
+
+.area-head {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: .2rem 1rem;
+  align-items: baseline;
+  padding-bottom: 1.15rem;
+  border-bottom: 1px solid var(--rule);
+}
+.tag {
+  font-family: var(--f-display);
+  font-size: 1.9rem;
+  line-height: 1;
+  font-weight: 500;
+  color: var(--accent);
+}
+.area-head h3 { font-size: 1.22rem; line-height: 1.28; align-self: center; }
+.area-who {
+  grid-column: 2;
+  font-family: var(--f-mono);
+  font-size: .715rem;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.block { display: flex; flex-direction: column; gap: .5rem; }
+.block > .lbl {
+  font-family: var(--f-mono);
+  font-size: .685rem;
+  letter-spacing: .11em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.block p, .block li { font-size: .955rem; color: var(--ink-soft); }
+.block ul { margin: 0; padding-left: 1.15rem; display: flex; flex-direction: column; gap: .5rem; }
+.block li strong { color: var(--ink); font-weight: 600; }
+
+.gap-block {
+  background: var(--sunk);
+  border-left: 2px solid var(--accent);
+  padding: .85rem 1rem;
+}
+.gap-block > .lbl { color: var(--accent); }
+.gap-block p { color: var(--ink); }
+
+.chips { display: flex; flex-wrap: wrap; gap: .4rem; }
+.chip {
+  font-family: var(--f-mono);
+  font-size: .705rem;
+  letter-spacing: .02em;
+  padding: .2rem .5rem;
+  border: 1px solid var(--rule-strong);
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+.chip.hot { color: var(--accent); border-color: var(--accent); }
+
+.watch {
+  font-size: .93rem;
+  color: var(--ink-soft);
+  border-top: 1px dashed var(--rule-strong);
+  padding-top: .85rem;
+}
+.watch b { color: var(--ink); font-weight: 600; }
+
+/* ---------- served list ---------- */
+
+.served {
+  border: 1px solid var(--rule);
+  background: var(--surface);
+  display: grid;
+  gap: 1px;
+  background: var(--rule);
+  border-color: var(--rule);
+}
+.served-row {
+  background: var(--surface);
+  padding: .95rem 1.15rem;
+  display: grid;
+  grid-template-columns: 13rem 1fr;
+  gap: .2rem 1.1rem;
+}
+.served-row .s-name { font-weight: 600; font-size: .95rem; }
+.served-row .s-why { color: var(--ink-soft); font-size: .93rem; }
+@media (max-width: 36rem) {
+  .served-row { grid-template-columns: 1fr; }
+}
+
+/* ---------- agenda ---------- */
+
+ol.steps { list-style: none; counter-reset: s; margin: 0; padding: 0; }
+ol.steps li {
+  counter-increment: s;
+  display: grid;
+  grid-template-columns: 3.6rem 1fr;
+  gap: .2rem 1rem;
+  padding: 1.05rem 0;
+  border-top: 1px solid var(--rule);
+}
+ol.steps li:last-child { border-bottom: 1px solid var(--rule); }
+ol.steps li::before {
+  content: attr(data-t);
+  font-family: var(--f-mono);
+  font-size: .74rem;
+  color: var(--accent);
+  padding-top: .22rem;
+  font-variant-numeric: tabular-nums;
+}
+ol.steps .st { font-weight: 600; }
+ol.steps .sd { grid-column: 2; color: var(--ink-soft); font-size: .95rem; }
+
+.sources {
+  border-top: 1px solid var(--rule);
+  padding-top: 1.25rem;
+  font-size: .875rem;
+  color: var(--ink-soft);
+}
+.sources ul { margin: .6rem 0 0; padding-left: 1.1rem; display: flex; flex-direction: column; gap: .35rem; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
+</style>
+
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">COMP7110 · Team discussion document · SDG 4</p>
+  <h1>Where the gaps are</h1>
+  <p class="standfirst">Six areas inside quality education, each with the gap that's actually open, the approaches worth arguing about, the design constraints that will shape whatever you build, and the incumbents you'd be walking into.</p>
+  <div class="meta-strip">
+    <span><b>Letters, not ranks</b> A–F are handles for discussion</span>
+    <span><b>Decide by</b> 27 Aug</span>
+  </div>
+</header>
+
+<section>
+  <div class="sec-head">
+    <p class="eyebrow">Before you read</p>
+    <h2>How to use this without wasting the meeting</h2>
+  </div>
+  <div class="prose">
+    <p>Everything below is a <em>hypothesis</em>. The competitor lists are real, the design considerations are real, but the gaps are my best guess at what's unaddressed — and guesses are what interviews are for. Nothing here substitutes for talking to people.</p>
+    <p>The letters A–F are labels so your team can say &ldquo;let's argue about D&rdquo; without repeating a paragraph. They carry no ranking.</p>
+    <p>One rule for the discussion: whenever someone likes an area, make them name the person they'd interview <em>this week</em>. An area nobody can produce a name for is not a candidate, however interesting it sounds.</p>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <p class="eyebrow">The six</p>
+    <h2>Areas worth arguing about</h2>
+  </div>
+
+  <div class="areas">
+
+    <!-- A -->
+    <article class="area">
+      <div class="area-head">
+        <span class="tag">A</span>
+        <h3>What do you assess when a model can do the assignment?</h3>
+        <span class="area-who">Interview: tutors, course coordinators, sessional markers</span>
+      </div>
+
+      <div class="block gap-block">
+        <span class="lbl">The gap</span>
+        <p>Detection has largely failed and educators know it. The unsolved part isn't catching AI use — it's that every educator is privately reinventing what a valid assessment looks like, with no shared practice and no way to compare notes. Two tutors in the same course can hold opposite positions and neither knows.</p>
+      </div>
+
+      <div class="block">
+        <span class="lbl">Approaches to weigh</span>
+        <ul>
+          <li><strong>Process evidence over product evidence.</strong> Judge the trajectory — drafts, revisions, commit history — rather than the final artifact.</li>
+          <li><strong>Marker calibration.</strong> When markers disagree about a suspect submission, surface the divergence and reconcile it before anyone is accused.</li>
+          <li><strong>Assessment redesign support.</strong> Help a coordinator convert an existing task into one that survives AI, from a library of patterns that worked elsewhere.</li>
+          <li><strong>Verification at the point of doubt.</strong> A lightweight check triggered only for the small number of ambiguous cases, rather than for everyone.</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <span class="lbl">Design considerations</span>
+        <ul>
+          <li>The harm is asymmetric — a false accusation damages a student far more than a missed case damages the university. Any signal must be advisory, never determinative.</li>
+          <li>Process capture reads as surveillance unless the student controls it. Who sees the draft history, and can they opt out?</li>
+          <li>Atypical writing is not evidence. ESL students, autistic students, and people using assistive tech all write &ldquo;unusually&rdquo; and get flagged disproportionately.</li>
+          <li>It has to live inside Blackboard or Canvas. A separate tool students must remember to open is dead on arrival.</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <span class="lbl">Challenges</span>
+        <ul>
+          <li>Academic integrity is policy-governed and legally sensitive; the university, not the tutor, decides adoption.</li>
+          <li>Teams drift back into building a detector because it's the concrete-feeling option. It is a losing race.</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <span class="lbl">Competitors to assess</span>
+        <div class="chips">
+          <span class="chip hot">Cadmus</span><span class="chip">Turnitin</span><span class="chip">GPTZero</span><span class="chip">Grammarly Authorship</span><span class="chip">Gradescope</span><span class="chip">Inspera</span><span class="chip">Google Docs version history</span>
+        </div>
+      </div>
+
+      <p class="watch"><b>Check Cadmus first.</b> It's Australian, already deployed at UQ and other universities, does exactly the process-capture idea, and has launched scalable oral assessment. If your idea is a worse Cadmus, you need to know that in week two, not week ten.</p>
+    </article>
+
+    <!-- B -->
+    <article class="area">
+      <div class="area-head">
+        <span class="tag">B</span>
+        <h3>Feedback that arrives too late to be worth anything</h3>
+        <span class="area-who">Interview: tutors and students, in the same course, about the same assessment</span>
+      </div>
+
+      <div class="block gap-block">
+        <span class="lbl">The gap</span>
+        <p>Enormous effort goes into writing feedback that lands after the unit ends, when nothing can be done with it. The loop is open at both ends: the student never acts, and the tutor never learns whether the feedback helped. Existing tools optimise the <em>writing</em> of feedback and ignore what happens next.</p>
+      </div>
+
+      <div class="block">
+        <span class="lbl">Approaches to weigh</span>
+        <ul>
+          <li><strong>Feedback to next action.</strong> Convert a mark into one specific thing to do before the next assessment, and check whether they did it.</li>
+          <li><strong>Student response required.</strong> Make acknowledging and responding to feedback a small structural step, so the loop closes at least once.</li>
+          <li><strong>Cross-assessment memory.</strong> Show the tutor what this student was told last time — currently invisible, since markers rotate.</li>
+          <li><strong>Cohort-level misconception surfacing.</strong> Aggregate what went wrong across a cohort while there is still teaching time left to fix it.</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <span class="lbl">Design considerations</span>
+        <ul>
+          <li>Tutors are paid by the hour and casualised. Anything that adds a step will not be used, no matter how good it is.</li>
+          <li>The real incumbent is a shared spreadsheet and a group chat. Beat those, not the enterprise products.</li>
+          <li>Tone is load-bearing. Feedback that reads as automated is ignored or resented.</li>
+          <li>Sessional tutors often lack the authority to adopt anything — you may be designing for someone who cannot say yes.</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <span class="lbl">Challenges</span>
+        <ul>
+          <li>LMS integration is genuinely hard and Blackboard is not friendly to student projects. Plan the prototype boundary carefully.</li>
+          <li>Measuring &ldquo;did feedback help&rdquo; inside one semester is close to impossible — don't promise it.</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <span class="lbl">Competitors to assess</span>
+        <div class="chips">
+          <span class="chip">Gradescope</span><span class="chip">Turnitin Feedback Studio</span><span class="chip">Canvas SpeedGrader</span><span class="chip">FeedbackFruits</span><span class="chip">Blackboard rubrics</span><span class="chip hot">a shared spreadsheet</span>
+        </div>
+      </div>
+
+      <p class="watch"><b>The interview to run:</b> ask a student to open feedback they received last semester. Watch whether they can find it. That moment tells you more than an hour of discussion.</p>
+    </article>
+
+    <!-- C -->
+    <article class="area">
+      <div class="area-head">
+        <span class="tag">C</span>
+        <h3>The rules nobody writes down</h3>
+        <span class="area-who">Interview: international students in their first or second semester</span>
+      </div>
+
+      <div class="block gap-block">
+        <span class="lbl">The gap</span>
+        <p>Universities publish policies but not norms. How to email a lecturer, what consultation hours are for, when helping a classmate becomes collusion, whether disagreeing with a marker is acceptable — domestic students absorb this invisibly. International students don't, and pay in marks, missed help, and integrity referrals. Orientation covers none of it because it isn't written anywhere.</p>
+      </div>
+
+      <div class="block">
+        <span class="lbl">Approaches to weigh</span>
+        <ul>
+          <li><strong>Just-in-time norms.</strong> Surface the relevant rule at the moment of action — before sending the email, before submitting — not in a week-one induction nobody remembers.</li>
+          <li><strong>Course-specific integrity self-check.</strong> &ldquo;Is what I'm about to do collusion <em>in this course</em>?&rdquo; answered against the actual rules for that assessment.</li>
+          <li><strong>Peer-sourced norm repository.</strong> Written by students who have been through it, with provenance so readers can judge reliability.</li>
+          <li><strong>Rehearsal.</strong> Practise the awkward interaction — asking for an extension, challenging a mark — before doing it for real.</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <span class="lbl">Design considerations</span>
+        <ul>
+          <li>Avoid deficit framing at all costs. The premise must be &ldquo;these rules are unwritten,&rdquo; never &ldquo;you don't know things.&rdquo;</li>
+          <li>Anonymity is non-negotiable. A student will not ask an institutional tool whether something counts as cheating if they fear being logged.</li>
+          <li>Rules genuinely vary by course and by marker. Generic advice is worse than none — it produces confident mistakes.</li>
+          <li>Content ages fast and someone has to maintain it. Design for that or it dies in a semester.</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <span class="lbl">Challenges</span>
+        <ul>
+          <li>Your hardest competitor is ChatGPT, which students already ask these questions and which answers plausibly but generically. Course-specificity and trust are the only defensible wedges.</li>
+          <li>The university may object to an unofficial interpretation of its own policy.</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <span class="lbl">Competitors to assess</span>
+        <div class="chips">
+          <span class="chip hot">ChatGPT</span><span class="chip">UQ orientation &amp; Learning Lab</span><span class="chip">Studiosity</span><span class="chip">course WhatsApp / WeChat groups</span><span class="chip">Reddit</span><span class="chip">student union services</span>
+        </div>
+      </div>
+
+      <p class="watch"><b>Watch your objectivity here.</b> If your team lives this problem, you'll be tempted to skip interviews because you already &ldquo;know.&rdquo; Your experience is one data point, and it is the one you'll over-weight.</p>
+    </article>
+
+    <!-- D -->
+    <article class="area">
+      <div class="area-head">
+        <span class="tag">D</span>
+        <h3>Group work fails socially before it fails technically</h3>
+        <span class="area-who">Interview: students mid-project, and tutors who arbitrate disputes</span>
+      </div>
+
+      <div class="block gap-block">
+        <span class="lbl">The gap</span>
+        <p>Existing peer-assessment tools run at the end, are punitive, and arrive after the damage is done. Nothing helps a team notice it is failing while there's still time. The tutor finds out at the complaint stage; the students knew in week four and said nothing.</p>
+      </div>
+
+      <div class="block">
+        <span class="lbl">Approaches to weigh</span>
+        <ul>
+          <li><strong>Up-front contracting.</strong> Structured role and expectation negotiation in week one, which is when disputes are cheap to prevent.</li>
+          <li><strong>Continuous micro check-ins</strong> replacing one end-of-project peer mark, so problems surface while they're small.</li>
+          <li><strong>Process signals as early warning</strong> — commit patterns, meeting attendance, response latency — shown to the <em>team</em>, not to the tutor.</li>
+          <li><strong>Mediation scaffolding.</strong> Give students the script for the conversation they're avoiding.</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <span class="lbl">Design considerations</span>
+        <ul>
+          <li>The same data is either support or surveillance depending entirely on who sees it. Decide that first, and defend the decision.</li>
+          <li>Anything that produces a score gets gamed and poisons trust within the team.</li>
+          <li>Conflict is expressed very differently across cultures — silence may mean disagreement, not consent. A tool that reads silence as agreement will mislead.</li>
+          <li>Effort must be near zero. Students in a failing team have the least energy to spend on a check-in form.</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <span class="lbl">Challenges</span>
+        <ul>
+          <li>Students distrust anything that evaluates them, and the people most affected have the least incentive to report early.</li>
+          <li>This space has real, entrenched tools — being merely better is not enough.</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <span class="lbl">Competitors to assess</span>
+        <div class="chips">
+          <span class="chip">SPARKPLUS</span><span class="chip">Buddycheck</span><span class="chip">CATME</span><span class="chip">TEAMMATES</span><span class="chip">FeedbackFruits</span><span class="chip">GitHub Insights</span>
+        </div>
+      </div>
+
+      <p class="watch"><b>You are living this problem right now.</b> That's an advantage for insight and a trap for objectivity — and be careful that a tool measuring contribution doesn't become a tool your own team is judged by.</p>
+    </article>
+
+    <!-- E -->
+    <article class="area">
+      <div class="area-head">
+        <span class="tag">E</span>
+        <h3>Placement students, unpaid and unsupported</h3>
+        <span class="area-who">Interview: nursing, education, social work students on or just off placement</span>
+      </div>
+
+      <div class="block gap-block">
+        <span class="lbl">The gap</span>
+        <p>Mandatory unpaid placements create real financial hardship — the Commonwealth Prac Payment now exists but is means-tested and doesn't reach everyone. Around that sits a mess of coordination: hour logging, supervisor sign-off, wildly variable supervision quality, and isolation from your cohort. The enterprise systems serve the <em>university's</em> compliance needs, not the student's experience.</p>
+      </div>
+
+      <div class="block">
+        <span class="lbl">Approaches to weigh</span>
+        <ul>
+          <li><strong>The student side of placement logistics</strong> — hours, documentation, sign-offs — which existing systems handle from the institution's perspective only.</li>
+          <li><strong>Financial navigation.</strong> Which supports exist, what you're eligible for, what the placement will actually cost you before you commit.</li>
+          <li><strong>Supervision quality signals.</strong> Students have no idea what they're walking into; past students know exactly.</li>
+          <li><strong>Cohort connection during placement,</strong> when students are scattered across sites and isolated.</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <span class="lbl">Design considerations</span>
+        <ul>
+          <li>Clinical and school settings have strict data and device rules — a phone may not be usable on the ward or in the classroom.</li>
+          <li>Three parties with different interests: student, university, host provider. Whose tool is it?</li>
+          <li>Supervisors are extremely time-poor and are doing this on top of a full job.</li>
+          <li>Rating a placement site publicly has consequences for a student who has to go back there tomorrow.</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <span class="lbl">Challenges</span>
+        <ul>
+          <li>These students aren't in your faculty — access takes real effort, and placement periods are intense, so timing matters.</li>
+          <li>Regulated environments limit what a prototype can plausibly touch.</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <span class="lbl">Competitors to assess</span>
+        <div class="chips">
+          <span class="chip hot">InPlace</span><span class="chip">Sonia</span><span class="chip">Symplicity</span><span class="chip">university ePortfolios</span><span class="chip">paper logbooks</span>
+        </div>
+      </div>
+
+      <p class="watch"><b>Most under-built area on this list.</b> InPlace runs a large share of Australian university placements and is built for administrators. Ask a placement student what they think of it — the answer is usually vivid.</p>
+    </article>
+
+    <!-- F -->
+    <article class="area">
+      <div class="area-head">
+        <span class="tag">F</span>
+        <h3>Every semester, the teaching starts from zero</h3>
+        <span class="area-who">Interview: sessional tutors, especially first-time ones</span>
+      </div>
+
+      <div class="block gap-block">
+        <span class="lbl">The gap</span>
+        <p>Casual tutors are hired semester to semester with slides but no know-how. Which question always confuses students, what the common wrong answer means, how to handle the thing that goes wrong in week seven — all of it lives in the head of whoever taught last time, and walks out the door with them.</p>
+      </div>
+
+      <div class="block">
+        <span class="lbl">Approaches to weigh</span>
+        <ul>
+          <li><strong>Misconception library tied to specific assessment items,</strong> accumulating across semesters instead of resetting.</li>
+          <li><strong>Capture as byproduct.</strong> Harvest the knowledge from what tutors already write — forum answers, feedback comments — rather than asking them to author documentation.</li>
+          <li><strong>Structured handover</strong> at semester end, small enough that a departing tutor will actually do it.</li>
+          <li><strong>Peer channel between tutors</strong> teaching the same course in parallel, who currently rarely talk.</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <span class="lbl">Design considerations</span>
+        <ul>
+          <li>Nobody has time to write documentation. If it isn't a byproduct of work already happening, it will not exist.</li>
+          <li>A departing casual tutor has close to zero incentive to help their replacement. Solve the incentive or the content never appears.</li>
+          <li>Teaching material ownership and IP is contested between staff and institution.</li>
+          <li>Cold start is brutal — an empty library helps nobody, and the first semester has no content.</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <span class="lbl">Challenges</span>
+        <ul>
+          <li>The contribution incentive problem is the whole project. If your idea doesn't answer it, you don't have one.</li>
+          <li>Value is invisible within a single semester, which is the only window you have to demonstrate it.</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <span class="lbl">Competitors to assess</span>
+        <div class="chips">
+          <span class="chip">Notion / Confluence pages</span><span class="chip">shared drives</span><span class="chip">Ed Discussion</span><span class="chip">Piazza archives</span><span class="chip hot">the coordinator's memory</span>
+        </div>
+      </div>
+
+      <p class="watch"><b>Hardest of the six.</b> The problem is real and the incentive structure is genuinely hostile. Pick it only if the incentive question excites rather than worries you.</p>
+    </article>
+
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <p class="eyebrow">Avoid</p>
+    <h2>Looks open. Isn't.</h2>
+  </div>
+  <div class="prose">
+    <p>These attract student teams every semester because they're easy to imagine. Each is either dominated by an incumbent, structurally impossible at your scale, or both. If someone proposes one, this is the counter-argument.</p>
+  </div>
+  <div class="served">
+    <div class="served-row">
+      <span class="s-name">AI tutor / study chatbot</span>
+      <span class="s-why">Every LMS vendor shipped one, and the base models do it free. You cannot differentiate in ten weeks.</span>
+    </div>
+    <div class="served-row">
+      <span class="s-name">Flashcards &amp; spaced repetition</span>
+      <span class="s-why">Anki and Quizlet own this completely, and the underlying algorithm is a solved problem.</span>
+    </div>
+    <div class="served-row">
+      <span class="s-name">Lecture note summarisation</span>
+      <span class="s-why">A feature of every model, not a product. Also an unclear benefit — summarising is much of the learning.</span>
+    </div>
+    <div class="served-row">
+      <span class="s-name">Study planner / habit tracker</span>
+      <span class="s-why">A graveyard. Everyone downloads one, nobody opens it twice. The problem is motivation, not scheduling.</span>
+    </div>
+    <div class="served-row">
+      <span class="s-name">Peer tutoring marketplace</span>
+      <span class="s-why">Two-sided cold start you cannot solve by November, plus Studiosity and existing university programs.</span>
+    </div>
+    <div class="served-row">
+      <span class="s-name">Plagiarism / AI detection</span>
+      <span class="s-why">Turnitin's territory, accuracy is contested, and false positives cause real harm. A losing race.</span>
+    </div>
+    <div class="served-row">
+      <span class="s-name">Course material accessibility fixes</span>
+      <span class="s-why">A genuine compliance gap, but Blackboard Ally and similar already sit in the institutional workflow.</span>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <p class="eyebrow">Sixty minutes</p>
+    <h2>Run the meeting like this</h2>
+  </div>
+  <ol class="steps">
+    <li data-t="0–10">
+      <span class="st">Silent read, no talking</span>
+      <span class="sd">Everyone reads all six and privately writes their top two. Talking first means the loudest voice sets the frame.</span>
+    </li>
+    <li data-t="10–20">
+      <span class="st">Reveal and count</span>
+      <span class="sd">Where you agreed, note it. Where you split, that's the actual agenda — spend the time there.</span>
+    </li>
+    <li data-t="20–40">
+      <span class="st">Name a person per area, out loud</span>
+      <span class="sd">For each surviving area, someone must name a real human they can contact this week. No name, no candidate. This kills two or three immediately.</span>
+    </li>
+    <li data-t="40–50">
+      <span class="st">Assign the competitor check</span>
+      <span class="sd">One person per surviving area, thirty minutes each before the next meeting. Answer one question: does something already do this well?</span>
+    </li>
+    <li data-t="50–60">
+      <span class="st">Book the interviews before you leave</span>
+      <span class="sd">Not &ldquo;we'll reach out.&rdquo; Messages sent from the room. This is the only step that reliably distinguishes teams that finish from teams that don't.</span>
+    </li>
+  </ol>
+</section>
+
+<section class="sources">
+  <p class="eyebrow">Sources</p>
+  <ul>
+    <li><a href="https://cadmus.io/news/introducing-cadmus-oral-assessment-scalable-assurance-for-an-aienabled-world/">Cadmus Oral Assessment — scalable assurance for an AI-enabled world</a></li>
+    <li><a href="https://lms.unimelb.edu.au/learning-technologies/cadmus">Cadmus in the LMS — University of Melbourne</a></li>
+    <li><a href="https://inplacesoftware.com/news/the-placement-software-for-top-50-universities-worldwide/">InPlace — placement software footprint</a></li>
+    <li><a href="https://www.education.gov.au/commonwealth-prac-payment-cpp">Commonwealth Prac Payment — Department of Education</a></li>
+    <li><a href="https://theconversation.com/what-does-the-new-commonwealth-prac-payment-mean-for-students-will-it-do-enough-to-end-placement-poverty-229280">Will the Commonwealth Prac Payment end &lsquo;placement poverty&rsquo;? — The Conversation</a></li>
+    <li><a href="https://study.uq.edu.au/stories/commonwealth-prac-payment">Commonwealth Prac Payment at UQ</a></li>
+  </ul>
+</section>
+
+</div>
+
+</body></html>

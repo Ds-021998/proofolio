@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% block title %}Marking{% endblock %}
+
+{% comment %}
+  Tutor — mark one script.
+
+  Context
+    submission        .id .text_paragraphs (list of strings) .position .cohort_size
+    criteria          each annotated:
+                        .verdict      current judgement, or None
+                        .comment      prefilled from Criterion.prefilled_comment
+                        .indicator    this tutor's indicator text, or ""
+                        .pointer      what the student pointed at, or ""
+                        .para_number
+                        .is_flagged
+    judged_count
+    can_release       judged_count == criteria|length
+
+  ACCESS CONTROL — the view behind this page must:
+    1. be @login_required
+    2. check request.user is in the "tutor" or "coordinator" group
+    3. filter the submission to this tutor's assigned group
+  A judgement written by anyone else is the one thing this product cannot allow.
+
+  NO TIMER IS SHOWN HERE. Time accrues server-side on the Submission and
+  surfaces only in this tutor's own "My time" page, in aggregate. Participants
+  read a visible timer as surveillance; the number is still useful to the
+  tutor claiming hours, so we keep the number and drop the watching.
+{% endcomment %}
+
+{% block content %}
+<div class="head">
+  <p class="kicker">Script {{ submission.position }} of {{ submission.cohort_size }} · anonymous</p>
+  <h2>Judge, don't type</h2>
+  <p>The comment you wrote once at setup attaches itself. Edit only where this script differs.</p>
+</div>
+
+<form method="post" class="stack">
+  {% csrf_token %}
+
+  <div class="card stack-sm">
+    <div class="spread">
+      <h3 style="font-weight:600;font-size:15px">Submission</h3>
+      <span class="xs">{{ judged_count }}/{{ criteria|length }} judged</span>
+    </div>
+    <div class="script">
+      {% for p in submission.text_paragraphs %}
+        <div class="para" data-flag="{% if p.flagged %}true{% else %}false{% endif %}">
+          <b>P{{ forloop.counter }}</b>
+          <p>{{ p.text }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  {% for c in criteria %}
+    <article class="crit">
+      {% include "includes/_criterion_head.html" with criterion=c verdict=c.verdict meta=c.para_label %}
+
+      {% if c.pointer %}
+        <p class="xs">Student points to: {{ c.pointer }}</p>
+      {% endif %}
+
+      {% include "includes/_verdict_control.html" with criterion=c verdict=c.verdict %}
+
+      {% if c.verdict and c.verdict != "met" %}
+        <div class="field">
+          <label class="lbl" for="cmt-{{ c.id }}">Goes to the student — edit if this script needs something different</label>
+          <textarea id="cmt-{{ c.id }}" name="comment-{{ c.id }}" rows="3">{{ c.comment }}</textarea>
+        </div>
+        <div class="field">
+          <label class="lbl" for="ind-{{ c.id }}">Seen a new way students get this wrong? (optional, once)</label>
+          <input type="text" id="ind-{{ c.id }}" name="indicator-{{ c.id }}" value="{{ c.indicator }}"
+                 placeholder="Add an indicator for next semester's markers"
+                 aria-describedby="ind-help-{{ c.id }}">
+          <p class="xs" id="ind-help-{{ c.id }}">Attaches to the criterion, not to you or to this student.</p>
+        </div>
+      {% endif %}
+    </article>
+  {% endfor %}
+
+  <button class="btn s full" type="submit" name="action" value="save">Save judgements</button>
+
+  {# Deliberately NOT disabled. can_release reflects what was judged when the
+     page loaded, and with no JavaScript the radios you just clicked cannot
+     re-enable a disabled button — the marker would have to Save, wait for a
+     reload, then Release, which nobody would guess. The POST handler saves
+     every judgement in the form before it counts them, so judging all five
+     and pressing Release works in one step. Miss one and the server says so. #}
+  <button class="btn brand full" type="submit" name="action" value="release"
+          aria-describedby="release-help">
+    Release feedback
+  </button>
+  <p class="xs center" id="release-help">
+    Judging all {{ criteria|length }} releases the feedback — a partial release puts the student
+    back to guessing.
+  </p>
+</form>
+{% endblock %}

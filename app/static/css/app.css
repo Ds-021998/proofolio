@@ -1,0 +1,1055 @@
+/* =========================================================================
+   Proofolio — application stylesheet
+   Ported from the tested prototype (proofolio-prototype-v2.html).
+   Thundering Qilins · COMP7110
+
+   Sections
+     1.  Theme tokens (light + dark)
+     2.  Reset and base type
+     3.  Accessibility utilities
+     4.  App shell: stage, app, top bar, nav
+     5.  Layout helpers
+     6.  Cards, hero, meter
+     7.  Chips and attestation badge
+     8.  Criterion card
+     9.  Buttons and the verdict control
+     10. Forms
+     11. Bars, timeline, script view
+     12. Notes, empty states, messages
+     13. Login page
+     14. Print and reduced motion
+   ========================================================================= */
+
+/* ---------- 1. Theme tokens -------------------------------------------- */
+
+:root {
+  --ground: #f3f7fd;
+  --surface: #ffffff;
+  --surface-2: #f7faff;
+  --surface-3: #eaf1fb;
+  --line: #dde6f2;
+  --line-2: #c6d4e6;
+  --ink: #0b1a2e;
+  --ink-2: #44566e;
+  --ink-3: #566780; /* darkened from the prototype's #7e8b85, which was 3.6:1 */
+
+  --brand: #0b63d6;
+  --brand-2: #3f8ef0;
+  --brand-soft: #e2edfe;
+  --brand-line: #b9d4f7;
+
+  --ok: #0b63d6;
+  --ok-soft: #e2edfe;
+  --open: #8f6708; /* darkened from #b5820c, which was 3.0:1 on --open-soft */
+  --open-soft: #fbf1d8;
+  --miss: #a1293c;
+  --miss-soft: #fae7ea;
+  --info: #1f5e8c;
+  --info-soft: #e5eff6;
+
+  --r-sm: 10px;
+  --r: 14px;
+  --r-lg: 20px;
+  --sh-1: 0 1px 2px rgba(11, 26, 46, 0.05);
+  --sh-2: 0 1px 2px rgba(11, 26, 46, 0.05), 0 10px 26px -18px rgba(11, 26, 46, 0.45);
+  --sh-3: 0 2px 4px rgba(11, 26, 46, 0.06), 0 22px 44px -26px rgba(11, 26, 46, 0.55);
+
+  --ui: "Schibsted Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --display: "Bricolage Grotesque", "Schibsted Grotesk", sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #070b12;
+    --surface: #0e1620;
+    --surface-2: #141d2a;
+    --surface-3: #1b2636;
+    --line: #243040;
+    --line-2: #34455c;
+    --ink: #e9f1fb;
+    --ink-2: #a7b6c9;
+    --ink-3: #8d9db2;
+    --brand: #6aaaf5;
+    --brand-2: #8fc4f8;
+    --brand-soft: #11233a;
+    --brand-line: #1f3c5e;
+    --ok: #6aaaf5;
+    --ok-soft: #11233a;
+    --open: #efc463;
+    --open-soft: #2b2311;
+    --miss: #f07a86;
+    --miss-soft: #2e161b;
+    --info: #7fb6e0;
+    --info-soft: #14212b;
+    --sh-1: 0 1px 2px rgba(0, 0, 0, 0.5);
+    --sh-2: 0 1px 2px rgba(0, 0, 0, 0.5), 0 10px 26px -18px rgba(0, 0, 0, 0.9);
+    --sh-3: 0 2px 4px rgba(0, 0, 0, 0.6), 0 22px 44px -26px rgba(0, 0, 0, 1);
+  }
+}
+
+:root[data-theme="dark"] {
+  --ground: #070b12;
+  --surface: #0e1620;
+  --surface-2: #141d2a;
+  --surface-3: #1b2636;
+  --line: #243040;
+  --line-2: #34455c;
+  --ink: #e9f1fb;
+  --ink-2: #a7b6c9;
+  --ink-3: #8d9db2;
+  --brand: #6aaaf5;
+  --brand-2: #8fc4f8;
+  --brand-soft: #11233a;
+  --brand-line: #1f3c5e;
+  --ok: #6aaaf5;
+  --ok-soft: #11233a;
+  --open: #efc463;
+  --open-soft: #2b2311;
+  --miss: #f07a86;
+  --miss-soft: #2e161b;
+  --info: #7fb6e0;
+  --info-soft: #14212b;
+  --sh-1: 0 1px 2px rgba(0, 0, 0, 0.5);
+  --sh-2: 0 1px 2px rgba(0, 0, 0, 0.5), 0 10px 26px -18px rgba(0, 0, 0, 0.9);
+  --sh-3: 0 2px 4px rgba(0, 0, 0, 0.6), 0 22px 44px -26px rgba(0, 0, 0, 1);
+}
+
+/* ---------- 2. Reset and base type -------------------------------------- */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+}
+
+img {
+  max-width: 100%;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--ui);
+  font-size: 15px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: var(--brand);
+}
+
+.mono {
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- 3. Accessibility utilities ---------------------------------- */
+
+/* Every interactive element gets a visible focus ring. Do not remove this. */
+:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* Visible to screen readers, not to the eye. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Skip link — first focusable thing on every page. */
+.skip {
+  position: absolute;
+  left: 12px;
+  top: -60px;
+  z-index: 100;
+  padding: 10px 16px;
+  background: var(--ink);
+  color: var(--ground);
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: top 0.14s ease;
+}
+
+.skip:focus {
+  top: 12px;
+}
+
+/* ---------- 4. App shell ------------------------------------------------ */
+
+.stage {
+  display: grid;
+  gap: 16px;
+  padding: 14px;
+  padding-top: calc(14px + env(safe-area-inset-top, 0px));
+  min-height: 100vh;
+  align-content: start;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  width: 100%;
+  max-width: 820px;
+  margin: 0 auto;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  box-shadow: var(--sh-2);
+  overflow: hidden;
+}
+
+.app-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--line);
+  background: var(--surface-2);
+}
+
+.app-top .sp {
+  margin-left: auto;
+}
+
+.who-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 4px 11px 4px 5px;
+  border-radius: 999px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  font-size: 12.5px;
+  font-weight: 600;
+}
+
+.avatar {
+  display: grid;
+  place-items: center;
+  width: 21px;
+  height: 21px;
+  border-radius: 50%;
+  background: var(--brand);
+  color: var(--surface);
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.who-chip.tutor .avatar {
+  background: var(--info);
+}
+
+.who-chip.coordinator .avatar {
+  background: var(--open);
+}
+
+.course-chip {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-3);
+  letter-spacing: 0.02em;
+}
+
+.nav {
+  display: flex;
+  gap: 4px;
+  padding: 9px 12px;
+  overflow-x: auto;
+  border-bottom: 1px solid var(--line);
+  scrollbar-width: none;
+}
+
+.nav::-webkit-scrollbar {
+  display: none;
+}
+
+.nav a {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 13px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink-2);
+  font-size: 13.5px;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.14s ease, color 0.14s ease;
+}
+
+.nav a:hover {
+  background: var(--surface-3);
+}
+
+.nav a[aria-current="page"] {
+  background: var(--ink);
+  color: var(--surface);
+}
+
+.nav .count {
+  display: inline-grid;
+  place-items: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: var(--miss);
+  color: #fff;
+  font-family: var(--mono);
+  font-size: 10.5px;
+}
+
+.nav a[aria-current="page"] .count {
+  background: var(--surface);
+  color: var(--ink);
+}
+
+.body {
+  flex: 1;
+  min-height: 0;
+  padding: 18px 16px 28px;
+}
+
+/* ---------- 5. Layout helpers ------------------------------------------- */
+
+.stack {
+  display: grid;
+  gap: 14px;
+}
+
+.stack-sm {
+  display: grid;
+  gap: 9px;
+}
+
+.head {
+  display: grid;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.head h2 {
+  font-size: 24px;
+  line-height: 1.1;
+}
+
+.head p {
+  font-size: 14px;
+  color: var(--ink-2);
+  max-width: 56ch;
+}
+
+.kicker {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.spread {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 9px;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.muted {
+  color: var(--ink-2);
+}
+
+.sm {
+  font-size: 13px;
+}
+
+.xs {
+  font-size: 12px;
+  color: var(--ink-3);
+}
+
+.center {
+  text-align: center;
+}
+
+/* ---------- 6. Cards, hero, meter --------------------------------------- */
+
+.card {
+  padding: 15px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  box-shadow: var(--sh-1);
+}
+
+.card-2 {
+  padding: 15px;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+}
+
+.hero {
+  display: grid;
+  gap: 14px;
+  padding: 18px;
+  border-radius: var(--r-lg);
+  background: linear-gradient(180deg, var(--surface-2), var(--surface));
+  border: 1px solid var(--line);
+  box-shadow: var(--sh-1);
+}
+
+.hero-num {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-family: var(--display);
+  font-weight: 700;
+  letter-spacing: -0.045em;
+}
+
+.hero-num b {
+  font-size: 52px;
+  line-height: 0.9;
+  font-weight: 700;
+  color: var(--brand);
+}
+
+.hero-num span {
+  font-family: var(--ui);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--ink-2);
+  letter-spacing: 0;
+}
+
+.meter {
+  display: flex;
+  gap: 3px;
+}
+
+.meter i {
+  flex: 1;
+  height: 8px;
+  border-radius: 4px;
+  background: var(--surface-3);
+  border: 1px solid var(--line);
+}
+
+.meter i[data-s="ok"] {
+  background: var(--ok);
+  border-color: var(--ok);
+}
+
+.meter i[data-s="open"] {
+  background: var(--open);
+  border-color: var(--open);
+}
+
+/* ---------- 7. Chips ----------------------------------------------------- */
+
+/* Status is never carried by colour alone: every chip has an icon and a word. */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px 3px 7px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.chip svg {
+  flex: 0 0 auto;
+}
+
+.chip.ok {
+  color: var(--ok);
+  background: var(--ok-soft);
+}
+
+.chip.open {
+  color: var(--open);
+  background: var(--open-soft);
+}
+
+.chip.miss {
+  color: var(--miss);
+  background: var(--miss-soft);
+}
+
+.chip.info {
+  color: var(--info);
+  background: var(--info-soft);
+}
+
+.chip.flat {
+  color: var(--ink-2);
+  background: var(--surface-3);
+}
+
+.attest {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px 4px 7px;
+  border-radius: 999px;
+  background: var(--brand-soft);
+  border: 1px solid var(--brand-line);
+  color: var(--brand);
+  font-size: 11.5px;
+  font-weight: 600;
+}
+
+/* ---------- 8. Criterion card -------------------------------------------- */
+
+.crit {
+  display: grid;
+  gap: 10px;
+  padding: 15px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  box-shadow: var(--sh-1);
+}
+
+/* Carried in from a previous assessment. */
+.crit.carried {
+  border-color: var(--open);
+  background: var(--open-soft);
+}
+
+.crit-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.crit h4 {
+  font-family: var(--ui);
+  font-size: 15.5px;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+.cap {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 5px;
+  font-size: 12px;
+  color: var(--ink-3);
+}
+
+.cap b {
+  font-weight: 600;
+  color: var(--ink-2);
+}
+
+.quote {
+  padding: 11px 13px;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  font-size: 13.5px;
+  line-height: 1.45;
+  color: var(--ink-2);
+}
+
+.lbl {
+  display: block;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin-bottom: 4px;
+}
+
+/* ---------- 9. Buttons and verdict control ------------------------------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 40px;
+  padding: 0 16px;
+  border: 1px solid transparent;
+  border-radius: 11px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.12s ease, background 0.14s ease, opacity 0.14s ease;
+}
+
+.btn:active {
+  transform: scale(0.985);
+}
+
+.btn.p {
+  background: var(--ink);
+  color: var(--surface);
+}
+
+.btn.brand {
+  background: var(--brand);
+  color: #fff;
+}
+
+:root[data-theme="dark"] .btn.brand {
+  color: #04131f;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .btn.brand {
+    color: #04131f;
+  }
+}
+
+.btn.s {
+  background: var(--surface-3);
+  color: var(--ink);
+}
+
+.btn.g {
+  background: var(--surface);
+  color: var(--ink-2);
+  border-color: var(--line-2);
+}
+
+.btn.xs {
+  min-height: 32px;
+  padding: 0 11px;
+  font-size: 12.5px;
+  font-weight: 500;
+  border-radius: 9px;
+}
+
+.btn.full {
+  width: 100%;
+}
+
+.btn:disabled {
+  opacity: 0.42;
+  cursor: not-allowed;
+}
+
+/* The verdict control. Radios, not buttons, so it works without JavaScript
+   and announces as a group to a screen reader. */
+.seg {
+  /* position: relative so the visually-hidden radios below are positioned
+     against this control rather than escaping to the viewport. */
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+  padding: 4px;
+  margin: 0;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface-2);
+}
+
+.seg legend {
+  padding: 0;
+}
+
+.seg label {
+  display: grid;
+  place-items: center;
+  min-height: 34px;
+  border-radius: 9px;
+  color: var(--ink-2);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.14s ease, color 0.14s ease;
+}
+
+.seg label:hover {
+  background: var(--surface-3);
+}
+
+.seg input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
+
+.seg input:focus-visible + label {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+}
+
+.seg input[value="met"]:checked + label {
+  background: var(--ok);
+  color: #fff;
+}
+
+.seg input[value="partly"]:checked + label {
+  background: var(--open);
+  color: #fff;
+}
+
+.seg input[value="not_met"]:checked + label {
+  background: var(--miss);
+  color: #fff;
+}
+
+/* In dark mode the three status colours are light, so the label text flips. */
+:root[data-theme="dark"] .seg input:checked + label {
+  color: #060b12;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .seg input:checked + label {
+    color: #060b12;
+  }
+}
+
+/* ---------- 10. Forms ---------------------------------------------------- */
+
+textarea,
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="date"],
+select {
+  display: block;
+  width: 100%;
+  padding: 10px 12px;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  font-size: 13.5px;
+  line-height: 1.45;
+  resize: vertical;
+}
+
+textarea::placeholder,
+input::placeholder {
+  color: var(--ink-3);
+}
+
+.field {
+  display: grid;
+  gap: 4px;
+}
+
+/* Errors are red AND prefixed with the word "Error" in the template. */
+.field-error {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--miss);
+}
+
+input[aria-invalid="true"],
+textarea[aria-invalid="true"] {
+  border-color: var(--miss);
+  background: var(--miss-soft);
+}
+
+.help {
+  font-size: 12px;
+  color: var(--ink-3);
+}
+
+/* ---------- 11. Bars, timeline, script ----------------------------------- */
+
+.bars {
+  display: grid;
+  gap: 14px;
+}
+
+.bar {
+  position: relative;
+  display: grid;
+  gap: 6px;
+}
+
+.bar-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 13.5px;
+}
+
+.bar-track {
+  height: 10px;
+  border-radius: 5px;
+  background: var(--surface-3);
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  border-radius: 5px;
+  background: var(--miss);
+}
+
+.bar-fill[data-low="true"] {
+  background: var(--open);
+}
+
+.tl {
+  position: relative;
+  display: grid;
+  gap: 14px;
+  padding-left: 26px;
+  margin: 14px 0 0;
+  list-style: none;
+}
+
+.tl::before {
+  content: "";
+  position: absolute;
+  left: 8px;
+  top: 6px;
+  bottom: 6px;
+  width: 2px;
+  border-radius: 1px;
+  background: var(--line);
+}
+
+.tl-item {
+  position: relative;
+}
+
+.tl-item::before {
+  content: "";
+  position: absolute;
+  left: -26px;
+  top: 4px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 2px solid var(--line-2);
+}
+
+.tl-item[data-s="ok"]::before {
+  background: var(--ok);
+  border-color: var(--ok);
+}
+
+.tl-item[data-s="open"]::before {
+  background: var(--open);
+  border-color: var(--open);
+}
+
+.tl-item[data-s="miss"]::before {
+  background: var(--miss);
+  border-color: var(--miss);
+}
+
+.para {
+  display: grid;
+  grid-template-columns: 26px 1fr;
+  gap: 9px;
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--ink-2);
+}
+
+.para b {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  font-weight: 400;
+  color: var(--ink-3);
+  padding-top: 3px;
+}
+
+.para[data-flag="true"] p {
+  color: var(--ink);
+  background: var(--miss-soft);
+  box-shadow: 0 0 0 5px var(--miss-soft);
+  border-radius: 3px;
+}
+
+.script {
+  display: grid;
+  gap: 13px;
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+/* ---------- 12. Notes, empty states, messages ---------------------------- */
+
+.note {
+  padding: 12px 14px;
+  border-radius: var(--r-sm);
+  background: var(--info-soft);
+  color: var(--info);
+  font-size: 13px;
+  line-height: 1.45;
+  border: 1px solid color-mix(in srgb, var(--info) 22%, transparent);
+}
+
+.note.warn {
+  background: var(--open-soft);
+  color: var(--open);
+  border-color: color-mix(in srgb, var(--open) 30%, transparent);
+}
+
+.note.bad {
+  background: var(--miss-soft);
+  color: var(--miss);
+  border-color: color-mix(in srgb, var(--miss) 30%, transparent);
+}
+
+.note.good {
+  background: var(--ok-soft);
+  color: var(--ok);
+  border-color: var(--brand-line);
+}
+
+.empty {
+  display: grid;
+  gap: 12px;
+  justify-items: start;
+  padding: 26px 20px;
+  text-align: left;
+  background: var(--surface-2);
+  border: 1px dashed var(--line-2);
+  border-radius: var(--r);
+  color: var(--ink-2);
+  font-size: 13.5px;
+}
+
+/* Django messages render here. Not a disappearing toast — it stays until the
+   next page load, so a screen reader user is not racing a timer. */
+.messages {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 14px;
+  padding: 0;
+  list-style: none;
+}
+
+/* ---------- 13. Login ---------------------------------------------------- */
+
+.auth {
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 22px;
+  min-height: 100vh;
+  padding: 24px 16px;
+}
+
+.auth-card {
+  width: min(400px, 100%);
+  display: grid;
+  gap: 14px;
+  padding: 26px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  box-shadow: var(--sh-2);
+}
+
+.wordmark {
+  display: grid;
+  gap: 6px;
+  justify-items: center;
+  text-align: center;
+}
+
+.wordmark h1 {
+  font-size: clamp(34px, 9vw, 46px);
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.wordmark p {
+  max-width: 34ch;
+  font-size: 14px;
+  color: var(--ink-2);
+}
+
+/* ---------- 14. Print and reduced motion --------------------------------- */
+
+@media print {
+  .nav,
+  .skip,
+  .btn,
+  .app-top {
+    display: none !important;
+  }
+  .app {
+    border: 0;
+    box-shadow: none;
+    max-width: none;
+  }
+  body {
+    background: #fff;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}

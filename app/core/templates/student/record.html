@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block title %}My record{% endblock %}
+
+{% comment %}
+  Student — the capability record. The product thesis, on one screen.
+
+  Context
+    capabilities    each:
+                      .name
+                      .criterion_title
+                      .sfia_code
+                      .latest_verdict
+                      .events        → _timeline.html
+    closed_count, open_count
+
+  The export panel is a preview, not a file. Nothing here is written by the
+  student and nothing here can be deleted one judgement at a time — delete
+  single judgements and it becomes a CV again.
+{% endcomment %}
+
+{% block content %}
+<div class="head">
+  <p class="kicker">Private to you</p>
+  <h2>What you can show someone</h2>
+  <p>Not a grade and not a self-assessment. A dated judgement by a marker, against a named capability, with the work behind it.</p>
+</div>
+
+<div class="stack">
+
+  {% for cap in capabilities %}
+    <article class="card">
+      <div class="crit-top">
+        <div>
+          <h4>{{ cap.name }}</h4>
+          <span class="cap">{{ cap.criterion_title }}{% if cap.sfia_code %} · SFIA {{ cap.sfia_code }}{% endif %}</span>
+        </div>
+        {% if cap.latest_verdict == "met" %}
+          <span class="attest"><svg width="13" height="13" aria-hidden="true"><use href="#ico-seal"></use></svg>Verified</span>
+        {% else %}
+          {% include "includes/_status_chip.html" with verdict=cap.latest_verdict label="Open" %}
+        {% endif %}
+      </div>
+      {% include "includes/_timeline.html" with events=cap.events %}
+    </article>
+  {% empty %}
+    {% include "includes/_empty_state.html" with message="Nothing has been judged yet." detail="Your record starts filling the first time a marker judges your work against a criterion." %}
+  {% endfor %}
+
+  <div class="card-2 stack-sm">
+    <h3 style="font-weight:600;font-size:15px">Sharing</h3>
+    <p class="sm muted">
+      Nothing leaves this course that you haven't closed. Open criteria stay between you and the
+      teaching team. What you can share is a closed capability and how long it took to close — the
+      improvement is the point, so the starting point travels with it.
+    </p>
+    <div class="row">
+      <a class="btn p xs" href="{% url 'student_export_preview' %}">Preview what an employer sees</a>
+    </div>
+    <p class="xs">
+      {{ closed_count }} closed capabilit{{ closed_count|pluralize:"y,ies" }} would travel.
+      {{ open_count }} open criteri{{ open_count|pluralize:"on,a" }} would stay behind.
+    </p>
+  </div>
+
+</div>
+{% endblock %}

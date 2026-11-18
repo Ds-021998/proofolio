@@ -1,0 +1,744 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>The Gap We Occupy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Newsreader:opsz,wght@6..72,500;6..72,600&display=swap"
+/>
+<style>
+  :root {
+    --ground: #f6f5f8;
+    --surface: #ffffff;
+    --surface-2: #fbfafc;
+    --line: #e4e1ea;
+    --line-strong: #cec9da;
+    --ink: #1c1a24;
+    --ink-2: #57526a;
+    --ink-3: #88829a;
+    --accent: #51247a;
+    --accent-soft: #efe8f5;
+    --accent-line: #dccdea;
+    --yes: #2f6b4f;
+    --yes-soft: #e6f1ea;
+    --part: #8a6510;
+    --part-soft: #f8f0da;
+    --no: #9e3b3b;
+    --no-soft: #f8e8e8;
+    --note: #2b4a7a;
+    --note-soft: #e8eef8;
+    --sans: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --serif: Newsreader, Georgia, "Times New Roman", serif;
+    --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #131218;
+      --surface: #1c1a23;
+      --surface-2: #23202b;
+      --line: #322e3c;
+      --line-strong: #453f54;
+      --ink: #ece9f2;
+      --ink-2: #a9a3b7;
+      --ink-3: #7d778c;
+      --accent: #c2a2dd;
+      --accent-soft: #2a2036;
+      --accent-line: #473657;
+      --yes: #7cc59c;
+      --yes-soft: #1b2a22;
+      --part: #dab35f;
+      --part-soft: #2b2417;
+      --no: #e28c8c;
+      --no-soft: #2f1e1e;
+      --note: #9db9e4;
+      --note-soft: #1b2331;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --ground: #131218;
+    --surface: #1c1a23;
+    --surface-2: #23202b;
+    --line: #322e3c;
+    --line-strong: #453f54;
+    --ink: #ece9f2;
+    --ink-2: #a9a3b7;
+    --ink-3: #7d778c;
+    --accent: #c2a2dd;
+    --accent-soft: #2a2036;
+    --accent-line: #473657;
+    --yes: #7cc59c;
+    --yes-soft: #1b2a22;
+    --part: #dab35f;
+    --part-soft: #2b2417;
+    --no: #e28c8c;
+    --no-soft: #2f1e1e;
+    --note: #9db9e4;
+    --note-soft: #1b2331;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    margin: 0;
+  }
+
+  body {
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding-block: 40px 72px;
+    padding-inline: 16px;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--serif);
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+    margin: 0;
+  }
+
+  h1 {
+    font-size: clamp(30px, 5.2vw, 42px);
+    line-height: 1.06;
+  }
+
+  h2 {
+    font-size: 23px;
+    line-height: 1.18;
+  }
+
+  h3 {
+    font-size: 16px;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .lede {
+    max-width: 66ch;
+    font-size: 17px;
+    color: var(--ink-2);
+  }
+
+  section {
+    margin-top: 44px;
+  }
+
+  .sec-head {
+    display: grid;
+    gap: 7px;
+    margin-bottom: 18px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .sec-head p {
+    max-width: 68ch;
+    color: var(--ink-2);
+    font-size: 14.5px;
+  }
+
+  .thesis {
+    margin-top: 26px;
+    padding: 20px 22px;
+    background: var(--accent-soft);
+    border: 1px solid var(--accent-line);
+    border-left: 4px solid var(--accent);
+    border-radius: 12px;
+  }
+
+  .thesis p {
+    max-width: 60ch;
+    font-family: var(--serif);
+    font-size: 20px;
+    line-height: 1.35;
+  }
+
+  .thesis .tiny {
+    margin-top: 10px;
+    font-family: var(--sans);
+    font-size: 13px;
+    color: var(--ink-2);
+  }
+
+  .scroller {
+    overflow-x: auto;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--surface);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+  }
+
+  thead th {
+    position: sticky;
+    top: 0;
+    background: var(--surface-2);
+    border-bottom: 1px solid var(--line-strong);
+    text-align: left;
+    padding: 11px 13px;
+    font-size: 11.5px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    white-space: nowrap;
+  }
+
+  tbody td,
+  tbody th {
+    padding: 13px;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+    text-align: left;
+    font-weight: 400;
+  }
+
+  tbody tr:last-child td,
+  tbody tr:last-child th {
+    border-bottom: 0;
+  }
+
+  tbody tr.ours td,
+  tbody tr.ours th {
+    background: var(--accent-soft);
+  }
+
+  .tool {
+    min-width: 142px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .tool span {
+    display: block;
+    margin-top: 2px;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+
+  td.job {
+    min-width: 230px;
+    font-weight: 500;
+  }
+
+  td.job span {
+    display: block;
+    margin-top: 3px;
+    font-weight: 400;
+    font-size: 12.5px;
+    color: var(--ink-2);
+  }
+
+  .cell {
+    min-width: 92px;
+    text-align: center;
+  }
+
+  .mark {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 9px;
+    border-radius: 999px;
+    font-size: 11.5px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .mark.yes {
+    color: var(--yes);
+    background: var(--yes-soft);
+  }
+
+  .mark.part {
+    color: var(--part);
+    background: var(--part-soft);
+  }
+
+  .mark.no {
+    color: var(--no);
+    background: var(--no-soft);
+  }
+
+  .stops {
+    min-width: 280px;
+    color: var(--ink-2);
+  }
+
+  .does {
+    min-width: 250px;
+    color: var(--ink-2);
+  }
+
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 12px;
+    font-size: 12.5px;
+    color: var(--ink-3);
+  }
+
+  .callout {
+    margin-top: 18px;
+    padding: 15px 17px;
+    background: var(--note-soft);
+    border: 1px solid color-mix(in srgb, var(--note) 25%, transparent);
+    border-radius: 11px;
+    color: var(--note);
+    font-size: 14px;
+  }
+
+  .callout strong {
+    font-weight: 600;
+  }
+
+  .cards {
+    display: grid;
+    gap: 13px;
+    grid-template-columns: repeat(auto-fit, minmax(255px, 1fr));
+  }
+
+  .card {
+    display: grid;
+    gap: 7px;
+    padding: 16px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 11px;
+  }
+
+  .card p {
+    font-size: 13.5px;
+    color: var(--ink-2);
+  }
+
+  .card .num {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+  }
+
+  .notdo {
+    display: grid;
+    gap: 9px;
+    padding: 18px 20px;
+    background: var(--surface-2);
+    border: 1px dashed var(--line-strong);
+    border-radius: 12px;
+  }
+
+  .notdo ul {
+    margin: 0;
+    padding-left: 19px;
+    color: var(--ink-2);
+    font-size: 14px;
+  }
+
+  .notdo li {
+    margin-bottom: 4px;
+  }
+
+  footer {
+    margin-top: 48px;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+    font-size: 12.5px;
+    color: var(--ink-3);
+  }
+
+  footer a {
+    color: var(--ink-2);
+  }
+</style>
+
+<div class="wrap">
+  <header>
+    <p class="eyebrow">COMP7110 · Team 35 · competitive position</p>
+    <h1>We are not replacing any of these</h1>
+    <p class="lede" style="margin-top: 14px">
+      Three of the four incumbents are already deployed at UQ, and one of them is mandatory. A team of
+      four students does not out-build Blackboard by November, and should not try. The question worth
+      answering is narrower: with all four of these running, what still falls on the floor?
+    </p>
+    <div class="thesis">
+      <p>
+        Gradescope makes the ten minutes of marking efficient. Nothing here makes those ten minutes
+        count twice — once for the student before their next submission, once for you before your
+        next cohort.
+      </p>
+      <p class="tiny">That second use is the product. Everything below is the evidence for it.</p>
+    </div>
+  </header>
+
+  <section>
+    <div class="sec-head">
+      <h2>What each tool is for, and where it stops</h2>
+      <p>
+        Judged only against one job: turning a marker's judgement into a change in what a student
+        does next. Every tool below is good at the job it was built for.
+      </p>
+    </div>
+
+    <div class="scroller">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Tool</th>
+            <th scope="col">Its actual job</th>
+            <th scope="col">What it does well</th>
+            <th scope="col">Where it stops</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row" class="tool">Learn.UQ<span>Blackboard Ultra · mandatory</span></th>
+            <td class="does">System of record — brief, submission, marks, release.</td>
+            <td class="does">
+              Course rubrics, inline marking, per-attempt feedback, the gradebook everything else
+              reconciles to.
+            </td>
+            <td class="stops">
+              Feedback is filed per assignment and never resurfaces. A criterion failed in Assignment 1
+              is invisible while the student writes Assignment 2. UQ's own staff guide notes a Course
+              rubric is not compatible with Turnitin — so even the criteria are split across tools.
+            </td>
+          </tr>
+          <tr>
+            <th scope="row" class="tool">Gradescope<span>deployed at UQ · nearest rival</span></th>
+            <td class="does">Marking speed and consistency inside one assignment.</td>
+            <td class="does">
+              Reusable rubric items applied across submissions; edit an item mid-marking and it applies
+              retroactively; students see which items were applied; regrade requests; rubrics import
+              across assignments; per-item lookup of which scripts received it.
+            </td>
+            <td class="stops">
+              All of it lives inside one assignment. Nothing carries a student's failed criterion into
+              the next one, nothing pushes the standard to the student <em>before</em> they write, and
+              the reason an item keeps failing never becomes anything the next tutor can read.
+            </td>
+          </tr>
+          <tr>
+            <th scope="row" class="tool">Turnitin Feedback Studio<span>deployed at UQ</span></th>
+            <td class="does">Similarity checking, plus faster comment writing.</td>
+            <td class="does">QuickMarks reusable comment library, inline annotation, attached rubric.</td>
+            <td class="stops">
+              QuickMarks are the marker's library, not the student's checklist. Same one-assignment
+              silo, and a second rubric system that does not talk to the first.
+            </td>
+          </tr>
+          <tr>
+            <th scope="row" class="tool">Ed Discussion<span>deployed at UQ</span></th>
+            <td class="does">Course-wide Q&amp;A, asked once and answered once.</td>
+            <td class="does">
+              Fast threaded questions, anonymous posting, endorsed staff answers, searchable within the
+              course, genuinely reduces duplicate questions.
+            </td>
+            <td class="stops">
+              A question there is not attached to <em>your</em> feedback on <em>this</em> student's
+              script, so the tutor rebuilds the context every time. And a student will not post "I don't
+              understand the comment on my own paper" in front of the cohort.
+            </td>
+          </tr>
+          <tr>
+            <th scope="row" class="tool">Teams channel<span>the real incumbent</span></th>
+            <td class="does">Where markers actually say what they noticed.</td>
+            <td class="does">Zero friction, instant, no training, already open on everyone's screen.</td>
+            <td class="stops">
+              Ephemeral, invisible to the coordinator, never reaches a single student, and deleted in
+              effect the day the contracts end. This is the one we are really competing with.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <h2>Six jobs. Who does each one.</h2>
+      <p>
+        The first two jobs are well served — we claim no advantage there and would not ask anyone to
+        switch for them. Jobs 3 to 6 are the ones with nobody in the column.
+      </p>
+    </div>
+
+    <div class="scroller">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Job to be done</th>
+            <th scope="col" class="cell">Learn.UQ</th>
+            <th scope="col" class="cell">Gradescope</th>
+            <th scope="col" class="cell">Turnitin</th>
+            <th scope="col" class="cell">Ed</th>
+            <th scope="col" class="cell">Teams</th>
+            <th scope="col" class="cell">Ours</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="job">
+              1 · Collect the work and hold the marks
+              <span>The system of record</span>
+            </td>
+            <td class="cell"><span class="mark yes">Yes</span></td>
+            <td class="cell"><span class="mark yes">Yes</span></td>
+            <td class="cell"><span class="mark part">Partly</span></td>
+            <td class="cell"><span class="mark no">No</span></td>
+            <td class="cell"><span class="mark no">No</span></td>
+            <td class="cell"><span class="mark no">No — by design</span></td>
+          </tr>
+          <tr>
+            <td class="job">
+              2 · Cut the minutes a marker spends per script
+              <span>Reusable criteria and comments</span>
+            </td>
+            <td class="cell"><span class="mark part">Partly</span></td>
+            <td class="cell"><span class="mark yes">Yes — best</span></td>
+            <td class="cell"><span class="mark yes">Yes</span></td>
+            <td class="cell"><span class="mark no">No</span></td>
+            <td class="cell"><span class="mark no">No</span></td>
+            <td class="cell"><span class="mark yes">Matches</span></td>
+          </tr>
+          <tr class="ours">
+            <td class="job">
+              3 · Put the standard in front of the student <em>before</em> they submit
+              <span>As a working checklist, not a PDF in week 1</span>
+            </td>
+            <td class="cell"><span class="mark part">Partly</span></td>
+            <td class="cell"><span class="mark no">No</span></td>
+            <td class="cell"><span class="mark part">Partly</span></td>
+            <td class="cell"><span class="mark no">No</span></td>
+            <td class="cell"><span class="mark no">No</span></td>
+            <td class="cell"><span class="mark yes">Yes</span></td>
+          </tr>
+          <tr class="ours">
+            <td class="job">
+              4 · Carry an unmet criterion into the next assessment
+              <span>It stays open until the student closes it</span>
+            </td>
+            <td class="cell"><span class="mark no">No</span></td>
+            <td class="cell"><span class="mark no">No</span></td>
+            <td class="cell"><span class="mark no">No</span></td>
+            <td class="cell"><span class="mark no">No</span></td>
+            <td class="cell"><span class="mark no">No</span></td>
+            <td class="cell"><span class="mark yes">Yes</span></td>
+          </tr>
+          <tr class="ours">
+            <td class="job">
+              5 · Let a student ask about their own feedback, cheaply for the tutor
+              <span>Anchored to the criterion, reply pre-drafted</span>
+            </td>
+            <td class="cell"><span class="mark no">No</span></td>
+            <td class="cell"><span class="mark part">Regrade only</span></td>
+            <td class="cell"><span class="mark no">No</span></td>
+            <td class="cell"><span class="mark part">Public only</span></td>
+            <td class="cell"><span class="mark no">No</span></td>
+            <td class="cell"><span class="mark yes">Yes</span></td>
+          </tr>
+          <tr class="ours">
+            <td class="job">
+              6 · Tell the coordinator <em>why</em>, with teaching time left
+              <span>Causes, not a mark distribution</span>
+            </td>
+            <td class="cell"><span class="mark no">Distribution</span></td>
+            <td class="cell"><span class="mark part">Per assignment</span></td>
+            <td class="cell"><span class="mark no">No</span></td>
+            <td class="cell"><span class="mark no">No</span></td>
+            <td class="cell"><span class="mark part">Informally</span></td>
+            <td class="cell"><span class="mark yes">Yes</span></td>
+          </tr>
+          <tr class="ours">
+            <td class="job">
+              7 · Survive eight sessional tutors leaving
+              <span>What they learned, written down as a by-product</span>
+            </td>
+            <td class="cell"><span class="mark no">No</span></td>
+            <td class="cell"><span class="mark part">Rubric only</span></td>
+            <td class="cell"><span class="mark part">Rubric only</span></td>
+            <td class="cell"><span class="mark part">Archive</span></td>
+            <td class="cell"><span class="mark no">No</span></td>
+            <td class="cell"><span class="mark yes">Yes</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="legend">
+      <span><span class="mark yes">Yes</span> does this today</span>
+      <span><span class="mark part">Partly</span> does part of it, or only inside one assignment</span>
+      <span><span class="mark no">No</span> not what the tool is for</span>
+    </div>
+
+    <div class="callout">
+      <strong>Row 4 is the whole company.</strong> It is the only row where every column is empty, and
+      it is also the row the other six depend on — a criterion that persists is what makes the
+      pre-submission checklist, the anchored question, the coordinator view and the handover note the
+      same object rather than four features.
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <h2>What we are actually pitching</h2>
+      <p>One object, used six times. Not six features.</p>
+    </div>
+    <div class="cards">
+      <article class="card">
+        <p class="num">01 · TUTOR, ONCE</p>
+        <h3>The checkpoint</h3>
+        <p>
+          Written once from the brief and rubric, before the assignment opens. Ten minutes, not ten
+          minutes per script.
+        </p>
+      </article>
+      <article class="card">
+        <p class="num">02 · STUDENT, BEFORE</p>
+        <h3>The standard, published</h3>
+        <p>
+          The same checkpoints are what the student works against while writing — with last
+          assignment's failures already flagged.
+        </p>
+      </article>
+      <article class="card">
+        <p class="num">03 · TUTOR, MARKING</p>
+        <h3>Three taps, not a paragraph</h3>
+        <p>
+          Met / partly / not met. The comment the tutor wrote once at setup attaches automatically and
+          is edited only where this script differs.
+        </p>
+      </article>
+      <article class="card">
+        <p class="num">04 · STUDENT, AFTER</p>
+        <h3>It stays open</h3>
+        <p>
+          An unmet checkpoint does not expire with the assignment. It reappears in the next one until
+          the student closes it.
+        </p>
+      </article>
+      <article class="card">
+        <p class="num">05 · BOTH</p>
+        <h3>Questions with the context attached</h3>
+        <p>
+          A question arrives on a checkpoint and a paragraph, with a reply drafted from the standard.
+          The tutor never reopens the script.
+        </p>
+      </article>
+      <article class="card">
+        <p class="num">06 · COORDINATOR</p>
+        <h3>Causes, and a handover</h3>
+        <p>
+          Which checkpoints the cohort is failing, while there is teaching time left — plus a note
+          attached to the checkpoint, not to a tutor who leaves.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <h2>What we do not do</h2>
+      <p>Naming this is part of the pitch. A tool that claims all seven jobs is not credible.</p>
+    </div>
+    <div class="notdo">
+      <ul>
+        <li>We do not mark. A human sets the checkpoints and a human judges every one of them.</li>
+        <li>We do not re-grade, predict a grade, or dispute a mark.</li>
+        <li>We do not replace the gradebook, host submissions, or check similarity.</li>
+        <li>We do not detect AI use.</li>
+        <li>We do not rewrite a student's sentences — the student side returns criteria and questions, never replacement text.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <h2>What would actually convince you</h2>
+      <p>
+        "I'm not convinced" is an offer of a test. Here is the one we would like to run, and the result
+        that would tell us to stop.
+      </p>
+    </div>
+    <div class="cards">
+      <article class="card">
+        <p class="num">THE ASK</p>
+        <h3>One assignment, five checkpoints</h3>
+        <p>
+          You or one tutor spends ten minutes setting them. We do not touch Blackboard, the gradebook,
+          or the marks.
+        </p>
+      </article>
+      <article class="card">
+        <p class="num">MEASURE</p>
+        <h3>Three numbers</h3>
+        <p>
+          Minutes per script against your current average. How many students open the carried-forward
+          list before the next due date. Whether the cohort view changes one teaching decision.
+        </p>
+      </article>
+      <article class="card">
+        <p class="num">KILLED IF</p>
+        <h3>Setup costs more than it saves</h3>
+        <p>
+          If writing the checkpoints takes longer than the typing it removes across the cohort, there
+          is no product here and we will say so in iteration 3.
+        </p>
+      </article>
+    </div>
+    <div class="callout">
+      <strong>The question we most need answered</strong> is not about features: who owns the
+      checkpoints — the coordinator who will be here next year, or the sessional tutor who will not?
+      We have not interviewed a coordinator about this, which makes you the most valuable interview
+      available to us this semester.
+    </div>
+  </section>
+
+  <footer>
+    Verified against vendor and UQ documentation, September 2026 · Gradescope rubric behaviour from
+    <a href="https://guides.gradescope.com/hc/en-us/articles/22249389005709-Grading-submissions-with-rubrics">Gradescope Guides</a>
+    · Blackboard Ultra rubric behaviour and the Turnitin incompatibility from
+    <a href="https://elearning.uq.edu.au/staff-guides-ultra/course-rubrics-ultra">Learn.UQ staff guides</a>
+    · Ed Discussion from <a href="https://edstem.org/">edstem.org</a>. Everything in the "Ours" column
+    is built and clickable in the Feedback → Action prototype; nothing in it is live with real students
+    yet.
+  </footer>
+</div>
+
+</body></html>

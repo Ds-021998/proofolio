@@ -1,0 +1,37 @@
+{% comment %}
+  Role navigation.
+
+  Context required:
+    role      "student" | "tutor" | "coordinator"   (set by the view or a context processor)
+    nav       short string naming the current page, used for aria-current
+    open_q    (tutor only, optional) count of unanswered questions
+    to_mark   (tutor only, optional) count of scripts waiting
+
+  Links, not buttons — each one is a real URL, so the back button, bookmarking
+  and open-in-new-tab all work, and the page is reachable without JavaScript.
+{% endcomment %}
+<nav class="nav" aria-label="{{ role_label|default:'Main' }} sections">
+  {% if role == "student" %}
+    <a href="{% url 'student_dashboard' %}" aria-current="{% if nav == 'home' %}page{% else %}false{% endif %}">Home</a>
+    {% if current_assessment_id %}
+      <a href="{% url 'student_assessment' current_assessment_id %}" aria-current="{% if nav == 'submit' %}page{% else %}false{% endif %}">{{ current_assessment_title|default:"Current assessment" }}</a>
+      <a href="{% url 'student_feedback' current_assessment_id %}" aria-current="{% if nav == 'feedback' %}page{% else %}false{% endif %}">Feedback</a>
+    {% endif %}
+    <a href="{% url 'student_record' %}" aria-current="{% if nav == 'record' %}page{% else %}false{% endif %}">My record</a>
+
+  {% elif role == "tutor" %}
+    <a href="{% url 'tutor_brief' %}" aria-current="{% if nav == 'brief' %}page{% else %}false{% endif %}">Tutorial brief</a>
+    <a href="{% url 'tutor_queue' %}" aria-current="{% if nav == 'mark' %}page{% else %}false{% endif %}">
+      Marking{% if to_mark %}<span class="count">{{ to_mark }}</span><span class="sr-only">scripts waiting</span>{% endif %}
+    </a>
+    <a href="{% url 'tutor_questions' %}" aria-current="{% if nav == 'questions' %}page{% else %}false{% endif %}">
+      Questions{% if open_q %}<span class="count">{{ open_q }}</span><span class="sr-only">unanswered</span>{% endif %}
+    </a>
+    <a href="{% url 'tutor_time' %}" aria-current="{% if nav == 'time' %}page{% else %}false{% endif %}">My time</a>
+
+  {% elif role == "coordinator" %}
+    <a href="{% url 'coordinator_criteria' %}" aria-current="{% if nav == 'criteria' %}page{% else %}false{% endif %}">Criteria</a>
+    <a href="{% url 'coordinator_cohort' %}" aria-current="{% if nav == 'cohort' %}page{% else %}false{% endif %}">Cohort</a>
+    <a href="{% url 'coordinator_handover' %}" aria-current="{% if nav == 'handover' %}page{% else %}false{% endif %}">Handover</a>
+  {% endif %}
+</nav>

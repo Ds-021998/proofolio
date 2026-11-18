@@ -1,0 +1,503 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}</style></head><body>
+<title>The Ten-Minute Mark</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+
+<style>
+:root {
+  --ground: #FCFAF9; --surface: #FFFFFF; --sunk: #F4F0EE;
+  --ink: #1A1614; --ink-soft: #574E4B; --ink-faint: #877D79;
+  --rule: #E4DDD9; --rule-strong: #CFC5C0;
+  --accent: #C5192D; --accent-soft: #FAEAEC;
+  --strong: #1C6349; --caution: #8A5A1A;
+  --shadow: 0 1px 2px rgba(26,22,20,.05);
+  --f-display: "Newsreader", Georgia, "Times New Roman", serif;
+  --f-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #141110; --surface: #1D1917; --sunk: #262120;
+    --ink: #F2ECE9; --ink-soft: #B3A8A3; --ink-faint: #857A76;
+    --rule: #332C2A; --rule-strong: #473E3B;
+    --accent: #F2707F; --accent-soft: #381D21;
+    --strong: #6BC69C; --caution: #DCA950;
+    --shadow: 0 1px 2px rgba(0,0,0,.3);
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #141110; --surface: #1D1917; --sunk: #262120;
+  --ink: #F2ECE9; --ink-soft: #B3A8A3; --ink-faint: #857A76;
+  --rule: #332C2A; --rule-strong: #473E3B;
+  --accent: #F2707F; --accent-soft: #381D21;
+  --strong: #6BC69C; --caution: #DCA950;
+  --shadow: 0 1px 2px rgba(0,0,0,.3);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  background: var(--ground); color: var(--ink);
+  font-family: var(--f-body); font-size: 16.5px; line-height: 1.62;
+  margin: 0; padding: 0 1.5rem 6rem; -webkit-font-smoothing: antialiased;
+}
+
+.wrap { max-width: 51rem; margin: 0 auto; display: flex; flex-direction: column; gap: 3.25rem; }
+.prose { max-width: 38rem; }
+p { margin: 0 0 1rem; } p:last-child { margin-bottom: 0; }
+em { font-style: italic; }
+a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+
+sup.ref { font-family: var(--f-mono); font-size: .62em; font-weight: 500; }
+sup.ref a { text-decoration: none; padding: 0 .06em; }
+sup.ref a:hover { text-decoration: underline; }
+
+.eyebrow {
+  font-family: var(--f-mono); font-size: .705rem; letter-spacing: .13em;
+  text-transform: uppercase; color: var(--ink-faint); margin: 0;
+}
+
+header.masthead { padding-top: 4rem; display: flex; flex-direction: column; gap: 1.25rem; }
+h1 {
+  font-family: var(--f-display); font-weight: 500;
+  font-size: clamp(2.5rem, 6.5vw, 3.9rem); line-height: 1.03;
+  letter-spacing: -.02em; margin: 0; text-wrap: balance;
+}
+.standfirst {
+  font-family: var(--f-display); font-size: clamp(1.12rem, 2.4vw, 1.32rem);
+  line-height: 1.5; color: var(--ink-soft); max-width: 34rem; margin: 0;
+}
+.meta-strip {
+  display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; padding-top: 1rem;
+  border-top: 1px solid var(--rule); font-family: var(--f-mono);
+  font-size: .72rem; letter-spacing: .05em; color: var(--ink-faint);
+}
+.meta-strip b { color: var(--ink-soft); font-weight: 500; }
+
+section { display: flex; flex-direction: column; gap: 1.5rem; }
+.sec-head { display: flex; flex-direction: column; gap: .45rem; }
+h2 {
+  font-family: var(--f-display); font-weight: 500;
+  font-size: clamp(1.6rem, 3.4vw, 2.1rem); line-height: 1.15;
+  letter-spacing: -.015em; margin: 0; text-wrap: balance;
+}
+h3 { font-family: var(--f-body); font-weight: 600; font-size: 1rem; margin: 0; }
+
+.ev-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 1rem; }
+.ev {
+  background: var(--surface); border: 1px solid var(--rule); box-shadow: var(--shadow);
+  padding: 1.15rem 1.25rem; display: flex; flex-direction: column; gap: .3rem;
+}
+.ev .fig {
+  font-family: var(--f-display); font-size: 2.1rem; line-height: 1;
+  color: var(--accent); font-weight: 500; font-variant-numeric: tabular-nums;
+}
+.ev .cap { font-size: .92rem; color: var(--ink-soft); }
+.ev .src {
+  font-family: var(--f-mono); font-size: .645rem; letter-spacing: .06em;
+  text-transform: uppercase; color: var(--ink-faint); margin-top: .25rem;
+}
+
+.thesis {
+  border-left: 3px solid var(--accent); background: var(--sunk);
+  padding: 1.3rem 1.5rem; font-family: var(--f-display);
+  font-size: 1.2rem; line-height: 1.48; color: var(--ink);
+}
+
+.loop { display: flex; flex-direction: column; gap: 1.1rem; }
+.loop-title {
+  font-family: var(--f-mono); font-size: .68rem; letter-spacing: .11em;
+  text-transform: uppercase; color: var(--ink-faint);
+}
+.chain { display: flex; flex-wrap: wrap; align-items: stretch; gap: .5rem; }
+.node {
+  flex: 1 1 8.5rem; background: var(--surface); border: 1px solid var(--rule);
+  padding: .75rem .85rem; display: flex; flex-direction: column; gap: .15rem;
+}
+.node .t { font-weight: 600; font-size: .9rem; color: var(--ink); }
+.node .s { font-size: .84rem; color: var(--ink-soft); }
+.node.broken { border-color: var(--accent); border-style: dashed; background: var(--accent-soft); }
+.node.broken .t { color: var(--accent); }
+.arrow { align-self: center; font-family: var(--f-mono); font-size: .85rem; color: var(--ink-faint); }
+.arrow.cut { color: var(--accent); }
+
+.cycle {
+  background: var(--surface); border: 1px solid var(--accent);
+  padding: 1.3rem 1.4rem; display: flex; flex-direction: column; gap: .8rem;
+}
+.cycle h3 { color: var(--accent); font-size: 1.02rem; }
+.cycle ol { margin: 0; padding-left: 1.25rem; display: flex; flex-direction: column; gap: .5rem; }
+.cycle li { font-size: .95rem; color: var(--ink-soft); }
+.cycle li strong { color: var(--ink); font-weight: 600; }
+
+.statement {
+  border: 1px solid var(--accent); background: var(--surface);
+  padding: 1.5rem 1.6rem; display: flex; flex-direction: column; gap: .9rem;
+}
+.statement .tagline {
+  font-family: var(--f-mono); font-size: .68rem; letter-spacing: .11em;
+  text-transform: uppercase; color: var(--accent);
+}
+.statement .body { font-family: var(--f-display); font-size: 1.26rem; line-height: 1.44; color: var(--ink); }
+
+.slots { display: flex; flex-direction: column; }
+.slot {
+  display: grid; grid-template-columns: 7rem 1fr; gap: .2rem 1.1rem;
+  padding: .9rem 0; border-top: 1px solid var(--rule);
+}
+.slot:last-child { border-bottom: 1px solid var(--rule); }
+.slot .k {
+  font-family: var(--f-mono); font-size: .665rem; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--accent); padding-top: .28rem;
+}
+.slot .v { font-weight: 600; color: var(--ink); font-size: .97rem; }
+.slot .n { grid-column: 2; font-size: .92rem; color: var(--ink-soft); }
+@media (max-width: 32rem) { .slot { grid-template-columns: 1fr; } .slot .n { grid-column: 1; } }
+
+.hyps { display: flex; flex-direction: column; gap: 1.1rem; }
+.hyp {
+  background: var(--surface); border: 1px solid var(--rule); box-shadow: var(--shadow);
+  padding: 1.35rem 1.4rem; display: flex; flex-direction: column; gap: .8rem;
+}
+.hyp.unsupported { border-color: var(--accent); }
+.hyp-head { display: grid; grid-template-columns: auto 1fr; gap: .1rem .9rem; align-items: baseline; }
+.hyp-tag {
+  font-family: var(--f-mono); font-size: .78rem; color: var(--accent);
+  border: 1px solid var(--accent); padding: .12rem .4rem;
+}
+.hyp-head h3 { font-size: 1.06rem; line-height: 1.32; }
+.hyp-row { display: grid; grid-template-columns: 8rem 1fr; gap: .3rem 1rem; }
+.hyp-row .k {
+  font-family: var(--f-mono); font-size: .655rem; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--ink-faint); padding-top: .22rem;
+}
+.hyp-row .v { font-size: .94rem; color: var(--ink-soft); }
+.hyp-row .v.quote { color: var(--ink); font-weight: 600; }
+.hyp-row .v.kill { color: var(--accent); }
+@media (max-width: 34rem) { .hyp-row { grid-template-columns: 1fr; } }
+
+.callout {
+  border-top: 1px dashed var(--rule-strong); padding-top: .85rem;
+  font-size: .93rem; color: var(--ink-soft);
+}
+.callout b { color: var(--ink); font-weight: 600; }
+
+ul.plain { margin: 0; padding-left: 1.15rem; display: flex; flex-direction: column; gap: .55rem; }
+ul.plain li { font-size: .96rem; color: var(--ink-soft); }
+ul.plain li strong { color: var(--ink); font-weight: 600; }
+
+.cards { display: flex; flex-direction: column; gap: 1rem; }
+.card {
+  background: var(--surface); border: 1px solid var(--rule); box-shadow: var(--shadow);
+  padding: 1.2rem 1.3rem; display: flex; flex-direction: column; gap: .5rem;
+}
+.card h3 { font-size: 1rem; }
+.card p { font-size: .94rem; color: var(--ink-soft); }
+.card .verdict {
+  font-family: var(--f-mono); font-size: .665rem; letter-spacing: .09em;
+  text-transform: uppercase; color: var(--accent);
+}
+
+/* references */
+ol.refs { list-style: none; counter-reset: r; margin: 0; padding: 0; }
+ol.refs li {
+  counter-increment: r; display: grid; grid-template-columns: 2.2rem 1fr;
+  gap: .2rem .9rem; padding: .85rem 0; border-top: 1px solid var(--rule);
+  font-size: .92rem; color: var(--ink-soft);
+}
+ol.refs li:last-child { border-bottom: 1px solid var(--rule); }
+ol.refs li::before {
+  content: "[" counter(r) "]"; font-family: var(--f-mono);
+  font-size: .72rem; color: var(--accent); padding-top: .25rem;
+}
+ol.refs .cite { color: var(--ink); }
+ol.refs .cite em { font-style: italic; }
+ol.refs .used { grid-column: 2; font-size: .87rem; color: var(--ink-faint); }
+
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+</style>
+
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">COMP7110 · Direction brief · University segment</p>
+  <h1>The ten-minute mark</h1>
+  <p class="standfirst">Feedback at university isn't poor because tutors don't care. It's poor because of who marks, how long they're paid to take, and the fact that they won't be here next semester. Here is the problem, the evidence behind it, and four hypotheses your interviews can kill.</p>
+  <div class="meta-strip">
+    <span><b>SDG</b> 4.c primary, 4.1 secondary</span>
+    <span><b>Status</b> Hypothesis — unvalidated</span>
+    <span><b>Sources</b> 9, cited inline</span>
+  </div>
+</header>
+
+<section>
+  <div class="sec-head">
+    <p class="eyebrow">Context — part one</p>
+    <h2>What a large course looks like from the inside</h2>
+  </div>
+  <div class="prose">
+    <p>Picture a 400-student course. Assignment 1 is due in week 5. Eight sessional tutors mark it. They are paid a fixed rate per script, hired for this semester only, and most are postgraduate students with their own deadlines. Marks are released in week 8. Assignment 2 was released in week 6 and is due in week 10.</p>
+    <p>Now look at what each person can actually see. The <strong>student</strong> receives a number and two sentences, three weeks after submitting, having already started the next task. The <strong>tutor</strong> reads sixty scripts, notices five recurring failures, writes short comments because that is what the paid time allows, and finishes. The <strong>coordinator</strong> receives a distribution of marks — a shape, with no causes attached. Next semester, seven of the eight tutors are different people.</p>
+    <p>Nobody in that picture is failing at their job. The system produces exactly what its design permits. That is what makes it a problem rather than a complaint: it is structural, it repeats at every university every semester, and nobody currently owns it.</p>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <p class="eyebrow">Context — part two</p>
+    <h2>The evidence</h2>
+  </div>
+  <div class="ev-grid">
+    <div class="ev">
+      <span class="fig">50–80%</span>
+      <span class="cap">More than half of all undergraduate teaching in Australia is performed by casual staff, rising to as much as 80% of first-year teaching.<sup class="ref"><a href="#r1">[1]</a></sup></span>
+      <span class="src">Rothengatter &amp; Hil, 2013</span>
+    </div>
+    <div class="ev">
+      <span class="fig">10 min</span>
+      <span class="cap">Tutors at RMIT were allocated ten minutes per paper to mark <em>and</em> provide feedback — described by the NTEU as half the previous allocation.<sup class="ref"><a href="#r2">[2]</a></sup></span>
+      <span class="src">ABC News, 2020</span>
+    </div>
+    <div class="ev">
+      <span class="fig">~60%</span>
+      <span class="cap">Instructors in a 2022 study estimated around 60% of students never access feedback left in the learning management system at all.<sup class="ref"><a href="#r3">[3]</a></sup></span>
+      <span class="src">Paris, 2022</span>
+    </div>
+    <div class="ev">
+      <span class="fig">74.9%</span>
+      <span class="cap">Undergraduate satisfaction in the 2025 QILT survey — the lowest since it began in 2016, and a fifth consecutive annual decline from 80.6% in 2020.<sup class="ref"><a href="#r4">[4]</a></sup></span>
+      <span class="src">QILT / ABC News, 2026</span>
+    </div>
+  </div>
+  <div class="prose">
+    <p>Two further findings sharpen the picture. In the same casualisation survey, most casual academics reported working more hours than they were paid for, 60% did not attend faculty meetings, and many received little or no induction.<sup class="ref"><a href="#r1">[1]</a></sup> And in 2020, a former University of Queensland course coordinator told the ABC that staff had been instructed to skim-read assignments, or to read only the introduction and conclusion of an essay, in order to stay within paid marking time.<sup class="ref"><a href="#r2">[2]</a></sup></p>
+  </div>
+  <p class="thesis">The binding constraint on feedback quality is not effort or skill. It is a fixed and shrinking allocation of paid minutes, held by someone who was never inducted and will not teach the course again — so what they learn while marking cannot reach the student in time, and reaches nobody else at all.</p>
+</section>
+
+<section>
+  <div class="sec-head">
+    <p class="eyebrow">Mechanism</p>
+    <h2>Two loops, both cut</h2>
+  </div>
+  <div class="prose">
+    <p>A feedback loop only works if what is learned returns to someone who can act on it, while they can still act. There are two such loops in a university course, and the same structure severs both.</p>
+  </div>
+
+  <div class="loop">
+    <span class="loop-title">Loop 1 — to the student · cut by timing</span>
+    <div class="chain">
+      <div class="node"><span class="t">Student submits</span><span class="s">Week 5</span></div>
+      <span class="arrow">→</span>
+      <div class="node"><span class="t">Tutor marks</span><span class="s">Weeks 6–7</span></div>
+      <span class="arrow">→</span>
+      <div class="node"><span class="t">Marks released</span><span class="s">Week 8</span></div>
+      <span class="arrow cut">✕</span>
+      <div class="node broken"><span class="t">Student acts on it</span><span class="s">Assignment 2 underway since week 6</span></div>
+    </div>
+  </div>
+
+  <div class="loop">
+    <span class="loop-title">Loop 2 — to the teaching team · cut by turnover</span>
+    <div class="chain">
+      <div class="node"><span class="t">Tutor notices patterns</span><span class="s">Across sixty scripts</span></div>
+      <span class="arrow cut">✕</span>
+      <div class="node broken"><span class="t">Reaches the coordinator</span><span class="s">Who sees a distribution, not causes</span></div>
+      <span class="arrow cut">✕</span>
+      <div class="node broken"><span class="t">Reaches next semester</span><span class="s">New tutors, no induction, contract ended</span></div>
+    </div>
+  </div>
+
+  <div class="prose">
+    <p>Loop 1 is the one everybody complains about. Loop 2 is the more interesting one, and it explains why the same cohort misconception recurs year after year: the only people who ever see it are casual staff with no time, no forum — 60% don't attend faculty meetings<sup class="ref"><a href="#r1">[1]</a></sup> — and no contract that extends past November.</p>
+    <p>This is genuinely different from the equivalent problem in schools. There, knowledge is lost from one teacher's memory. At a university it is lost <em>between people</em>, structurally, at scale, every semester.</p>
+  </div>
+
+  <div class="cycle">
+    <h3>And the literature documents a vicious cycle on top of it</h3>
+    <ol>
+      <li><strong>Markers write less</strong> because paid time is capped and shrinking.<sup class="ref"><a href="#r1">[1]</a></sup><sup class="ref"><a href="#r2">[2]</a></sup></li>
+      <li><strong>Students don't act on what they get</strong> — not from indifference, but because they lack strategies for using it and a firm grasp of academic discourse,<sup class="ref"><a href="#r5">[5]</a></sup> and because uptake requires capacities most have never been taught.<sup class="ref"><a href="#r6">[6]</a></sup></li>
+      <li><strong>Markers observe the non-use and write even less.</strong> One instructor in Paris's study put it plainly: <em>&ldquo;I stopped providing comments because I think there's like two people that come out of a hundred that would pick up their papers.&rdquo;</em><sup class="ref"><a href="#r3">[3]</a></sup></li>
+      <li><strong>And the two sides aren't even optimising the same thing.</strong> Surveying 406 staff and 4,514 students, Dawson et al. found staff emphasise feedback <em>design</em> — timing, modality, connected tasks — while students care about the <em>comments</em>: usable, detailed, personalised to their own work.<sup class="ref"><a href="#r7">[7]</a></sup></li>
+    </ol>
+    <p class="callout">That last finding is the most useful thing in this brief. Both groups agree feedback exists to produce improvement, and each is working hard on a different half of the problem — which means goodwill on both sides does not close the loop by itself.</p>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <p class="eyebrow">The problem statement</p>
+    <h2>Written the way the course wants it</h2>
+  </div>
+  <div class="statement">
+    <span class="tagline">Primary — tutor side</span>
+    <p class="body">A sessional tutor marking a large course struggles to give feedback that changes what a student does next, because they are paid for minutes per script and will not teach the course again — and today they cope by writing short generic comments, mentioning what they noticed in the tutors' group chat, and letting the rest go.</p>
+  </div>
+  <div class="prose">
+    <p>Every clause does work, and every clause can be falsified. Read them separately:</p>
+  </div>
+  <div class="slots">
+    <div class="slot">
+      <span class="k">Person</span>
+      <span class="v">A sessional tutor marking a large course</span>
+      <span class="n">Not &ldquo;educators.&rdquo; One person, on your campus, hired this semester, whom you can email today. Also the majority of who actually teaches undergraduates in this country.<sup class="ref"><a href="#r1">[1]</a></sup></span>
+    </div>
+    <div class="slot">
+      <span class="k">Task</span>
+      <span class="v">Give feedback that changes what a student does next</span>
+      <span class="n">Not &ldquo;mark the work&rdquo; — that happens reliably. What fails is causing different behaviour on the next assessment. Carless and Boud frame feedback as a process of learner sense-making rather than information transmission, which is exactly this distinction.<sup class="ref"><a href="#r6">[6]</a></sup></span>
+    </div>
+    <div class="slot">
+      <span class="k">Constraint</span>
+      <span class="v">Paid for minutes per script; will not teach it again</span>
+      <span class="n">Two constraints, deliberately. The first caps what can be written now;<sup class="ref"><a href="#r2">[2]</a></sup> the second means nothing accumulates for later.<sup class="ref"><a href="#r1">[1]</a></sup> Remove either alone and the problem persists.</span>
+    </div>
+    <div class="slot">
+      <span class="k">Workaround</span>
+      <span class="v">Short generic comments, the group chat, letting it go</span>
+      <span class="n">The weakest clause and the most important — the only one with no published evidence behind it. See H4.</span>
+    </div>
+  </div>
+
+  <div class="statement">
+    <span class="tagline">Mirror — student side, same broken loop</span>
+    <p class="body">A student struggles to do better on assignment 2 than on assignment 1, because feedback on assignment 1 arrives after they have already started assignment 2 — and today they cope by comparing marks with friends and inferring what the marker wanted.</p>
+  </div>
+  <p class="callout"><b>These are not two projects.</b> They are the same severed loop described from each end, and you will build for one of them. Which one is decided in week one by whichever side describes a real workaround when asked — not by team preference.</p>
+</section>
+
+<section>
+  <div class="sec-head">
+    <p class="eyebrow">The hypothesis stack</p>
+    <h2>Four claims, each separately killable</h2>
+  </div>
+  <div class="prose">
+    <p>A single hypothesis is hard to learn from — it is either right or wrong and you don't know why. Break it into layers, so an interview can knock out one floor without collapsing the building. Take these into iteration 1 as your stated assumptions and report which survived.</p>
+    <p>Note the asymmetry deliberately built in: the first three already have published support, so your interviews are checking whether the literature holds <em>here</em>. The fourth has none, and only your own fieldwork can establish it.</p>
+  </div>
+
+  <div class="hyps">
+
+    <div class="hyp">
+      <div class="hyp-head"><span class="hyp-tag">H1</span><h3>Feedback arrives too late to be usable, and students therefore do not act on it.</h3></div>
+      <div class="hyp-row"><span class="k">Literature</span><span class="v">Jonsson's review finds students often fail to use feedback productively, lacking both strategies for engaging with it and command of the academic discourse it is written in.<sup class="ref"><a href="#r5">[5]</a></sup> Winstone et al.'s systematic review builds a taxonomy of what has to happen inside a learner for uptake to occur at all.<sup class="ref"><a href="#r8">[8]</a></sup> Instructors in Paris's study estimated ~60% never open it.<sup class="ref"><a href="#r3">[3]</a></sup></span></div>
+      <div class="hyp-row"><span class="k">Test</span><span class="v quote">&ldquo;Tell me about the last time a mark came back. What did you do in the next two days?&rdquo;</span></div>
+      <div class="hyp-row"><span class="k">Killed if</span><span class="v kill">Students describe a concrete action they took, or say the timing was fine. Then the problem is quality, not lateness — and the project changes shape.</span></div>
+    </div>
+
+    <div class="hyp">
+      <div class="hyp-head"><span class="hyp-tag">H2</span><h3>Feedback quality is capped by the economics of casual marking, not by tutor effort or skill.</h3></div>
+      <div class="hyp-row"><span class="k">Literature</span><span class="v">Over half of Australian undergraduate teaching is casual, with most casuals working beyond paid hours.<sup class="ref"><a href="#r1">[1]</a></sup> RMIT tutors were allocated ten minutes per paper for marking and feedback; a former UQ coordinator reported staff being told to skim-read or read only introductions and conclusions.<sup class="ref"><a href="#r2">[2]</a></sup> Paris finds class size and workload the dominant reported barrier.<sup class="ref"><a href="#r3">[3]</a></sup></span></div>
+      <div class="hyp-row"><span class="k">Test</span><span class="v quote">&ldquo;How long are you paid to mark one script? How long does it actually take you?&rdquo;</span></div>
+      <div class="hyp-row"><span class="k">Killed if</span><span class="v kill">Tutors say time isn't the binding constraint — they have enough and something else limits them. Listen very hard for what that something else is.</span></div>
+    </div>
+
+    <div class="hyp">
+      <div class="hyp-head"><span class="hyp-tag">H3</span><h3>What a marker learns about the cohort reaches neither the coordinator nor next semester.</h3></div>
+      <div class="hyp-row"><span class="k">Literature</span><span class="v">60% of casual academics did not attend faculty meetings and many received little or no induction — there is no routine forum in which such observations would travel.<sup class="ref"><a href="#r1">[1]</a></sup> Bloxham et al. show assessment judgement rests on tacit, individually held standards that written criteria fail to make explicit,<sup class="ref"><a href="#r9">[9]</a></sup> which is precisely the kind of knowledge that does not survive staff turnover.</span></div>
+      <div class="hyp-row"><span class="k">Test</span><span class="v quote">&ldquo;After you finished marking, did anyone ask what you noticed? Where did that go?&rdquo;</span></div>
+      <div class="hyp-row"><span class="k">Killed if</span><span class="v kill">There is a moderation or debrief meeting where this is captured and visibly acted on. Then ask whether its notes survive to next semester — that's the real test.</span></div>
+    </div>
+
+    <div class="hyp unsupported">
+      <div class="hyp-head"><span class="hyp-tag">H4</span><h3>People already work around this, informally and privately.</h3></div>
+      <div class="hyp-row"><span class="k">Literature</span><span class="v"><strong>None.</strong> I could not find published evidence for this and am inferring it from the general pattern. That is not a weakness to hide — it is the one thing on this page that only your own interviews can establish, which makes it the most valuable finding available to you.</span></div>
+      <div class="hyp-row"><span class="k">Test</span><span class="v quote">&ldquo;Show me where your notes about this actually live.&rdquo; Then ask them to open it.</span></div>
+      <div class="hyp-row"><span class="k">Killed if</span><span class="v kill">Nobody has anything. No spreadsheet, no group chat, no document.</span></div>
+      <p class="callout"><b>H4 is decisive.</b> H1 to H3 can all be true while the problem is merely tolerated rather than felt — and tolerated problems do not get adopted solutions. A workaround is proof that somebody cared enough to build something themselves. If H4 dies, take the finding seriously rather than arguing with it.</p>
+    </div>
+
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <p class="eyebrow">Why it isn't already solved</p>
+    <h2>The competitive picture</h2>
+  </div>
+  <div class="cards">
+    <div class="card">
+      <span class="verdict">Serves loop 1 only, partially</span>
+      <h3>Marking and feedback tools</h3>
+      <p>Gradescope, Turnitin Feedback Studio, Canvas SpeedGrader and FeedbackFruits make writing feedback faster and more consistent. None return anything to the coordinator beyond marks, and none survive a change of teaching staff. They optimise the ten minutes; they do not question what happens after.</p>
+    </div>
+    <div class="card">
+      <span class="verdict">Wrong altitude</span>
+      <h3>Learning analytics dashboards</h3>
+      <p>Institutional analytics track engagement, at-risk flags and completion, working on clicks and grades — data the system already holds. They never touch the thing only a human marker knows: <em>why</em> the answer was wrong.</p>
+    </div>
+    <div class="card">
+      <span class="verdict">The real incumbent</span>
+      <h3>The tutors' group chat</h3>
+      <p>This is what holds loop 2 today, alongside a coordinator's memory and the occasional shared spreadsheet. Ephemeral, invisible to the institution, dead at semester's end. Beat that, not the enterprise products — and if H4 confirms, the chat is also where your first users already are.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <p class="eyebrow">Week one</p>
+    <h2>What to do before the next meeting</h2>
+  </div>
+  <ul class="plain">
+    <li><strong>Six interviews, one course.</strong> Three tutors and three students from the same course, about the same assessment. Hearing both ends of one loop beats twelve scattered conversations.</li>
+    <li><strong>Ask the H-questions verbatim.</strong> Don't describe a solution. The moment you mention an idea you get politeness instead of data.</li>
+    <li><strong>Record which hypothesis each interview touched</strong> and whether it strengthened or weakened it. That table <em>is</em> your iteration 1 findings section.</li>
+    <li><strong>Decide the side at the end of the week</strong>, on evidence: whichever end produced a real workaround when asked to open it.</li>
+    <li><strong>Then stop moving.</strong> Iterations 2 and 3 exist so you can be wrong <em>within</em> a problem, not so you can keep swapping problems.</li>
+  </ul>
+</section>
+
+<section>
+  <div class="sec-head">
+    <p class="eyebrow">References</p>
+    <h2>Sources, and what each one supports</h2>
+  </div>
+  <ol class="refs">
+    <li id="r1">
+      <span class="cite">Rothengatter, M. &amp; Hil, R. (2013). A precarious presence: some realities and challenges of academic casualisation in Australian universities. <em>Australian Universities' Review</em>, 55(2), 51–59. <a href="https://files.eric.ed.gov/fulltext/EJ1016855.pdf">Full text</a></span>
+      <span class="used">Casualisation rates; NTEU 2012 casual staff survey — unpaid hours, 60% non-attendance at faculty meetings, little or no induction, insecure employment.</span>
+    </li>
+    <li id="r2">
+      <span class="cite">ABC News (18 August 2020). RMIT, UQ now among universities accused of underpaying staff. <a href="https://www.abc.net.au/news/2020-08-18/rmit-uq-now-among-universities-accused-of-underpaying-staff/12565528">Article</a></span>
+      <span class="used">Ten-minute marking allocation at RMIT; UQ skim-reading instruction as reported by a former course coordinator; Murdoch students told not all of an assignment would be marked.</span>
+    </li>
+    <li id="r3">
+      <span class="cite">Paris, B. M. (2022). Instructors' perspectives of challenges and barriers to providing effective feedback. <em>Teaching &amp; Learning Inquiry</em>, 10. <a href="https://journalhosting.ucalgary.ca/index.php/TLI/article/view/72203">Open access</a></span>
+      <span class="used">Workload and class size as dominant barriers; instructor estimate that ~60% never access feedback; the documented cycle of markers reducing feedback in response.</span>
+    </li>
+    <li id="r4">
+      <span class="cite">ABC News (26 June 2026), reporting the 2025 QILT Graduate Outcomes and Student Experience surveys. <a href="https://www.abc.net.au/news/2026-06-26/university-graduates-satisfaction-at-record-lows-survey-finds/106826446">Article</a> · <a href="https://www.qilt.edu.au/surveys/student-experience-survey-(ses)">QILT SES</a></span>
+      <span class="used">Undergraduate satisfaction at 74.9%, a record low and fifth consecutive decline.</span>
+    </li>
+    <li id="r5">
+      <span class="cite">Jonsson, A. (2013). Facilitating productive use of feedback in higher education. <em>Active Learning in Higher Education</em>, 14(1), 63–76. <a href="https://journals.sagepub.com/doi/10.1177/1469787412467125">Journal</a> · <a href="https://eric.ed.gov/?id=EJ995173">ERIC record</a></span>
+      <span class="used">Why students fail to use feedback: absent strategies, limited command of academic discourse, and the centrality of perceived utility.</span>
+    </li>
+    <li id="r6">
+      <span class="cite">Carless, D. &amp; Boud, D. (2018). The development of student feedback literacy: enabling uptake of feedback. <em>Assessment &amp; Evaluation in Higher Education</em>, 43(8), 1315–1325. <a href="https://opus.lib.uts.edu.au/bitstream/10453/128791/4/CB%20Feedback%20literacy_AEHE_final%20accepted.pdf">Accepted version (open)</a></span>
+      <span class="used">Feedback as learner sense-making rather than transmission; students aware of strategies but unable to enact them; uptake as a capacity, not a delivery problem.</span>
+    </li>
+    <li id="r7">
+      <span class="cite">Dawson, P., Henderson, M., Mahoney, P., Phillips, M., Ryan, T., Boud, D. &amp; Molloy, E. (2019). What makes for effective feedback: staff and student perspectives. <em>Assessment &amp; Evaluation in Higher Education</em>, 44(1), 25–36. <a href="https://www.tandfonline.com/doi/full/10.1080/02602938.2018.1467877">Journal</a> · <a href="https://eric.ed.gov/?id=EJ1199636">ERIC record</a></span>
+      <span class="used">406 staff and 4,514 students; staff emphasise feedback design and timing, students emphasise usable, detailed, personalised comments — the divergence at the centre of this brief.</span>
+    </li>
+    <li id="r8">
+      <span class="cite">Winstone, N. E., Nash, R. A., Parker, M. &amp; Rowntree, J. (2017). Supporting learners' agentic engagement with feedback: a systematic review and a taxonomy of recipience processes. <em>Educational Psychologist</em>, 52(1), 17–37. <a href="https://www.tandfonline.com/doi/full/10.1080/00461520.2016.1207538">Journal</a> · <a href="https://eric.ed.gov/?id=EJ1125385">ERIC record</a></span>
+      <span class="used">Systematic review of what must happen within a learner for feedback to be acted on — supporting the claim that receipt is not uptake.</span>
+    </li>
+    <li id="r9">
+      <span class="cite">Bloxham, S., den-Outer, B., Hudson, J. &amp; Price, M. (2016). Let's stop the pretence of consistent marking: exploring the multiple limitations of assessment criteria. <em>Assessment &amp; Evaluation in Higher Education</em>, 41(3), 466–481. <a href="https://www.tandfonline.com/doi/full/10.1080/02602938.2015.1024607">Journal</a> · <a href="https://eric.ed.gov/?id=EJ1093500">ERIC record</a></span>
+      <span class="used">24 experienced assessors across four disciplines; marking judgement is complex, intuitive and tacit, and written criteria do not make it explicit — knowledge that cannot survive staff turnover.</span>
+    </li>
+  </ol>
+  <p class="callout"><b>A note on how to use these.</b> They establish that the problem is real and general. They do <em>not</em> establish that it is felt by anyone at UQ, that anyone wants it solved, or that they would use something you built — which is what the course actually grades. Cite them for context in iteration 1; make the findings section your own interviews.</p>
+</section>
+
+</div>
+
+</body></html>

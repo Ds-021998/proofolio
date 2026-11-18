@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Marking queue{% endblock %}
+
+{% comment %}
+  Tutor — scripts waiting. Filtered in the view to this tutor's assigned
+  group; a submission from another group must 404, not 403, so a URL guess
+  tells the guesser nothing.
+
+  Context
+    waiting     each .id .position .assessment_title .submitted_at
+    done_count
+{% endcomment %}
+
+{% block content %}
+<div class="head">
+  <p class="kicker">{{ assessment.title }}</p>
+  <h2>{{ waiting|length }} to mark</h2>
+  <p>{{ done_count }} released so far. Scripts are anonymous and in submission order.</p>
+</div>
+
+<div class="stack-sm">
+  {% for s in waiting %}
+    <div class="card-2 spread">
+      <div>
+        <p style="font-weight:600">Script {{ s.position }}</p>
+        <p class="xs">Submitted {{ s.submitted_at|date:"j M, g:ia" }}</p>
+      </div>
+      <a class="btn brand xs" href="{% url 'tutor_mark' s.id %}">Mark<span class="sr-only"> script {{ s.position }}</span></a>
+    </div>
+  {% empty %}
+    {% include "includes/_empty_state.html" with message="Nothing waiting." detail="Scripts appear here as students submit." %}
+  {% endfor %}
+</div>
+{% endblock %}

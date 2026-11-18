@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block title %}Criteria{% endblock %}
+
+{% comment %}
+  Coordinator — owns the criteria. The split the tutor/coordinator feedback
+  asked for: the coordinator defines the standard, markers contribute
+  indicators as a by-product of applying it.
+
+  Context
+    assessment
+    criteria     each with .title .capability_name .sfia_code .clause
+                 .good_looks_like .prefilled_comment .is_published
+                 .indicators  (list, each .text .contributed_by_label)
+{% endcomment %}
+
+{% block content %}
+<div class="head">
+  <p class="kicker">{{ assessment.title }}</p>
+  <h2>What this assessment is marked on</h2>
+  <p>You write these once. Students see them before they write, markers click them instead of typing, and they carry into the next assessment.</p>
+</div>
+
+<div class="stack">
+
+  {% for c in criteria %}
+    <article class="crit">
+      {% if c.is_published %}
+        {% include "includes/_criterion_head.html" with criterion=c verdict="met" chip_label="Published" %}
+      {% else %}
+        {% include "includes/_criterion_head.html" with criterion=c verdict=None chip_label="Draft" %}
+      {% endif %}
+
+      <p class="sm muted">{{ c.clause }}</p>
+      <p class="xs">Good looks like: {{ c.good_looks_like }}</p>
+
+      <div>
+        <span class="lbl">Comment that attaches when a marker judges this partly or not met</span>
+        <p class="sm">{{ c.prefilled_comment }}</p>
+      </div>
+
+      {% if c.indicators.all %}
+        <div>
+          <span class="lbl">Indicators contributed by markers</span>
+          {% for i in c.indicators.all %}
+            <p class="sm">· {{ i.text }}</p>
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      <div class="row">
+        <a class="btn s xs" href="{% url 'coordinator_criterion_edit' c.id %}">Edit<span class="sr-only"> {{ c.title }}</span></a>
+      </div>
+    </article>
+  {% empty %}
+    {% include "includes/_empty_state.html" with message="No criteria yet." detail="Nothing in Proofolio works until this assessment has criteria." %}
+  {% endfor %}
+
+  <p class="note">
+    Every criterion is visible to students from the moment it's published. Nothing is hidden —
+    a standard a student can't see isn't a standard, it's a trap.
+  </p>
+
+  {% if sfia_draft %}
+    <p class="xs">SFIA mappings are drafts for discussion, not an accredited mapping.</p>
+  {% endif %}
+
+</div>
+{% endblock %}

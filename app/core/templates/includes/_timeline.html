@@ -1,0 +1,25 @@
+{% comment %}
+  Judgement history for one capability — the thing that makes a record a
+  record rather than a grade.
+
+      {% include "includes/_timeline.html" with events=cap.events %}
+
+  events   ordered oldest → newest, each with
+             .assessment_title
+             .verdict          "met" | "partly" | "not_met"
+             .created_at
+             .verified_by      e.g. "COMP7110 teaching team"
+
+  An ordered list, because the order is the meaning.
+{% endcomment %}
+<ol class="tl">
+  {% for e in events %}
+    <li class="tl-item" data-s="{% if e.verdict == 'met' %}ok{% elif e.verdict == 'partly' %}open{% else %}miss{% endif %}">
+      <div class="spread">
+        <p class="sm" style="font-weight:600">{{ e.assessment_title }}</p>
+        {% include "includes/_status_chip.html" with verdict=e.verdict %}
+      </div>
+      <p class="xs">{{ e.created_at|date:"j M Y" }} · verified by the {{ e.verified_by }}</p>
+    </li>
+  {% endfor %}
+</ol>

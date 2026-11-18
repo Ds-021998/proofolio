@@ -1,0 +1,56 @@
+{% load static %}<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+  {# Unique, descriptive page title on every page — WCAG 2.4.2. #}
+  <title>{% block title %}Proofolio{% endblock %} · Proofolio</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=JetBrains+Mono:wght@400;500&family=Schibsted+Grotesk:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="{% static 'css/app.css' %}">
+</head>
+<body>
+
+{# Skip link: first thing in the tab order on every page. #}
+<a class="skip" href="#main">Skip to main content</a>
+
+{% include "includes/_icons.html" %}
+
+<div class="stage">
+  <div class="app">
+
+    <header class="app-top">
+      {% if user.is_authenticated %}
+        <span class="who-chip {{ role }}">
+          <span class="avatar" aria-hidden="true">{{ user.get_full_name|default:user.username|slice:":2"|upper }}</span>
+          {{ user.get_full_name|default:user.username }}
+          <span class="sr-only">— signed in as {{ role_label }}</span>
+        </span>
+        <span class="course-chip">{{ course.code|default:"COMP7110" }}</span>
+        <span class="sp"></span>
+        <form method="post" action="{% url 'logout' %}">
+          {% csrf_token %}
+          <button class="btn g xs" type="submit">Sign out</button>
+        </form>
+      {% else %}
+        <span class="who-chip">Proofolio</span>
+      {% endif %}
+    </header>
+
+    {% if user.is_authenticated %}{% include "includes/_nav.html" %}{% endif %}
+
+    <main class="body" id="main" tabindex="-1">
+      {% include "includes/_messages.html" %}
+      {% block content %}{% endblock %}
+    </main>
+
+  </div>
+</div>
+
+{% block scripts %}{% endblock %}
+</body>
+</html>

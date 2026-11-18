@@ -1,0 +1,771 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}</style></head><body>
+<title>Five Problems Worth Building</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+
+<style>
+:root {
+  --ground: #FCFAF9;
+  --surface: #FFFFFF;
+  --sunk: #F4F0EE;
+  --ink: #1A1614;
+  --ink-soft: #574E4B;
+  --ink-faint: #877D79;
+  --rule: #E4DDD9;
+  --rule-strong: #CFC5C0;
+  --accent: #C5192D;
+  --accent-soft: #FAEAEC;
+  --strong: #1C6349;
+  --caution: #8A5A1A;
+  --weak: #8B817D;
+  --shadow: 0 1px 2px rgba(26,22,20,.05);
+
+  --f-display: "Newsreader", Georgia, "Times New Roman", serif;
+  --f-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #141110;
+    --surface: #1D1917;
+    --sunk: #262120;
+    --ink: #F2ECE9;
+    --ink-soft: #B3A8A3;
+    --ink-faint: #857A76;
+    --rule: #332C2A;
+    --rule-strong: #473E3B;
+    --accent: #F2707F;
+    --accent-soft: #381D21;
+    --strong: #6BC69C;
+    --caution: #DCA950;
+    --weak: #8B807C;
+    --shadow: 0 1px 2px rgba(0,0,0,.3);
+  }
+}
+
+:root[data-theme="dark"] {
+  --ground: #141110;
+  --surface: #1D1917;
+  --sunk: #262120;
+  --ink: #F2ECE9;
+  --ink-soft: #B3A8A3;
+  --ink-faint: #857A76;
+  --rule: #332C2A;
+  --rule-strong: #473E3B;
+  --accent: #F2707F;
+  --accent-soft: #381D21;
+  --strong: #6BC69C;
+  --caution: #DCA950;
+  --weak: #8B807C;
+  --shadow: 0 1px 2px rgba(0,0,0,.3);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--f-body);
+  font-size: 16.5px;
+  line-height: 1.62;
+  margin: 0;
+  padding: 0 1.5rem 6rem;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap {
+  max-width: 50rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 3.25rem;
+}
+
+.prose { max-width: 38rem; }
+
+p { margin: 0 0 1rem; }
+p:last-child { margin-bottom: 0; }
+
+a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+a:focus-visible, summary:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.eyebrow {
+  font-family: var(--f-mono);
+  font-size: .705rem;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin: 0;
+}
+
+/* ---------- masthead ---------- */
+
+header.masthead {
+  padding-top: 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+h1 {
+  font-family: var(--f-display);
+  font-weight: 500;
+  font-size: clamp(2.5rem, 6.5vw, 3.9rem);
+  line-height: 1.03;
+  letter-spacing: -.02em;
+  margin: 0;
+  text-wrap: balance;
+}
+
+.standfirst {
+  font-family: var(--f-display);
+  font-size: clamp(1.12rem, 2.4vw, 1.32rem);
+  line-height: 1.5;
+  color: var(--ink-soft);
+  max-width: 34rem;
+  margin: 0;
+}
+
+.meta-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--rule);
+  font-family: var(--f-mono);
+  font-size: .72rem;
+  letter-spacing: .05em;
+  color: var(--ink-faint);
+}
+.meta-strip b { color: var(--ink-soft); font-weight: 500; }
+
+/* ---------- sections ---------- */
+
+section { display: flex; flex-direction: column; gap: 1.5rem; }
+
+h2 {
+  font-family: var(--f-display);
+  font-weight: 500;
+  font-size: clamp(1.6rem, 3.4vw, 2.1rem);
+  line-height: 1.15;
+  letter-spacing: -.015em;
+  margin: 0;
+  text-wrap: balance;
+}
+
+.sec-head { display: flex; flex-direction: column; gap: .45rem; }
+
+h3 {
+  font-family: var(--f-body);
+  font-weight: 600;
+  font-size: 1rem;
+  margin: 0;
+  letter-spacing: -.005em;
+}
+
+/* ---------- the filter ---------- */
+
+.filter-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+}
+.filter-list li {
+  background: var(--surface);
+  padding: 1.05rem 1.25rem;
+  display: grid;
+  grid-template-columns: 1.6rem 1fr;
+  gap: .1rem .75rem;
+}
+.filter-list .mark {
+  font-family: var(--f-mono);
+  font-size: .78rem;
+  color: var(--accent);
+  padding-top: .16rem;
+}
+.filter-list .q { font-weight: 600; }
+.filter-list .why {
+  grid-column: 2;
+  color: var(--ink-soft);
+  font-size: .93rem;
+}
+
+/* ---------- candidates ---------- */
+
+.candidates { display: flex; flex-direction: column; gap: 1.25rem; }
+
+article.cand {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  box-shadow: var(--shadow);
+  padding: 1.6rem 1.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+}
+
+.cand-head {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: .15rem 1rem;
+  align-items: baseline;
+}
+.rank {
+  font-family: var(--f-display);
+  font-size: 2.1rem;
+  line-height: 1;
+  font-weight: 500;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+.cand-head h3 { font-size: 1.22rem; line-height: 1.25; align-self: center; }
+.cand-sub {
+  grid-column: 2;
+  font-family: var(--f-mono);
+  font-size: .715rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+dl.fields {
+  margin: 0;
+  display: grid;
+  grid-template-columns: 8.5rem 1fr;
+  gap: .7rem 1.1rem;
+  font-size: .955rem;
+}
+dl.fields dt {
+  font-family: var(--f-mono);
+  font-size: .69rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  padding-top: .25rem;
+}
+dl.fields dd { margin: 0; color: var(--ink-soft); }
+dl.fields dd strong { color: var(--ink); font-weight: 600; }
+
+@media (max-width: 34rem) {
+  dl.fields { grid-template-columns: 1fr; gap: .2rem; }
+  dl.fields dd { margin-bottom: .7rem; }
+  dl.fields dd:last-child { margin-bottom: 0; }
+}
+
+.wedge {
+  background: var(--sunk);
+  border-left: 2px solid var(--accent);
+  padding: .8rem 1rem;
+  font-size: .945rem;
+}
+.wedge .lbl {
+  font-family: var(--f-mono);
+  font-size: .68rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  display: block;
+  margin-bottom: .2rem;
+}
+
+/* ---------- matrix ---------- */
+
+.scroller {
+  overflow-x: auto;
+  border: 1px solid var(--rule);
+  background: var(--surface);
+}
+table {
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 42rem;
+  font-size: .9rem;
+}
+th, td {
+  text-align: left;
+  padding: .72rem .9rem;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: middle;
+}
+thead th {
+  font-family: var(--f-mono);
+  font-size: .665rem;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  font-weight: 400;
+  border-bottom: 1px solid var(--rule-strong);
+  background: var(--sunk);
+}
+tbody tr:last-child td { border-bottom: none; }
+tbody th {
+  font-weight: 600;
+  font-size: .92rem;
+  white-space: nowrap;
+}
+tbody th span {
+  font-family: var(--f-mono);
+  color: var(--accent);
+  font-size: .8rem;
+  margin-right: .45rem;
+}
+
+.chip {
+  font-family: var(--f-mono);
+  font-size: .68rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  padding: .16rem .45rem;
+  border: 1px solid currentColor;
+  white-space: nowrap;
+}
+.chip.good { color: var(--strong); }
+.chip.mid  { color: var(--caution); }
+.chip.low  { color: var(--weak); }
+
+/* ---------- steps ---------- */
+
+ol.steps {
+  list-style: none;
+  counter-reset: s;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+ol.steps li {
+  counter-increment: s;
+  display: grid;
+  grid-template-columns: 2.4rem 1fr;
+  gap: .2rem 1rem;
+  padding: 1.1rem 0;
+  border-top: 1px solid var(--rule);
+}
+ol.steps li:last-child { border-bottom: 1px solid var(--rule); }
+ol.steps li::before {
+  content: "0" counter(s);
+  font-family: var(--f-mono);
+  font-size: .78rem;
+  color: var(--accent);
+  padding-top: .2rem;
+  font-variant-numeric: tabular-nums;
+}
+ol.steps .st { font-weight: 600; }
+ol.steps .sd { grid-column: 2; color: var(--ink-soft); font-size: .95rem; }
+
+/* ---------- ask / don't ask ---------- */
+
+.two-col {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: 1.25rem;
+}
+.qbox {
+  border: 1px solid var(--rule);
+  background: var(--surface);
+  padding: 1.2rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: .7rem;
+}
+.qbox h3 { font-size: .93rem; }
+.qbox ul { margin: 0; padding-left: 1.1rem; display: flex; flex-direction: column; gap: .45rem; }
+.qbox li { font-size: .94rem; color: var(--ink-soft); }
+.qbox.yes h3 { color: var(--strong); }
+.qbox.no  h3 { color: var(--accent); }
+
+/* ---------- calendar ---------- */
+
+.cal { display: flex; flex-direction: column; }
+.cal-row {
+  display: grid;
+  grid-template-columns: 6.5rem 1fr;
+  gap: .2rem 1.1rem;
+  padding: .95rem 0;
+  border-top: 1px solid var(--rule);
+}
+.cal-row:last-child { border-bottom: 1px solid var(--rule); }
+.cal-date {
+  font-family: var(--f-mono);
+  font-size: .77rem;
+  color: var(--accent);
+  padding-top: .18rem;
+  white-space: nowrap;
+}
+.cal-what { font-weight: 600; font-size: .97rem; }
+.cal-note { grid-column: 2; color: var(--ink-soft); font-size: .93rem; }
+
+@media (max-width: 30rem) {
+  .cal-row { grid-template-columns: 1fr; }
+  .cal-note { grid-column: 1; }
+}
+
+/* ---------- sources ---------- */
+
+.sources {
+  border-top: 1px solid var(--rule);
+  padding-top: 1.25rem;
+  font-size: .875rem;
+  color: var(--ink-soft);
+}
+.sources ul { margin: .6rem 0 0; padding-left: 1.1rem; display: flex; flex-direction: column; gap: .35rem; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
+</style>
+
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">COMP7110 · Semester 2, 2026 · Team topic selection</p>
+  <h1>Five problems worth building</h1>
+  <p class="standfirst">SDG&nbsp;4 is a theme, not a project. This narrows &ldquo;quality education&rdquo; down to five specific groups of people you can actually put in a room and interview before the first canvas is due.</p>
+  <div class="meta-strip">
+    <span><b>SDG 4</b> Quality Education</span>
+    <span><b>Iteration 1 due</b> 4 Sep 2026</span>
+    <span><b>Prototype due</b> 13 Nov 2026</span>
+  </div>
+</header>
+
+<section>
+  <div class="sec-head">
+    <p class="eyebrow">Start here</p>
+    <h2>The filter that actually matters</h2>
+  </div>
+  <div class="prose">
+    <p>Every assessment in this course is a Business Model Canvas iteration built on real customer discovery, and the profile explicitly bans AI-generated or fabricated interview data. That single rule decides your topic more than your interests do.</p>
+    <p>It means the global framings of SDG 4 — literacy in low-income countries, refugee schooling, rural connectivity — are unavailable to you. Not because they don't matter, but because you cannot interview those people from St Lucia, twice, before September. Pick a problem whose owner is within a bus ride.</p>
+    <p>Run every candidate topic past these four questions. A &ldquo;no&rdquo; on the first one is fatal.</p>
+  </div>
+  <ul class="filter-list">
+    <li>
+      <span class="mark">01</span>
+      <span class="q">Can we book 15 interviews in the next two weeks?</span>
+      <span class="why">Access beats passion in this course. If nobody replies by day five, the topic is already dead — you just don't know it yet.</span>
+    </li>
+    <li>
+      <span class="mark">02</span>
+      <span class="q">Do these people already work around the problem today?</span>
+      <span class="why">An existing hacky workaround — a spreadsheet, a group chat, a friend they pester — is proof the pain is real. No workaround usually means no pain.</span>
+    </li>
+    <li>
+      <span class="mark">03</span>
+      <span class="q">Can four students ship something that works by 13 November?</span>
+      <span class="why">Iteration 3 needs running code with repository logs showing individual contribution. Scope accordingly.</span>
+    </li>
+    <li>
+      <span class="mark">04</span>
+      <span class="q">Does it need ethics approval or access to minors?</span>
+      <span class="why">Interviewing school students is slow and consent-heavy. Interviewing their teachers is neither, and gets you most of the same insight.</span>
+    </li>
+  </ul>
+</section>
+
+<section>
+  <div class="sec-head">
+    <p class="eyebrow">Shortlist · ranked by fit to this course, not by importance</p>
+    <h2>The five candidates</h2>
+  </div>
+  <div class="prose">
+    <p>Each of these names a person, not a theme. The ranking weights interview access heavily, because that is what this course grades you on. If your team has a personal connection that changes the access picture — a parent who teaches, a friend running a bootcamp — that connection outranks my ordering.</p>
+  </div>
+
+  <div class="candidates">
+
+    <article class="cand">
+      <div class="cand-head">
+        <span class="rank">1</span>
+        <h3>Tutors and TAs drowning in marking that teaches nobody anything</h3>
+        <span class="cand-sub">SDG target 4.c · educator capacity</span>
+      </div>
+      <dl class="fields">
+        <dt>Who</dt>
+        <dd>UQ tutors, TAs and course coordinators — including the ones teaching <strong>your own</strong> courses this semester.</dd>
+        <dt>Suspected pain</dt>
+        <dd>Marking is volume work under deadline. Feedback quality collapses under it, students receive a grade instead of a lesson, and different tutors mark the same work differently.</dd>
+        <dt>Access</dt>
+        <dd>Highest of any option here. They are on campus, they hold consultation hours, and they understand what a research interview is.</dd>
+        <dt>Risk</dt>
+        <dd>The obvious answer — &ldquo;AI marks it&rdquo; — is crowded, politically fraught under UQ's academic integrity rules, and solution-first. If you go here, you must resist that for at least two iterations.</dd>
+      </dl>
+      <p class="wedge"><span class="lbl">Sharper wedge</span>Not automating the mark. Making marks <em>consistent between tutors</em>, or turning an already-assigned mark into feedback a student can act on before the next assessment.</p>
+    </article>
+
+    <article class="cand">
+      <div class="cand-head">
+        <span class="rank">2</span>
+        <h3>International postgrads who get the degree but not the job</h3>
+        <span class="cand-sub">SDG target 4.4 · relevant skills for employment</span>
+      </div>
+      <dl class="fields">
+        <dt>Who</dt>
+        <dd>International coursework postgrads in IT — quite possibly including several people on your own team.</dd>
+        <dt>Evidence</dt>
+        <dd>The 2024 Graduate Outcomes Survey puts international postgraduate coursework graduates at <strong>56.1% full-time employment against 88.1% for domestic</strong> — a 32-point gap — with median salaries of $70,000 versus $100,000.</dd>
+        <dt>Access</dt>
+        <dd>Very high. Your cohort, your classes, your housemates.</dd>
+        <dt>Risk</dt>
+        <dd>The most crowded space on this list. Every second student project is a job-search tool. Without a narrow wedge you will build a worse LinkedIn.</dd>
+      </dl>
+      <p class="wedge"><span class="lbl">Sharper wedge</span>Not &ldquo;find jobs.&rdquo; The specific gap between what a coursework degree certifies and what an Australian entry-level employer asks for — or how visa status silently filters applications before a human reads them.</p>
+    </article>
+
+    <article class="cand">
+      <div class="cand-head">
+        <span class="rank">3</span>
+        <h3>Brisbane secondary teachers losing evenings to administration</h3>
+        <span class="cand-sub">SDG target 4.c · supply of qualified teachers</span>
+      </div>
+      <dl class="fields">
+        <dt>Who</dt>
+        <dd>Classroom teachers — deliberately <strong>not</strong> their students, which keeps you clear of consent complications entirely.</dd>
+        <dt>Evidence</dt>
+        <dd>AITSL's 2024 workforce data: a median <strong>50-hour week</strong>, 18–19% spending 10+ hours weekly on administrative work, and <strong>36% intending to leave before retirement</strong> — with 69–75% naming workload and stress as the reason.</dd>
+        <dt>Access</dt>
+        <dd>Medium. Cold outreach to schools is slow, but early-career and relief teachers are unusually willing to talk about workload. Start with anyone your team already knows.</dd>
+        <dt>Risk</dt>
+        <dd>School IT procurement is a wall — irrelevant for this course, since you are graded on discovery and a prototype, not on sales.</dd>
+      </dl>
+      <p class="wedge"><span class="lbl">Sharper wedge</span>Pick one named admin task and own it. Not &ldquo;teacher workload&rdquo; — something like the reporting cycle, parent communication, or differentiating one lesson plan across five ability levels.</p>
+    </article>
+
+    <article class="cand">
+      <div class="cand-head">
+        <span class="rank">4</span>
+        <h3>Neurodivergent students fighting the accommodation process, not the coursework</h3>
+        <span class="cand-sub">SDG target 4.5 · equity and inclusion</span>
+      </div>
+      <dl class="fields">
+        <dt>Who</dt>
+        <dd>University students with a Student Access Plan, or eligible for one and not using it.</dd>
+        <dt>Suspected pain</dt>
+        <dd>The administrative experience of obtaining and repeatedly invoking accommodations — disclosure to each course, evidence requirements, timing against assessment deadlines — is itself a barrier, separate from any learning difficulty.</dd>
+        <dt>Access</dt>
+        <dd>Medium, and requires care. Student union collectives and peer networks are the route in; recent Australian research on neurodivergent university students gives you a grounded starting hypothesis.</dd>
+        <dt>Risk</dt>
+        <dd>The most ethically sensitive option. If nobody on your team has lived experience here, you need genuine humility and more interviews, not fewer.</dd>
+      </dl>
+      <p class="wedge"><span class="lbl">Sharper wedge</span>The paperwork and disclosure loop, not the pedagogy. That is a workflow problem a student team can actually prototype.</p>
+    </article>
+
+    <article class="cand">
+      <div class="cand-head">
+        <span class="rank">5</span>
+        <h3>Career switchers who can code but can't prove it</h3>
+        <span class="cand-sub">SDG target 4.4 · skills recognition</span>
+      </div>
+      <dl class="fields">
+        <dt>Who</dt>
+        <dd>Self-taught and bootcamp-trained adults moving into IT, reachable through Brisbane tech meetups and online communities.</dd>
+        <dt>Suspected pain</dt>
+        <dd>Competence exists; the credential to signal it doesn't. Employers can't verify, so they filter on degrees.</dd>
+        <dt>Access</dt>
+        <dd>High volume, low friction — this group loves being asked about their journey.</dd>
+        <dt>Risk</dt>
+        <dd>Every plausible solution is a two-sided marketplace, which means a cold-start problem you cannot solve by November. Ranked last for that reason alone.</dd>
+      </dl>
+      <p class="wedge"><span class="lbl">Sharper wedge</span>Only viable if you serve <em>one</em> side. Pick the learner or the employer and ignore the other until the course ends.</p>
+    </article>
+
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <p class="eyebrow">Comparison</p>
+    <h2>Score them yourselves</h2>
+  </div>
+  <div class="prose">
+    <p>My scores below are hypotheses. Replace each one with your team's own reading after the week-one exercise — a matrix you filled in from real conversations is worth infinitely more than one I handed you.</p>
+  </div>
+  <div class="scroller">
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Candidate</th>
+          <th scope="col">Interview access</th>
+          <th scope="col">Evidence of pain</th>
+          <th scope="col">Uncrowded</th>
+          <th scope="col">Buildable by Nov</th>
+          <th scope="col">Low ethics friction</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row"><span>1</span>Tutors &amp; TAs</th>
+          <td><span class="chip good">High</span></td>
+          <td><span class="chip mid">Medium</span></td>
+          <td><span class="chip mid">Medium</span></td>
+          <td><span class="chip good">High</span></td>
+          <td><span class="chip good">High</span></td>
+        </tr>
+        <tr>
+          <th scope="row"><span>2</span>Intl postgrads</th>
+          <td><span class="chip good">High</span></td>
+          <td><span class="chip good">High</span></td>
+          <td><span class="chip low">Low</span></td>
+          <td><span class="chip good">High</span></td>
+          <td><span class="chip good">High</span></td>
+        </tr>
+        <tr>
+          <th scope="row"><span>3</span>Teachers</th>
+          <td><span class="chip mid">Medium</span></td>
+          <td><span class="chip good">High</span></td>
+          <td><span class="chip good">High</span></td>
+          <td><span class="chip mid">Medium</span></td>
+          <td><span class="chip good">High</span></td>
+        </tr>
+        <tr>
+          <th scope="row"><span>4</span>Neurodivergent students</th>
+          <td><span class="chip mid">Medium</span></td>
+          <td><span class="chip good">High</span></td>
+          <td><span class="chip good">High</span></td>
+          <td><span class="chip mid">Medium</span></td>
+          <td><span class="chip low">Low</span></td>
+        </tr>
+        <tr>
+          <th scope="row"><span>5</span>Career switchers</th>
+          <td><span class="chip good">High</span></td>
+          <td><span class="chip mid">Medium</span></td>
+          <td><span class="chip low">Low</span></td>
+          <td><span class="chip low">Low</span></td>
+          <td><span class="chip good">High</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <p class="eyebrow">This week</p>
+    <h2>How to pick one in five days</h2>
+  </div>
+  <div class="prose">
+    <p>Do not decide by discussion. Teams that argue their way to a topic pick the one belonging to whoever argued hardest. Decide by evidence instead — the whole point of the course.</p>
+  </div>
+  <ol class="steps">
+    <li>
+      <span class="st">Each person claims a different candidate</span>
+      <span class="sd">Four teammates, four candidates. Nobody defends the one they already liked — that's how you find out whether you liked it or just thought of it first.</span>
+    </li>
+    <li>
+      <span class="st">Book two interviews each, by Friday</span>
+      <span class="sd">Thirty minutes, in person or on a call. The booking itself is the test: whoever can't get a reply has just produced your most valuable finding of the week.</span>
+    </li>
+    <li>
+      <span class="st">Ask only about the past, never the future</span>
+      <span class="sd">No pitching, no describing an idea. See the question bank below. Record with permission and keep the transcripts — you'll need them for the canvas and the reflections.</span>
+    </li>
+    <li>
+      <span class="st">Fill the matrix together on Monday</span>
+      <span class="sd">Each person scores the candidate they investigated. Then compare against my guesses above and note where reality disagreed.</span>
+    </li>
+    <li>
+      <span class="st">Write the problem statement in one sentence</span>
+      <span class="sd"><strong>&ldquo;[Specific person] struggles to [specific task] because [constraint], and today they cope by [actual workaround].&rdquo;</strong> If you cannot fill the last blank from something a real person said, you do not have a problem yet — go back to step two.</span>
+    </li>
+    <li>
+      <span class="st">Commit and stop looking</span>
+      <span class="sd">Iteration 1 is due 4 September. Two more iterations exist precisely so you can be wrong now and correct later. Topic churn past week four is what sinks these projects.</span>
+    </li>
+  </ol>
+</section>
+
+<section>
+  <div class="sec-head">
+    <p class="eyebrow">Interview craft</p>
+    <h2>What to ask, and what will ruin the data</h2>
+  </div>
+  <div class="two-col">
+    <div class="qbox yes">
+      <h3>Ask these</h3>
+      <ul>
+        <li>&ldquo;Walk me through the last time that happened.&rdquo;</li>
+        <li>&ldquo;What did you do about it?&rdquo;</li>
+        <li>&ldquo;How long did that take you last week?&rdquo;</li>
+        <li>&ldquo;What else have you tried? Why did you stop?&rdquo;</li>
+        <li>&ldquo;Who else does this affect?&rdquo;</li>
+        <li>&ldquo;What happens if you just… don't do it?&rdquo;</li>
+      </ul>
+    </div>
+    <div class="qbox no">
+      <h3>Never ask these</h3>
+      <ul>
+        <li>&ldquo;Would you use an app that…&rdquo; — everyone says yes to be kind.</li>
+        <li>&ldquo;Do you think X is a problem?&rdquo; — invites a polite opinion, not a fact.</li>
+        <li>&ldquo;How much would you pay for…&rdquo; — hypothetical money is imaginary.</li>
+        <li>&ldquo;Wouldn't it be great if…&rdquo; — you are now interviewing yourself.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="prose">
+    <p>The rule underneath all of it: people are unreliable about the future and reliable about the past. Ask what they <em>did</em>, not what they <em>would</em> do. And take the course's prohibition seriously — fabricated or AI-generated interview data fails the assessment outright, and it is easier to detect than teams expect.</p>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <p class="eyebrow">Working backwards from the deadlines</p>
+    <h2>The semester, in reverse</h2>
+  </div>
+  <div class="cal">
+    <div class="cal-row">
+      <span class="cal-date">By 27 Aug</span>
+      <span class="cal-what">Topic locked, ten interviews done</span>
+      <span class="cal-note">Enough raw material that iteration 1 writes itself rather than being invented the night before.</span>
+    </div>
+    <div class="cal-row">
+      <span class="cal-date">4 Sep</span>
+      <span class="cal-what">Canvas iteration 1 — hurdle</span>
+      <span class="cal-note">Team report on customer discovery findings, plus individual reflection. Pass/fail.</span>
+    </div>
+    <div class="cal-row">
+      <span class="cal-date">Sep</span>
+      <span class="cal-what">Second discovery round</span>
+      <span class="cal-note">Go back to the same people with what you heard. Where you were wrong is the finding.</span>
+    </div>
+    <div class="cal-row">
+      <span class="cal-date">25 Sep</span>
+      <span class="cal-what">Canvas iteration 2 — hurdle</span>
+      <span class="cal-note">Expect the value proposition to have moved. A canvas identical to iteration 1 reads as no learning.</span>
+    </div>
+    <div class="cal-row">
+      <span class="cal-date">Oct</span>
+      <span class="cal-what">Build the narrowest useful thing</span>
+      <span class="cal-note">Commit early and often — individual contribution is assessed from repository logs, not from claims.</span>
+    </div>
+    <div class="cal-row">
+      <span class="cal-date">13 Nov</span>
+      <span class="cal-what">Code submission &amp; iteration 3 — hurdle</span>
+      <span class="cal-note">Working prototype, findings report, reflection. This one you must pass outright.</span>
+    </div>
+  </div>
+</section>
+
+<section class="sources">
+  <p class="eyebrow">Sources</p>
+  <ul>
+    <li><a href="https://course-profiles.uq.edu.au/course-profiles/COMP7110-62309-7660#course-overview">COMP7110 Course Profile — UQ</a></li>
+    <li><a href="https://www.qilt.edu.au/docs/default-source/default-document-library/2024-gos-international-report.pdf?sfvrsn=168c5da_1">2024 Graduate Outcomes Survey, International Report — QILT</a></li>
+    <li><a href="https://www.aitsl.edu.au/research/australian-teacher-workforce-data/atwd-reports/national-trends-teacher-workforce-june-2026">National Trends: Teacher Workforce, June 2026 — AITSL</a></li>
+    <li><a href="https://link.springer.com/article/10.1007/s13384-025-00828-2">Exploring the perspectives of Australian neurodivergent university students — <em>The Australian Educational Researcher</em></a></li>
+    <li><a href="https://www.jobsandskills.gov.au/sites/default/files/2025-09/international_students_pathways_and_outcomes_study_report.pdf">International Students Outcomes and Pathways Study — Jobs and Skills Australia</a></li>
+  </ul>
+</section>
+
+</div>
+
+</body></html>

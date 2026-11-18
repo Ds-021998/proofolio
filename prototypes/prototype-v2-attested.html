@@ -1,0 +1,1985 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Attested</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=JetBrains+Mono:wght@400;500&family=Schibsted+Grotesk:wght@400;500;600;700&display=swap"
+/>
+<style>
+  :root {
+    --ground: #eef1ef;
+    --surface: #ffffff;
+    --surface-2: #f6f8f7;
+    --surface-3: #eef2f0;
+    --line: #e0e6e3;
+    --line-2: #cdd6d2;
+    --ink: #0d1512;
+    --ink-2: #4e5b56;
+    --ink-3: #7e8b85;
+
+    --brand: #06795a;
+    --brand-2: #05604a;
+    --brand-soft: #e0f2ea;
+    --brand-line: #b9dfcd;
+
+    --ok: #06795a;
+    --ok-soft: #e0f2ea;
+    --open: #b5820c;
+    --open-soft: #fbf1d8;
+    --miss: #a1293c;
+    --miss-soft: #fae7ea;
+    --info: #1f5e8c;
+    --info-soft: #e5eff6;
+
+    --r-sm: 10px;
+    --r: 14px;
+    --r-lg: 20px;
+    --sh-1: 0 1px 2px rgba(13, 21, 18, 0.05);
+    --sh-2: 0 1px 2px rgba(13, 21, 18, 0.05), 0 10px 26px -18px rgba(13, 21, 18, 0.45);
+    --sh-3: 0 2px 4px rgba(13, 21, 18, 0.06), 0 22px 44px -26px rgba(13, 21, 18, 0.55);
+
+    --ui: "Schibsted Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --display: "Bricolage Grotesque", "Schibsted Grotesk", sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #0a0f0d;
+      --surface: #121917;
+      --surface-2: #18201d;
+      --surface-3: #1e2724;
+      --line: #26302c;
+      --line-2: #36423d;
+      --ink: #e9efec;
+      --ink-2: #a3b0aa;
+      --ink-3: #78857f;
+      --brand: #4fcb9c;
+      --brand-2: #6fdcb1;
+      --brand-soft: #10291f;
+      --brand-line: #214636;
+      --ok: #4fcb9c;
+      --ok-soft: #10291f;
+      --open: #efc463;
+      --open-soft: #2b2311;
+      --miss: #f07a86;
+      --miss-soft: #2e161b;
+      --info: #7fb6e0;
+      --info-soft: #14212b;
+      --sh-1: 0 1px 2px rgba(0, 0, 0, 0.5);
+      --sh-2: 0 1px 2px rgba(0, 0, 0, 0.5), 0 10px 26px -18px rgba(0, 0, 0, 0.9);
+      --sh-3: 0 2px 4px rgba(0, 0, 0, 0.6), 0 22px 44px -26px rgba(0, 0, 0, 1);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --ground: #0a0f0d;
+    --surface: #121917;
+    --surface-2: #18201d;
+    --surface-3: #1e2724;
+    --line: #26302c;
+    --line-2: #36423d;
+    --ink: #e9efec;
+    --ink-2: #a3b0aa;
+    --ink-3: #78857f;
+    --brand: #4fcb9c;
+    --brand-2: #6fdcb1;
+    --brand-soft: #10291f;
+    --brand-line: #214636;
+    --ok: #4fcb9c;
+    --ok-soft: #10291f;
+    --open: #efc463;
+    --open-soft: #2b2311;
+    --miss: #f07a86;
+    --miss-soft: #2e161b;
+    --info: #7fb6e0;
+    --info-soft: #14212b;
+    --sh-1: 0 1px 2px rgba(0, 0, 0, 0.5);
+    --sh-2: 0 1px 2px rgba(0, 0, 0, 0.5), 0 10px 26px -18px rgba(0, 0, 0, 0.9);
+    --sh-3: 0 2px 4px rgba(0, 0, 0, 0.6), 0 22px 44px -26px rgba(0, 0, 0, 1);
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    margin: 0;
+  }
+
+  body {
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--ui);
+    font-size: 15px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  button,
+  input,
+  textarea,
+  select {
+    font: inherit;
+    color: inherit;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--brand);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    margin: 0;
+    font-family: var(--display);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  .mono {
+    font-family: var(--mono);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ============ launcher ============ */
+
+  .launch {
+    min-height: 100vh;
+    display: grid;
+    align-content: center;
+    gap: 34px;
+    max-width: 1080px;
+    margin: 0 auto;
+    padding-block: 56px;
+    padding-inline: 16px;
+  }
+
+  .launch-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    width: fit-content;
+    padding: 5px 13px 5px 8px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    box-shadow: var(--sh-1);
+    font-size: 12.5px;
+    font-weight: 500;
+    color: var(--ink-2);
+  }
+
+  .launch h1 {
+    font-size: clamp(38px, 7vw, 68px);
+    line-height: 0.98;
+    letter-spacing: -0.04em;
+    max-width: 16ch;
+  }
+
+  .launch .sub {
+    max-width: 58ch;
+    margin-top: 16px;
+    font-size: clamp(16px, 2vw, 19px);
+    color: var(--ink-2);
+  }
+
+  .modes {
+    display: grid;
+    gap: 14px;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  }
+
+  .mode {
+    display: grid;
+    align-content: start;
+    gap: 8px;
+    padding: 20px;
+    text-align: left;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    box-shadow: var(--sh-1);
+    cursor: pointer;
+    transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
+  }
+
+  .mode:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--sh-3);
+    border-color: var(--line-2);
+  }
+
+  .mode-ico {
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    margin-bottom: 4px;
+    border-radius: 11px;
+    background: var(--brand-soft);
+    color: var(--brand);
+  }
+
+  .mode h3 {
+    font-size: 18px;
+  }
+
+  .mode p {
+    font-size: 13.5px;
+    color: var(--ink-2);
+  }
+
+  .mode .who {
+    margin-top: 6px;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+
+  .mode.demo .mode-ico {
+    background: var(--info-soft);
+    color: var(--info);
+  }
+
+  .launch-note {
+    max-width: 66ch;
+    font-size: 13px;
+    color: var(--ink-3);
+  }
+
+  /* ============ stage ============ */
+
+  .stage {
+    display: grid;
+    gap: 16px;
+    padding: 14px;
+    padding-top: calc(14px + env(safe-area-inset-top, 0px));
+    min-height: 100vh;
+    align-content: start;
+  }
+
+  .stage[data-demo="true"] {
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 1000px) {
+    .stage[data-demo="true"] {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto minmax(0, 1fr);
+      height: 100vh;
+      align-content: stretch;
+      overflow: hidden;
+    }
+  }
+
+  .stage-bar {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .stage-bar .sp {
+    margin-left: auto;
+  }
+
+  .app {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    box-shadow: var(--sh-2);
+    overflow: hidden;
+  }
+
+  .app-top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--line);
+    background: var(--surface-2);
+  }
+
+  .who-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 4px 11px 4px 5px;
+    border-radius: 999px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    font-size: 12.5px;
+    font-weight: 600;
+  }
+
+  .avatar {
+    display: grid;
+    place-items: center;
+    width: 21px;
+    height: 21px;
+    border-radius: 50%;
+    background: var(--brand);
+    color: var(--surface);
+    font-size: 10px;
+    font-weight: 700;
+  }
+
+  .who-chip.tutor .avatar {
+    background: var(--info);
+  }
+
+  .who-chip.coordinator .avatar {
+    background: var(--open);
+  }
+
+  .course-chip {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+  }
+
+  .nav {
+    display: flex;
+    gap: 4px;
+    padding: 9px 12px;
+    overflow-x: auto;
+    border-bottom: 1px solid var(--line);
+    scrollbar-width: none;
+  }
+
+  .nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .nav button {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 13px;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--ink-2);
+    font-size: 13.5px;
+    font-weight: 500;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.14s ease, color 0.14s ease;
+  }
+
+  .nav button:hover {
+    background: var(--surface-3);
+  }
+
+  .nav button[aria-current="page"] {
+    background: var(--ink);
+    color: var(--surface);
+  }
+
+  .nav .count {
+    display: inline-grid;
+    place-items: center;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 5px;
+    border-radius: 999px;
+    background: var(--miss);
+    color: #fff;
+    font-family: var(--mono);
+    font-size: 10.5px;
+  }
+
+  .nav button[aria-current="page"] .count {
+    background: var(--surface);
+    color: var(--ink);
+  }
+
+  .body {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    padding: 18px 16px 28px;
+  }
+
+  @media (min-width: 1000px) {
+    .stage[data-demo="true"] .body {
+      max-height: none;
+    }
+    .stage[data-demo="false"] .app {
+      max-width: 780px;
+      margin: 0 auto;
+      width: 100%;
+    }
+  }
+
+  .stack {
+    display: grid;
+    gap: 14px;
+  }
+
+  .stack-sm {
+    display: grid;
+    gap: 9px;
+  }
+
+  .head {
+    display: grid;
+    gap: 6px;
+    margin-bottom: 16px;
+  }
+
+  .head h2 {
+    font-size: 24px;
+    line-height: 1.1;
+  }
+
+  .head p {
+    font-size: 14px;
+    color: var(--ink-2);
+    max-width: 56ch;
+  }
+
+  .kicker {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+
+  .card {
+    padding: 15px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r);
+    box-shadow: var(--sh-1);
+  }
+
+  .card-2 {
+    padding: 15px;
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+    border-radius: var(--r);
+  }
+
+  .spread {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 9px;
+  }
+
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .muted {
+    color: var(--ink-2);
+  }
+
+  .sm {
+    font-size: 13px;
+  }
+
+  .xs {
+    font-size: 12px;
+    color: var(--ink-3);
+  }
+
+  /* hero meter */
+  .hero {
+    display: grid;
+    gap: 14px;
+    padding: 18px;
+    border-radius: var(--r-lg);
+    background: linear-gradient(180deg, var(--surface-2), var(--surface));
+    border: 1px solid var(--line);
+    box-shadow: var(--sh-1);
+  }
+
+  .hero-num {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    font-family: var(--display);
+    font-weight: 700;
+    letter-spacing: -0.045em;
+  }
+
+  .hero-num b {
+    font-size: 52px;
+    line-height: 0.9;
+    font-weight: 700;
+    color: var(--brand);
+  }
+
+  .hero-num span {
+    font-family: var(--ui);
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--ink-2);
+    letter-spacing: 0;
+  }
+
+  .meter {
+    display: flex;
+    gap: 3px;
+  }
+
+  .meter i {
+    flex: 1;
+    height: 8px;
+    border-radius: 4px;
+    background: var(--surface-3);
+    border: 1px solid var(--line);
+  }
+
+  .meter i[data-s="ok"] {
+    background: var(--ok);
+    border-color: var(--ok);
+  }
+
+  .meter i[data-s="open"] {
+    background: var(--open);
+    border-color: var(--open);
+  }
+
+  /* chips */
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 10px 3px 7px;
+    border-radius: 999px;
+    font-size: 11.5px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .chip svg {
+    flex: 0 0 auto;
+  }
+
+  .chip.ok {
+    color: var(--ok);
+    background: var(--ok-soft);
+  }
+
+  .chip.open {
+    color: var(--open);
+    background: var(--open-soft);
+  }
+
+  .chip.miss {
+    color: var(--miss);
+    background: var(--miss-soft);
+  }
+
+  .chip.info {
+    color: var(--info);
+    background: var(--info-soft);
+  }
+
+  .chip.flat {
+    color: var(--ink-2);
+    background: var(--surface-3);
+  }
+
+  /* criterion card */
+  .crit {
+    display: grid;
+    gap: 10px;
+    padding: 15px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r);
+    box-shadow: var(--sh-1);
+  }
+
+  .crit-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .crit h4 {
+    font-family: var(--ui);
+    font-size: 15.5px;
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+  }
+
+  .cap {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 5px;
+    font-size: 12px;
+    color: var(--ink-3);
+  }
+
+  .cap b {
+    font-weight: 600;
+    color: var(--ink-2);
+  }
+
+  .quote {
+    padding: 11px 13px;
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+    border-radius: var(--r-sm);
+    font-size: 13.5px;
+    line-height: 1.45;
+    color: var(--ink-2);
+  }
+
+  .lbl {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin-bottom: 4px;
+  }
+
+  /* buttons */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    min-height: 40px;
+    padding: 0 16px;
+    border: 1px solid transparent;
+    border-radius: 11px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.12s ease, background 0.14s ease, opacity 0.14s ease;
+  }
+
+  .btn:active {
+    transform: scale(0.985);
+  }
+
+  .btn.p {
+    background: var(--ink);
+    color: var(--surface);
+  }
+
+  .btn.brand {
+    background: var(--brand);
+    color: #fff;
+  }
+
+  :root[data-theme="dark"] .btn.brand {
+    color: #06231a;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .btn.brand {
+      color: #06231a;
+    }
+  }
+
+  .btn.s {
+    background: var(--surface-3);
+    color: var(--ink);
+  }
+
+  .btn.g {
+    background: var(--surface);
+    color: var(--ink-2);
+    border-color: var(--line-2);
+  }
+
+  .btn.xs {
+    min-height: 32px;
+    padding: 0 11px;
+    font-size: 12.5px;
+    font-weight: 500;
+    border-radius: 9px;
+  }
+
+  .btn.full {
+    width: 100%;
+  }
+
+  .btn:disabled {
+    opacity: 0.42;
+    cursor: not-allowed;
+  }
+
+  .seg {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4px;
+    padding: 4px;
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+  }
+
+  .seg button {
+    min-height: 34px;
+    border: 0;
+    border-radius: 9px;
+    background: transparent;
+    color: var(--ink-2);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+  }
+
+  .seg button:hover {
+    background: var(--surface-3);
+  }
+
+  .seg button[aria-pressed="true"][data-v="ok"] {
+    background: var(--ok);
+    color: #fff;
+  }
+
+  .seg button[aria-pressed="true"][data-v="partly"] {
+    background: var(--open);
+    color: #231a02;
+  }
+
+  .seg button[aria-pressed="true"][data-v="miss"] {
+    background: var(--miss);
+    color: #fff;
+  }
+
+  :root[data-theme="dark"] .seg button[aria-pressed="true"][data-v="ok"],
+  :root[data-theme="dark"] .seg button[aria-pressed="true"][data-v="miss"] {
+    color: #0a0f0d;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .seg button[aria-pressed="true"][data-v="ok"],
+    :root:not([data-theme="light"]) .seg button[aria-pressed="true"][data-v="miss"] {
+      color: #0a0f0d;
+    }
+  }
+
+  textarea,
+  input[type="text"] {
+    display: block;
+    width: 100%;
+    padding: 10px 12px;
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+    border-radius: var(--r-sm);
+    font-size: 13.5px;
+    line-height: 1.45;
+    resize: vertical;
+  }
+
+  textarea::placeholder,
+  input::placeholder {
+    color: var(--ink-3);
+  }
+
+  /* bars */
+  .bars {
+    display: grid;
+    gap: 14px;
+  }
+
+  .bar {
+    position: relative;
+    display: grid;
+    gap: 6px;
+  }
+
+  .bar-top {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 10px;
+    font-size: 13.5px;
+  }
+
+  .bar-track {
+    height: 10px;
+    border-radius: 5px;
+    background: var(--surface-3);
+    overflow: hidden;
+  }
+
+  .bar-fill {
+    height: 100%;
+    border-radius: 5px;
+    background: var(--miss);
+  }
+
+  .bar-fill[data-low="true"] {
+    background: var(--open);
+  }
+
+  .bar .tip {
+    position: absolute;
+    top: -6px;
+    right: 0;
+    transform: translateY(-100%);
+    padding: 6px 10px;
+    background: var(--ink);
+    color: var(--ground);
+    border-radius: 8px;
+    font-size: 12px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.14s ease;
+  }
+
+  .bar:hover .tip,
+  .bar:focus-within .tip {
+    opacity: 1;
+  }
+
+  /* timeline */
+  .tl {
+    position: relative;
+    display: grid;
+    gap: 14px;
+    padding-left: 26px;
+  }
+
+  .tl::before {
+    content: "";
+    position: absolute;
+    left: 8px;
+    top: 6px;
+    bottom: 6px;
+    width: 2px;
+    border-radius: 1px;
+    background: var(--line);
+  }
+
+  .tl-item {
+    position: relative;
+  }
+
+  .tl-item::before {
+    content: "";
+    position: absolute;
+    left: -26px;
+    top: 4px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--surface);
+    border: 2px solid var(--line-2);
+  }
+
+  .tl-item[data-s="ok"]::before {
+    background: var(--ok);
+    border-color: var(--ok);
+  }
+
+  .tl-item[data-s="open"]::before {
+    background: var(--open);
+    border-color: var(--open);
+  }
+
+  .tl-item[data-s="miss"]::before {
+    background: var(--miss);
+    border-color: var(--miss);
+  }
+
+  .attest {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px 4px 7px;
+    border-radius: 999px;
+    background: var(--brand-soft);
+    border: 1px solid var(--brand-line);
+    color: var(--brand);
+    font-size: 11.5px;
+    font-weight: 600;
+  }
+
+  /* note / callout */
+  .note {
+    padding: 12px 14px;
+    border-radius: var(--r-sm);
+    background: var(--info-soft);
+    color: var(--info);
+    font-size: 13px;
+    line-height: 1.45;
+    border: 1px solid color-mix(in srgb, var(--info) 22%, transparent);
+  }
+
+  .note.warn {
+    background: var(--open-soft);
+    color: var(--open);
+    border-color: color-mix(in srgb, var(--open) 30%, transparent);
+  }
+
+  .empty {
+    display: grid;
+    gap: 12px;
+    justify-items: start;
+    padding: 26px 20px;
+    text-align: left;
+    background: var(--surface-2);
+    border: 1px dashed var(--line-2);
+    border-radius: var(--r);
+    color: var(--ink-2);
+    font-size: 13.5px;
+  }
+
+  .para {
+    display: grid;
+    grid-template-columns: 26px 1fr;
+    gap: 9px;
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: var(--ink-2);
+  }
+
+  .para b {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    font-weight: 400;
+    color: var(--ink-3);
+    padding-top: 3px;
+  }
+
+  .para[data-flag="true"] p {
+    color: var(--ink);
+    background: var(--miss-soft);
+    box-shadow: 0 0 0 5px var(--miss-soft);
+    border-radius: 3px;
+  }
+
+  .script {
+    display: grid;
+    gap: 13px;
+    max-height: 250px;
+    overflow-y: auto;
+  }
+
+  /* modal */
+  .scrim {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    display: grid;
+    place-items: center;
+    padding: 16px;
+    background: rgba(8, 14, 12, 0.55);
+    backdrop-filter: blur(3px);
+  }
+
+  .modal {
+    width: min(560px, 100%);
+    max-height: 84vh;
+    overflow-y: auto;
+    padding: 22px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    box-shadow: var(--sh-3);
+  }
+
+  .toast {
+    position: fixed;
+    left: 50%;
+    bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+    z-index: 70;
+    transform: translateX(-50%) translateY(10px);
+    max-width: min(90vw, 460px);
+    padding: 11px 17px;
+    background: var(--ink);
+    color: var(--ground);
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 500;
+    text-align: center;
+    box-shadow: var(--sh-3);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.18s ease, transform 0.18s ease;
+  }
+
+  .toast[data-on="true"] {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      transition: none !important;
+      animation: none !important;
+    }
+  }
+</style>
+
+<div id="root"></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div id="modal"></div>
+
+<script>
+  /* ============================ data ============================ */
+
+  const COURSE = { code: "COMP7110", name: "Introduction to Software Innovation", cohort: 42, group: 20 };
+
+  const CRITERIA = [
+    {
+      id: "CR-1",
+      title: "The problem is framed as a person, not a group",
+      capability: "Requirements definition",
+      sfia: "REQM",
+      clause:
+        "States a specific person, the task they cannot complete, the constraint, and what they do today instead.",
+      good: "A reader can name someone you could email this afternoon.",
+      flaw: "Names a group (“students”) and gives no current workaround.",
+      fix: "Rewrite as: [person] struggles to [task] because [constraint], and today they cope by [workaround].",
+      para: 1,
+    },
+    {
+      id: "CR-2",
+      title: "Every hypothesis states what would disprove it",
+      capability: "Research and experiment design",
+      sfia: "RSCH",
+      clause: "Each hypothesis is paired with a test and the observation that would kill it.",
+      good: "For each hypothesis a reader can name the result that would end it.",
+      flaw: "Three hypotheses listed; none states a falsification condition.",
+      fix: "Add one “killed if” line per hypothesis, naming an observation rather than an opinion.",
+      para: 2,
+    },
+    {
+      id: "CR-3",
+      title: "Claims about users trace to attributed evidence",
+      capability: "Evidence-based analysis",
+      sfia: null,
+      clause: "Every claim about a user is supported by an attributed quote from your own interviews.",
+      good: "Each claim carries a participant code, a date, and who ran the interview.",
+      flaw: "Findings are paraphrased; one quote, no attribution to the member who ran the interview.",
+      fix: "Attach participant code, date and interviewer to each finding, and quote a line per claim.",
+      para: 3,
+    },
+    {
+      id: "CR-4",
+      title: "Decisions trace back to what caused them",
+      capability: "Decision traceability",
+      sfia: null,
+      clause: "Each change to the canvas is traced to the specific learning that caused it.",
+      good: "A reader can point at a change and find the interview behind it.",
+      flaw: "The value proposition changed with no learning card cited.",
+      fix: "Add a table: what changed → the learning card that caused it.",
+      para: 4,
+    },
+    {
+      id: "CR-5",
+      title: "The value proposition is anchored to pains people named",
+      capability: "Business modelling",
+      sfia: "BSMO",
+      clause: "Gain creators and pain relievers link to pains named by real interviewees.",
+      good: "No reliever exists without a pain a real person described.",
+      flaw: "Two relievers have no matching pain in the customer profile.",
+      fix: "Delete or re-anchor the unmatched relievers, citing the interview that names the pain.",
+      para: 5,
+    },
+  ];
+
+  // Assignment 1 — already marked and released (week 8)
+  const A1 = {
+    id: "A1",
+    name: "Assignment 1 — Problem framing report",
+    marked: "12 Aug 2026",
+    results: { "CR-1": "miss", "CR-2": "partly", "CR-3": "miss", "CR-4": "ok", "CR-5": "ok" },
+  };
+
+  const A2 = { id: "A2", name: "Assignment 2 — Solution validation report", due: "Today, 4:00pm" };
+
+  const DRAFT = [
+    "Students often struggle to act on the feedback they receive, which reduces the value of assessment and leads to repeated mistakes in later assignments.",
+    "We tested three hypotheses this iteration: that feedback arrives too late to be usable, that its quality is capped by paid marking time, and that what a marker learns never reaches the teaching team.",
+    "Interviews confirmed feedback is often unclear. P3 (14 Sep, interviewed by a teammate) said: “I read the comment, and I still had no idea what to change.” P5 said the same in different words.",
+    "Following LC-07 we revised the value proposition from “explain feedback” to “carry a criterion forward”, and narrowed the segment to postgraduate coursework students.",
+    "Our pain relievers are: plain-language explanation, worked examples, progress tracking across assessments, and a market-skills newsletter for career planning.",
+  ];
+
+  // cohort misses on A1, out of 42 — and this tutor's group of 20
+  const COHORT = { "CR-1": 27, "CR-2": 31, "CR-3": 19, "CR-4": 11, "CR-5": 24 };
+  const GROUP = { "CR-1": 7, "CR-2": 9, "CR-3": 4, "CR-4": 2, "CR-5": 5 };
+
+  const EXCERPTS = [
+    { cr: "CR-2", text: "“We believe students want faster feedback and our interviews support this.”" },
+    { cr: "CR-2", text: "“Hypothesis 2: marking time is the constraint. We asked six tutors and they agreed.”" },
+    { cr: "CR-1", text: "“Our user is students at university who find feedback unhelpful.”" },
+  ];
+
+  const SUGGESTED_MARKS = { "CR-1": "ok", "CR-2": "ok", "CR-3": "partly", "CR-4": "ok", "CR-5": "miss" };
+
+  /* ============================ state ============================ */
+
+  const fresh = () => ({
+    mode: null,
+    view: { student: "home", tutor: "brief", coordinator: "criteria" },
+    published: true,
+    submitted: false,
+    released: false,
+    marks: {},
+    comments: {},
+    pointers: {},
+    indicators: {},
+    covered: {},
+    questions: [
+      {
+        id: "q1",
+        cr: "CR-2",
+        from: "Student 0418",
+        text: "What counts as a “killed if” line? Is “the hypothesis is wrong” enough?",
+        answered: false,
+      },
+    ],
+    handover: "",
+    scripts: 41,
+    seconds: 33500,
+    modal: null,
+  });
+
+  let S = fresh();
+
+  /* ============================ helpers ============================ */
+
+  const esc = (s) =>
+    String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+  const ICO = {
+    check: '<svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    dot: '<svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="4" fill="currentColor"/></svg>',
+    alert:
+      '<svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 2.6l5.8 10.1H2.2L8 2.6z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M8 6.6v3M8 11.4v.1" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>',
+    seal: '<svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 1.4l1.7 1.2 2-.2.7 1.9 1.7 1.1-.7 1.9.7 1.9-1.7 1.1-.7 1.9-2-.2L8 14.2l-1.7-1.2-2 .2-.7-1.9L1.9 10l.7-1.9-.7-1.9 1.7-1.1.7-1.9 2 .2L8 1.4z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/><path d="M5.6 8.1l1.7 1.7 3.1-3.3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    person:
+      '<svg width="19" height="19" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="8" r="3.6" stroke="currentColor" stroke-width="1.8"/><path d="M4.8 20c.6-3.7 3.6-5.6 7.2-5.6s6.6 1.9 7.2 5.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>',
+    pen: '<svg width="19" height="19" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 20l4.2-1.1L19 8.1a2.1 2.1 0 0 0 0-3l-.1-.1a2.1 2.1 0 0 0-3 0L5.1 15.8 4 20z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>',
+    grid: '<svg width="19" height="19" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3.5" y="3.5" width="7" height="7" rx="2" stroke="currentColor" stroke-width="1.8"/><rect x="13.5" y="3.5" width="7" height="7" rx="2" stroke="currentColor" stroke-width="1.8"/><rect x="3.5" y="13.5" width="7" height="7" rx="2" stroke="currentColor" stroke-width="1.8"/><rect x="13.5" y="13.5" width="7" height="7" rx="2" stroke="currentColor" stroke-width="1.8"/></svg>',
+    split:
+      '<svg width="19" height="19" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2.5" y="4.5" width="8" height="15" rx="2" stroke="currentColor" stroke-width="1.8"/><rect x="13.5" y="4.5" width="8" height="15" rx="2" stroke="currentColor" stroke-width="1.8"/></svg>',
+  };
+
+  const STATE_LABEL = { ok: "Met", partly: "Partly met", miss: "Not met" };
+  const CHIP_CLASS = { ok: "ok", partly: "open", miss: "miss" };
+  const CHIP_ICON = { ok: ICO.check, partly: ICO.dot, miss: ICO.alert };
+
+  const chip = (v, text) =>
+    `<span class="chip ${CHIP_CLASS[v]}">${CHIP_ICON[v]}${esc(text || STATE_LABEL[v])}</span>`;
+
+  const crit = (id) => CRITERIA.find((c) => c.id === id);
+
+  // a criterion is OPEN if its most recent attestation is not "ok"
+  function latest(id) {
+    if (S.released && S.marks[id]) return { asmt: A2, v: S.marks[id] };
+    return { asmt: A1, v: A1.results[id] };
+  }
+  const openIds = () => CRITERIA.filter((c) => latest(c.id).v !== "ok").map((c) => c.id);
+  const verifiedCount = () => CRITERIA.length - openIds().length;
+  const waiting = () => S.questions.filter((q) => !q.answered).length;
+
+  function history(id) {
+    const out = [{ asmt: A1, v: A1.results[id], date: A1.marked }];
+    if (S.released && S.marks[id]) out.push({ asmt: A2, v: S.marks[id], date: "24 Sep 2026" });
+    return out;
+  }
+
+  function toast(msg) {
+    const t = document.getElementById("toast");
+    t.textContent = msg;
+    t.dataset.on = "true";
+    clearTimeout(t._t);
+    t._t = setTimeout(() => (t.dataset.on = "false"), 2800);
+  }
+
+  /* ============================ launcher ============================ */
+
+  function launcher() {
+    const m = (mode, ico, title, who, desc, cls) =>
+      `<button class="mode ${cls || ""}" type="button" data-act="mode" data-mode="${mode}">
+         <span class="mode-ico">${ico}</span>
+         <h3>${title}</h3>
+         <p>${desc}</p>
+         <span class="who">${who}</span>
+       </button>`;
+
+    return `<div class="launch">
+      <div>
+        <span class="launch-badge"><span class="avatar" style="background:var(--brand)">A</span> ${COURSE.code} · Team 35 · prototype v2</span>
+        <h1 style="margin-top:20px">Feedback becomes a record, not a PDF nobody opens.</h1>
+        <p class="sub">
+          Every time a marker judges your work against a criterion, that judgement is dated, attested and kept.
+          Over a degree it becomes the one thing a transcript can't say and an AI can't generate: evidence of what
+          you could not do in March and could do by October, verified by someone with standing.
+        </p>
+      </div>
+      <div class="modes">
+        ${m("student", ICO.person, "Student", "Demo student", "See what's still open, submit against it, and read the record that builds as you go.")}
+        ${m("tutor", ICO.pen, "Tutor", "Sessional marker · 20 students", "The Thursday brief, the marking queue, and questions that arrive with their context attached.")}
+        ${m("coordinator", ICO.grid, "Coordinator", "Course coordinator", "Set the criteria once, see where the cohort is losing marks, and leave a handover behind.")}
+        ${m("demo", ICO.split, "Side by side", "For the pitch", "Student and tutor open together, sharing one state. Watch a submission arrive and feedback come back.", "demo")}
+      </div>
+      <p class="launch-note">
+        Pick one role for a usability session — inside a single role there is no way to switch, so a participant
+        never sees the other side. Side by side is for demonstrating, not for testing.
+      </p>
+    </div>`;
+  }
+
+  /* ============================ shared bits ============================ */
+
+  const NAV = {
+    student: [
+      ["home", "Home"],
+      ["submit", "Assignment 2"],
+      ["feedback", "Feedback"],
+      ["record", "My record"],
+    ],
+    tutor: [
+      ["brief", "Thursday brief"],
+      ["mark", "Marking"],
+      ["questions", "Questions"],
+      ["time", "My time"],
+    ],
+    coordinator: [
+      ["criteria", "Criteria"],
+      ["cohort", "Cohort"],
+      ["handover", "Handover"],
+    ],
+  };
+
+  const WHO = {
+    student: ["D", "Dattatray S.", "student"],
+    tutor: ["SM", "Sessional marker", "tutor"],
+    coordinator: ["CC", "Course coordinator", "coordinator"],
+  };
+
+  function appShell(role) {
+    const [ini, name, cls] = WHO[role];
+    const nav = NAV[role]
+      .map(([id, label]) => {
+        const badge = role === "tutor" && id === "questions" && waiting() ? `<span class="count">${waiting()}</span>` : "";
+        const badge2 =
+          role === "tutor" && id === "mark" && S.submitted && !S.released ? `<span class="count">1</span>` : "";
+        return `<button type="button" data-act="nav" data-view="${id}" aria-current="${
+          S.view[role] === id ? "page" : "false"
+        }">${label}${badge}${badge2}</button>`;
+      })
+      .join("");
+
+    return `<section class="app" data-role-app="${role}">
+      <header class="app-top">
+        <span class="who-chip ${cls}"><span class="avatar">${ini}</span>${esc(name)}</span>
+        <span class="course-chip">${COURSE.code}</span>
+      </header>
+      <nav class="nav" aria-label="${role} sections">${nav}</nav>
+      <div class="body">${(SCREENS[role][S.view[role]] || (() => ""))()}</div>
+    </section>`;
+  }
+
+  /* ============================ student screens ============================ */
+
+  function sHome() {
+    const open = openIds();
+    const meter = CRITERIA.map(
+      (c) => `<i data-s="${latest(c.id).v === "ok" ? "ok" : "open"}"></i>`
+    ).join("");
+
+    const openCards = open
+      .map((id) => {
+        const c = crit(id);
+        const l = latest(id);
+        return `<article class="crit">
+          <div class="crit-top">
+            <div>
+              <h4>${esc(c.title)}</h4>
+              <span class="cap">${ICO.seal}<b>${esc(c.capability)}</b>${c.sfia ? ` · SFIA ${c.sfia}` : ""}</span>
+            </div>
+            ${chip(l.v)}
+          </div>
+          <p class="sm muted">${esc(c.fix)}</p>
+          <p class="xs">Open since ${esc(l.asmt.name.split(" — ")[0])} · closes when a marker next judges it met. You can't close it yourself.</p>
+        </article>`;
+      })
+      .join("");
+
+    return `<div class="head">
+        <p class="kicker">Semester 2 · week 9</p>
+        <h2>Your record, so far</h2>
+        <p>Five criteria run across this course's assessments. Each one closes only when a marker verifies it.</p>
+      </div>
+      <div class="stack">
+        <div class="hero">
+          <div class="spread">
+            <div class="hero-num"><b>${verifiedCount()}</b><span>of ${CRITERIA.length} capabilities verified</span></div>
+            <span class="attest">${ICO.seal} ${COURSE.code} teaching team</span>
+          </div>
+          <div class="meter" role="img" aria-label="${verifiedCount()} of ${CRITERIA.length} verified">${meter}</div>
+          <p class="xs">Verified means a marker judged your work met the criterion. Amber means still open.</p>
+        </div>
+
+        <div class="card-2 spread">
+          <div>
+            <p style="font-weight:600">${esc(A2.name)}</p>
+            <p class="xs">Due ${esc(A2.due)} · ${open.length} open ${open.length === 1 ? "criterion" : "criteria"} carried in</p>
+          </div>
+          <button class="btn brand xs" type="button" data-act="nav" data-view="submit">Open</button>
+        </div>
+
+        <div class="note">Thursday's tutorial is covering <b>${esc(crit("CR-2").title)}</b> — one of yours.</div>
+
+        <div class="stack-sm">
+          <p class="kicker">Still open</p>
+          ${openCards}
+        </div>
+      </div>`;
+  }
+
+  function sSubmit() {
+    if (S.submitted) {
+      return `<div class="head"><p class="kicker">${esc(A2.name)}</p><h2>Submitted</h2>
+          <p>${S.released ? "Your feedback has been released." : "Waiting on marking. Nothing for you to do."}</p></div>
+        <div class="empty">
+          ${
+            S.released
+              ? `<p>Feedback is ready, and two criteria changed state.</p><button class="btn brand" type="button" data-act="nav" data-view="feedback">Read feedback</button>`
+              : `<p>Your script is in the marking queue. If the tutor panel is open beside this one, mark it there and release.</p>`
+          }
+        </div>`;
+    }
+
+    const open = openIds();
+    const cards = CRITERIA.map((c) => {
+      const carried = open.includes(c.id);
+      return `<article class="crit" ${carried ? 'style="border-color:var(--open);background:var(--open-soft)"' : ""}>
+        <div class="crit-top">
+          <div>
+            <h4>${esc(c.title)}</h4>
+            <span class="cap">${ICO.seal}<b>${esc(c.capability)}</b></span>
+          </div>
+          ${carried ? chip("partly", "Carried in") : `<span class="chip flat">New here</span>`}
+        </div>
+        <p class="sm muted">${esc(c.clause)}</p>
+        <p class="xs">Good looks like: ${esc(c.good)}</p>
+        ${
+          carried
+            ? `<div><p class="lbl">Point the marker at where you addressed it (optional)</p>
+                 <input type="text" data-act="pointer" data-cr="${c.id}" value="${esc(S.pointers[c.id] || "")}"
+                   placeholder="e.g. section 2, paragraph 3" />
+                 <p class="xs" style="margin-top:5px">This is a pointer, not a claim. Only the marker decides whether it's met.</p></div>`
+            : ""
+        }
+      </article>`;
+    }).join("");
+
+    return `<div class="head">
+        <p class="kicker">${esc(A2.name)} · due ${esc(A2.due)}</p>
+        <h2>What this is marked on</h2>
+        <p>Published by your coordinator before the assignment opened. The amber ones came in unmet from Assignment 1.</p>
+      </div>
+      <div class="stack">
+        ${cards}
+        <button class="btn brand full" type="button" data-act="submit">Submit Assignment 2</button>
+        <p class="xs" style="text-align:center">You see this list because you're submitting — not because we sent you a notification.</p>
+      </div>`;
+  }
+
+  function sFeedback() {
+    if (!S.released) {
+      return `<div class="head"><p class="kicker">${esc(A1.name)} · released ${esc(A1.marked)}</p>
+          <h2>Assignment 1 feedback</h2><p>Assignment 2 appears here once it's marked.</p></div>
+        <div class="stack-sm">${CRITERIA.map((c) => {
+          const v = A1.results[c.id];
+          return `<article class="crit">
+            <div class="crit-top"><div><h4>${esc(c.title)}</h4>
+              <span class="cap">${ICO.seal}<b>${esc(c.capability)}</b></span></div>${chip(v)}</div>
+            ${v === "ok" ? "" : `<p class="sm muted">${esc(c.flaw)}</p><div class="quote"><span class="lbl">What to do</span>${esc(c.fix)}</div>`}
+          </article>`;
+        }).join("")}</div>`;
+    }
+
+    const cards = CRITERIA.map((c) => {
+      const v = S.marks[c.id];
+      const before = A1.results[c.id];
+      let change = "";
+      if (before !== "ok" && v === "ok") change = `<span class="chip ok">${ICO.check}Closed by your marker</span>`;
+      else if (before !== "ok" && v !== "ok") change = `<span class="chip open">${ICO.dot}Still open</span>`;
+      else if (before === "ok" && v !== "ok") change = `<span class="chip miss">${ICO.alert}Newly open</span>`;
+
+      return `<article class="crit">
+        <div class="crit-top">
+          <div><h4>${esc(c.title)}</h4><span class="cap">${ICO.seal}<b>${esc(c.capability)}</b></span></div>
+          ${chip(v)}
+        </div>
+        ${change}
+        ${
+          v === "ok"
+            ? `<p class="xs">Verified ${esc("24 Sep 2026")} by the ${COURSE.code} teaching team.</p>`
+            : `<div><p class="lbl">Where</p><div class="quote">P${c.para}: “${esc(
+                DRAFT[c.para - 1].slice(0, 110)
+              )}…”</div></div>
+               <div><p class="lbl">Your marker wrote</p><p class="sm">${esc(S.comments[c.id] || c.flaw)}</p></div>
+               <div><p class="lbl">Next time</p><p class="sm">${esc(c.fix)}</p></div>
+               <div class="row">
+                 <button class="btn s xs" type="button" data-act="ask" data-cr="${c.id}">Ask about this</button>
+               </div>`
+        }
+      </article>`;
+    }).join("");
+
+    const mine = S.questions.filter((q) => q.from === "You");
+    const answers = mine.length
+      ? `<div class="stack-sm"><p class="kicker">Your questions</p>${mine
+          .map(
+            (q) => `<div class="card">
+              <p class="xs">${q.cr}</p>
+              <p class="sm" style="margin-top:4px"><b>You:</b> ${esc(q.text)}</p>
+              ${
+                q.answered
+                  ? `<p class="sm muted" style="margin-top:8px">${esc(q.answer)}</p>
+                     <p class="xs" style="margin-top:6px">Answered without your marker reopening the script.</p>`
+                  : `<p class="xs" style="margin-top:6px">Waiting with your marker.</p>`
+              }
+            </div>`
+          )
+          .join("")}</div>`
+      : "";
+
+    return `<div class="head"><p class="kicker">${esc(A2.name)} · released today</p>
+        <h2>Two criteria closed</h2>
+        <p>Each one is compared with the last time the same criterion was judged.</p></div>
+      <div class="stack">${cards}${answers}</div>`;
+  }
+
+  function sRecord() {
+    const rows = CRITERIA.map((c) => {
+      const h = history(c.id);
+      const last = h[h.length - 1];
+      const items = h
+        .map(
+          (e) => `<div class="tl-item" data-s="${e.v === "ok" ? "ok" : e.v === "partly" ? "open" : "miss"}">
+            <div class="spread"><p class="sm" style="font-weight:600">${esc(e.asmt.name.split(" — ")[0])}</p>${chip(e.v)}</div>
+            <p class="xs">${esc(e.date)} · verified by the ${COURSE.code} teaching team</p>
+          </div>`
+        )
+        .join("");
+      return `<article class="card">
+        <div class="crit-top">
+          <div>
+            <h4>${esc(c.capability)}</h4>
+            <span class="cap">${esc(c.title)}${c.sfia ? ` · SFIA ${c.sfia}` : ""}</span>
+          </div>
+          ${last.v === "ok" ? `<span class="attest">${ICO.seal} Verified</span>` : chip(last.v, "Open")}
+        </div>
+        <div class="tl" style="margin-top:14px">${items}</div>
+      </article>`;
+    }).join("");
+
+    return `<div class="head">
+        <p class="kicker">Private to you</p>
+        <h2>What you can show someone</h2>
+        <p>Not a grade and not a self-assessment. A dated judgement by a marker, against a named capability, with the work behind it.</p>
+      </div>
+      <div class="stack">
+        ${rows}
+        <div class="card-2 stack-sm">
+          <p style="font-weight:600">Sharing</p>
+          <p class="sm muted">
+            Nothing leaves this course that you haven't closed. Open criteria stay between you and the teaching
+            team. What you can share is a closed capability and how long it took to close — the improvement is the
+            point, so the starting point travels with it.
+          </p>
+          <div class="row">
+            <button class="btn p xs" type="button" data-act="export">Preview what an employer sees</button>
+            <span class="xs">You can exclude a whole course, but you can't delete single judgements.</span>
+          </div>
+        </div>
+      </div>`;
+  }
+
+  /* ============================ tutor screens ============================ */
+
+  function tBrief() {
+    const ranked = Object.entries(GROUP)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 3);
+    const bars = ranked
+      .map(([id, n]) => {
+        const c = crit(id);
+        const pct = Math.round((n / COURSE.group) * 100);
+        return `<div class="bar" tabindex="0">
+          <div class="bar-top"><span>${esc(c.title)}</span><span class="mono xs">${n}/${COURSE.group}</span></div>
+          <div class="bar-track"><div class="bar-fill" data-low="${pct < 30}" style="width:${pct}%"></div></div>
+          <div class="tip">${n} of your ${COURSE.group} students · ${pct}%</div>
+        </div>`;
+      })
+      .join("");
+
+    const top = ranked[0][0];
+    const ex = EXCERPTS.filter((e) => e.cr === top)
+      .map((e) => `<div class="quote">${esc(e.text)}</div>`)
+      .join("");
+
+    return `<div class="head">
+        <p class="kicker">Thursday 9:00 · ${COURSE.group} students · prepared for you</p>
+        <h2>Start with this</h2>
+        <p>From Assignment 1 marking across your own group. Nothing to prepare — this is the first ten minutes.</p>
+      </div>
+      <div class="stack">
+        <div class="card stack-sm">
+          <p class="kicker">Most missed in your group</p>
+          <div class="bars">${bars}</div>
+        </div>
+        <div class="card stack-sm">
+          <div class="spread"><p style="font-weight:600">${esc(crit(top).title)}</p>${chip("miss", `${ranked[0][1]} missed`)}</div>
+          <p class="sm muted">${esc(crit(top).clause)}</p>
+          <p class="lbl" style="margin-top:6px">Real sentences from their scripts — de-identified</p>
+          ${ex}
+          <p class="sm"><b>Suggested opener:</b> put these three on the screen and ask the room which one could be disproved. None can. That's the lesson.</p>
+          <button class="btn ${S.covered[top] ? "s" : "brand"} xs" type="button" data-act="cover" data-cr="${top}" ${
+      S.covered[top] ? "disabled" : ""
+    }>${S.covered[top] ? "Marked as covered" : "Mark as covered in tutorial"}</button>
+        </div>
+        <p class="xs">Covering it here is logged against the criterion, so the coordinator can see it was taught before the next assessment.</p>
+      </div>`;
+  }
+
+  function tMark() {
+    if (!S.submitted) {
+      return `<div class="head"><p class="kicker">Marking queue</p><h2>Nothing waiting</h2>
+        <p>You've marked ${S.scripts} of ${COURSE.cohort}. The last one arrives when the student submits.</p></div>
+        <div class="empty"><p>If the student panel is open beside this one, submit there and this queue fills.</p></div>`;
+    }
+    if (S.released) {
+      return `<div class="head"><p class="kicker">Marking queue</p><h2>Queue clear</h2>
+        <p>All ${COURSE.cohort} scripts marked and released.</p></div>
+        <div class="empty"><p>Two criteria closed for this student, one stayed open, one opened for the first time.</p>
+        <button class="btn s xs" type="button" data-act="nav" data-view="time">See your time</button></div>`;
+    }
+
+    const flags = {};
+    CRITERIA.forEach((c) => {
+      if (S.marks[c.id] && S.marks[c.id] !== "ok") flags[c.para] = true;
+    });
+
+    const script = DRAFT.map(
+      (p, i) => `<div class="para" data-flag="${!!flags[i + 1]}"><b>P${i + 1}</b><p>${esc(p)}</p></div>`
+    ).join("");
+
+    const rows = CRITERIA.map((c) => {
+      const v = S.marks[c.id];
+      const ptr = S.pointers[c.id];
+      return `<article class="crit">
+        <div class="crit-top">
+          <div><h4>${esc(c.title)}</h4><span class="cap">${ICO.seal}<b>${esc(c.capability)}</b> · P${c.para}</span></div>
+          ${v ? chip(v) : `<span class="chip flat">Not judged</span>`}
+        </div>
+        ${ptr ? `<p class="xs">Student points to: ${esc(ptr)}</p>` : ""}
+        <div class="seg" role="group" aria-label="Judgement for ${c.id}">
+          <button type="button" data-act="mark" data-cr="${c.id}" data-v="ok" aria-pressed="${v === "ok"}">Met</button>
+          <button type="button" data-act="mark" data-cr="${c.id}" data-v="partly" aria-pressed="${v === "partly"}">Partly</button>
+          <button type="button" data-act="mark" data-cr="${c.id}" data-v="miss" aria-pressed="${v === "miss"}">Not met</button>
+        </div>
+        ${
+          v && v !== "ok"
+            ? `<div><p class="lbl">Goes to the student — edit if this script needs something different</p>
+                 <textarea rows="3" data-act="comment" data-cr="${c.id}">${esc(S.comments[c.id] || c.flaw)}</textarea></div>
+               <div><p class="lbl">Seen a new way students get this wrong? (optional, once)</p>
+                 <input type="text" data-act="indicator" data-cr="${c.id}" value="${esc(S.indicators[c.id] || "")}"
+                   placeholder="Add an indicator for next semester's markers" /></div>`
+            : ""
+        }
+      </article>`;
+    }).join("");
+
+    const done = CRITERIA.filter((c) => S.marks[c.id]).length;
+
+    return `<div class="head">
+        <p class="kicker">Script ${S.scripts + 1} of ${COURSE.cohort} · anonymous</p>
+        <h2>Judge, don't type</h2>
+        <p>The comment you wrote once at setup attaches itself. Edit only where this script differs.</p>
+      </div>
+      <div class="stack">
+        <div class="card stack-sm">
+          <div class="spread"><p style="font-weight:600">Submission</p><span class="xs">${done}/${CRITERIA.length} judged</span></div>
+          <div class="script">${script}</div>
+        </div>
+        ${rows}
+        <button class="btn brand full" type="button" data-act="release" ${done < CRITERIA.length ? "disabled" : ""}>
+          Release feedback
+        </button>
+        ${done < CRITERIA.length ? `<p class="xs" style="text-align:center">Judge all five to release — a partial release puts the student back to guessing.</p>` : ""}
+      </div>`;
+  }
+
+  function tQuestions() {
+    const cards = S.questions
+      .map((q) => {
+        const c = crit(q.cr);
+        if (q.answered)
+          return `<article class="card">
+            <div class="spread"><p class="xs">${q.cr} · ${esc(q.from)}</p><span class="chip ok">${ICO.check}Answered</span></div>
+            <p class="sm" style="margin-top:6px"><b>Q:</b> ${esc(q.text)}</p>
+            <p class="sm muted" style="margin-top:6px">${esc(q.answer)}</p>
+          </article>`;
+        return `<article class="card stack-sm">
+          <div class="spread"><p class="xs">${q.cr} · ${esc(q.from)}</p><span class="chip info">${ICO.dot}Waiting</span></div>
+          <p class="sm"><b>Q:</b> ${esc(q.text)}</p>
+          <div class="quote"><span class="lbl">The criterion they're asking about</span>${esc(c.title)} — ${esc(c.clause)}</div>
+          <div><p class="lbl">Drafted from the standard you wrote — edit or send</p>
+            <textarea rows="3" data-act="draft" data-q="${q.id}">${esc(q.draft || c.fix)}</textarea></div>
+          <button class="btn brand xs" type="button" data-act="send" data-q="${q.id}">Send</button>
+        </article>`;
+      })
+      .join("");
+
+    return `<div class="head"><p class="kicker">Queue</p><h2>Answer without reopening the script</h2>
+        <p>Each question arrives attached to a criterion and a paragraph. Asynchronous on purpose — an open chat is unbounded time.</p></div>
+      <div class="stack-sm">${cards}</div>`;
+  }
+
+  function tTime() {
+    const s = S.seconds;
+    const hrs = (s / 3600).toFixed(1);
+    const avg = Math.round(s / Math.max(S.scripts, 1));
+    const paid = Math.round((COURSE.cohort * 10) / 60);
+    return `<div class="head"><p class="kicker">Only you can see this</p><h2>Your time on this course</h2>
+        <p>Not shown to the coordinator, not per-script, never live. It's here because a record of hours actually worked is yours.</p></div>
+      <div class="stack">
+        <div class="hero">
+          <div class="hero-num"><b>${hrs}</b><span>hours marking, ${S.scripts} scripts</span></div>
+          <p class="sm muted">Average ${Math.floor(avg / 60)}m ${avg % 60}s per script · paid allocation ${paid}h for this assessment</p>
+        </div>
+        ${
+          hrs - paid > 0
+            ? `<div class="note warn">That is ${(hrs - paid).toFixed(
+                1
+              )} hours beyond the paid allocation. If you claim additional hours, this is your evidence.</div>`
+            : `<div class="note">You are inside the paid allocation for this assessment.</div>`
+        }
+        <p class="xs">No timer appears while you mark. The count runs in the background and you see it only here, afterwards.</p>
+      </div>`;
+  }
+
+  /* ============================ coordinator screens ============================ */
+
+  function cCriteria() {
+    const cards = CRITERIA.map(
+      (c) => `<article class="crit">
+        <div class="crit-top">
+          <div><h4>${esc(c.title)}</h4>
+            <span class="cap">${ICO.seal}<b>${esc(c.capability)}</b>${c.sfia ? ` · SFIA ${c.sfia} (draft mapping)` : ""}</span></div>
+          <span class="chip ok">${ICO.check}Published</span>
+        </div>
+        <p class="sm muted">${esc(c.clause)}</p>
+        ${
+          S.indicators[c.id]
+            ? `<div class="quote"><span class="lbl">Indicator added by a marker this semester</span>${esc(S.indicators[c.id])}</div>`
+            : ""
+        }
+      </article>`
+    ).join("");
+
+    return `<div class="head">
+        <p class="kicker">${esc(A2.name)}</p>
+        <h2>Five criteria, published</h2>
+        <p>These are your rubric criteria — we don't add a new artefact. You own the standard; markers add the indicators from what they actually see.</p>
+      </div>
+      <div class="stack">
+        <div class="note">Students saw all five before the assignment opened. Nothing here is hidden from them: hiding the standard reproduces the guessing this is meant to remove.</div>
+        ${cards}
+      </div>`;
+  }
+
+  function cCohort() {
+    const bars = CRITERIA.map((c) => {
+      const n = COHORT[c.id];
+      const pct = Math.round((n / COURSE.cohort) * 100);
+      return `<div class="bar" tabindex="0">
+        <div class="bar-top"><span>${esc(c.title)}</span><span class="mono xs">${n}/${COURSE.cohort}</span></div>
+        <div class="bar-track"><div class="bar-fill" data-low="${pct < 30}" style="width:${pct}%"></div></div>
+        <div class="tip">${n} of ${COURSE.cohort} students missed this · ${pct}%</div>
+      </div>`;
+    }).join("");
+
+    const covered = Object.keys(S.covered);
+    return `<div class="head"><p class="kicker">Assignment 1 · week 9 · four teaching weeks left</p>
+        <h2>Where the cohort is losing marks</h2>
+        <p>A mark distribution gives you the shape. This gives you the causes, while there's still time to teach into them.</p></div>
+      <div class="stack">
+        <div class="card"><div class="bars">${bars}</div></div>
+        <div class="card-2 stack-sm">
+          <p style="font-weight:600">Pushed to tutorial briefs</p>
+          <p class="sm muted">${
+            covered.length
+              ? covered.map((id) => esc(crit(id).title)).join("; ") + " — covered in tutorial this week."
+              : "Nothing marked as covered yet. Tutors see their own group's top three before each tutorial."
+          }</p>
+        </div>
+      </div>`;
+  }
+
+  function cHandover() {
+    const contributed = Object.entries(S.indicators).filter(([, v]) => v && v.trim());
+    return `<div class="head"><p class="kicker">Next semester</p><h2>What this semester learned</h2>
+        <p>Eight sessional markers. Seven won't teach the course again. Notes attach to the criterion, not to a person.</p></div>
+      <div class="stack">
+        <div class="card stack-sm">
+          <p class="lbl">Indicators contributed by markers while marking</p>
+          ${
+            contributed.length
+              ? contributed
+                  .map(
+                    ([id, v]) =>
+                      `<div class="quote"><span class="lbl">${id} · ${esc(crit(id).capability)}</span>${esc(v)}</div>`
+                  )
+                  .join("")
+              : `<p class="sm muted">None yet this semester. Markers add these as a by-product of marking — there is no separate form to fill in.</p>`
+          }
+        </div>
+        <div class="card stack-sm">
+          <p class="lbl">Your note to next semester's teaching team</p>
+          <textarea rows="4" data-act="handover" placeholder="e.g. CR-5 fails because the week 6 lecture example shows relievers with no pains. Fix the example, not the rubric.">${esc(
+            S.handover
+          )}</textarea>
+          <button class="btn brand xs" type="button" data-act="savehand">Attach to the criteria</button>
+        </div>
+      </div>`;
+  }
+
+  const SCREENS = {
+    student: { home: sHome, submit: sSubmit, feedback: sFeedback, record: sRecord },
+    tutor: { brief: tBrief, mark: tMark, questions: tQuestions, time: tTime },
+    coordinator: { criteria: cCriteria, cohort: cCohort, handover: cHandover },
+  };
+
+  /* ============================ render ============================ */
+
+  function render() {
+    const root = document.getElementById("root");
+    if (!S.mode) {
+      root.innerHTML = launcher();
+      renderModal();
+      return;
+    }
+    const demo = S.mode === "demo";
+    const panels = demo ? ["student", "tutor"] : [S.mode];
+    root.innerHTML = `<div class="stage" data-demo="${demo}">
+      <div class="stage-bar">
+        <button class="btn g xs" type="button" data-act="home">← Change role</button>
+        <span class="xs">${demo ? "Side by side — one shared state" : "Single role — no way to switch inside the session"}</span>
+        <span class="sp"></span>
+        <button class="btn g xs" type="button" data-act="reset">Reset</button>
+      </div>
+      ${panels.map(appShell).join("")}
+    </div>`;
+    renderModal();
+  }
+
+  function renderModal() {
+    const host = document.getElementById("modal");
+    if (!S.modal) {
+      host.innerHTML = "";
+      return;
+    }
+    if (S.modal === "export") {
+      const closed = CRITERIA.filter((c) => latest(c.id).v === "ok");
+      const open = CRITERIA.filter((c) => latest(c.id).v !== "ok");
+      host.innerHTML = `<div class="scrim" data-act="scrim">
+        <div class="modal" role="dialog" aria-modal="true" aria-label="Employer preview">
+          <p class="kicker">Preview · not a download</p>
+          <h2 style="font-size:24px;margin-top:6px">Dattatray S. — verified capabilities</h2>
+          <p class="sm muted" style="margin-top:8px">${COURSE.code}, ${esc(COURSE.name)} · University of Queensland</p>
+          <div class="stack-sm" style="margin-top:16px">
+            ${
+              closed.length
+                ? closed
+                    .map((c) => {
+                      const h = history(c.id);
+                      const first = h[0];
+                      const trail =
+                        first.v === "ok"
+                          ? `Met at first assessment (${esc(first.date)}).`
+                          : `Not met ${esc(first.date)} → met ${esc(h[h.length - 1].date)}.`;
+                      return `<div class="card"><div class="spread"><p style="font-weight:600">${esc(
+                        c.capability
+                      )}</p><span class="attest">${ICO.seal} Verified</span></div>
+                      <p class="sm muted" style="margin-top:5px">${trail}</p>
+                      <p class="xs" style="margin-top:4px">Attested by the ${COURSE.code} teaching team.</p></div>`;
+                    })
+                    .join("")
+                : `<p class="sm muted">Nothing closed yet — there would be nothing to share.</p>`
+            }
+          </div>
+          <div class="note" style="margin-top:16px">
+            ${open.length} open ${open.length === 1 ? "criterion stays" : "criteria stay"} inside the course and
+            ${open.length === 1 ? "is" : "are"} not shown here. What travels is the improvement, including where it started.
+          </div>
+          <button class="btn p full" style="margin-top:16px" type="button" data-act="closemodal">Close</button>
+        </div>
+      </div>`;
+    }
+  }
+
+  /* ============================ actions ============================ */
+
+  document.addEventListener("click", (e) => {
+    const el = e.target.closest("[data-act]");
+    if (!el) return;
+    const act = el.dataset.act;
+    const roleEl = el.closest("[data-role-app]");
+    const role = roleEl ? roleEl.dataset.roleApp : null;
+    const cr = el.dataset.cr;
+
+    if (act === "mode") {
+      S.mode = el.dataset.mode;
+      render();
+      return;
+    }
+    if (act === "home") {
+      S.mode = null;
+      render();
+      return;
+    }
+    if (act === "reset") {
+      const m = S.mode;
+      S = fresh();
+      S.mode = m;
+      render();
+      toast("Reset — ready for the next session");
+      return;
+    }
+    if (act === "nav") {
+      const target = role || (S.mode === "demo" ? "student" : S.mode);
+      S.view[target] = el.dataset.view;
+      render();
+      return;
+    }
+    if (act === "submit") {
+      S.submitted = true;
+      S.view.student = "submit";
+      S.view.tutor = "mark";
+      render();
+      toast("Submitted — it's in the marking queue now");
+      return;
+    }
+    if (act === "mark") {
+      S.marks[cr] = el.dataset.v;
+      if (el.dataset.v === "ok") delete S.comments[cr];
+      render();
+      return;
+    }
+    if (act === "release") {
+      CRITERIA.forEach((c) => {
+        if (!S.marks[c.id]) S.marks[c.id] = SUGGESTED_MARKS[c.id];
+      });
+      S.released = true;
+      S.scripts += 1;
+      S.seconds += 392;
+      S.view.student = "feedback";
+      render();
+      toast("Released — two criteria closed for this student");
+      return;
+    }
+    if (act === "ask") {
+      S.questions.push({
+        id: "q" + Date.now(),
+        cr,
+        from: "You",
+        text: `On ${cr} — I'm not sure what to change. Can you point at where you saw it?`,
+        draft: crit(cr).fix,
+        answered: false,
+      });
+      S.view.tutor = "questions";
+      render();
+      toast("Sent — it arrives attached to " + cr);
+      return;
+    }
+    if (act === "send") {
+      const q = S.questions.find((x) => x.id === el.dataset.q);
+      const ta = document.querySelector(`[data-act="draft"][data-q="${el.dataset.q}"]`);
+      q.answer = ta ? ta.value : q.draft;
+      q.answered = true;
+      S.seconds += 28;
+      render();
+      toast("Sent in 28s — the script was never reopened");
+      return;
+    }
+    if (act === "cover") {
+      S.covered[cr] = true;
+      render();
+      toast("Logged against the criterion");
+      return;
+    }
+    if (act === "savehand") {
+      render();
+      toast("Attached — it travels with the criterion, not with you");
+      return;
+    }
+    if (act === "export") {
+      S.modal = "export";
+      renderModal();
+      return;
+    }
+    if (act === "closemodal" || (act === "scrim" && e.target === el)) {
+      S.modal = null;
+      renderModal();
+      return;
+    }
+  });
+
+  document.addEventListener("input", (e) => {
+    const el = e.target.closest("[data-act]");
+    if (!el) return;
+    const a = el.dataset.act;
+    if (a === "comment") S.comments[el.dataset.cr] = el.value;
+    if (a === "pointer") S.pointers[el.dataset.cr] = el.value;
+    if (a === "indicator") S.indicators[el.dataset.cr] = el.value;
+    if (a === "handover") S.handover = el.value;
+    if (a === "draft") {
+      const q = S.questions.find((x) => x.id === el.dataset.q);
+      if (q) q.draft = el.value;
+    }
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && S.modal) {
+      S.modal = null;
+      renderModal();
+    }
+  });
+
+  render();
+</script>
+
+</body></html>

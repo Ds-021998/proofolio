@@ -1,0 +1,15 @@
+{% comment %}
+  Empty state. Says what is true and what happens next — never "no data".
+
+      {% include "includes/_empty_state.html" with message="Nothing to mark yet." action_url=url action_label="Back to brief" %}
+
+  message        required
+  detail         optional second line
+  action_url     optional
+  action_label   optional
+{% endcomment %}
+<div class="empty">
+  <p>{{ message }}</p>
+  {% if detail %}<p class="xs">{{ detail }}</p>{% endif %}
+  {% if action_url %}<a class="btn brand xs" href="{{ action_url }}">{{ action_label|default:"Continue" }}</a>{% endif %}
+</div>

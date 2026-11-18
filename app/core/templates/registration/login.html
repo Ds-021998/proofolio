@@ -1,0 +1,79 @@
+{% extends "registration/auth_base.html" %}
+{% block title %}Sign in{% endblock %}
+
+{% comment %}
+  Django's LoginView renders this. We write no authentication code: Django
+  checks the password, hashes it, and sets the session cookie. settings.py:
+
+      LOGIN_URL = "login"
+      LOGIN_REDIRECT_URL = "post_login"   # sends each role to its own home
+      LOGOUT_REDIRECT_URL = "login"
+{% endcomment %}
+
+{% block aside_heading %}Pick up where your marker left off.{% endblock %}
+{% block aside_copy %}Your open criteria are waiting on the next thing you submit — not in a notification you had to remember to open.{% endblock %}
+
+{% block form %}
+<div>
+  <h2>Sign in</h2>
+  <p class="sub">One account, one role. What you can see is set by the role your course gave you.</p>
+</div>
+
+{% if form.errors %}
+  <p class="note bad" role="alert">
+    <strong>That didn't work.</strong> Check the username and password and try again.
+  </p>
+{% endif %}
+
+<form method="post" class="stack" novalidate>
+  {% csrf_token %}
+
+  <div class="field">
+    <label class="lbl" for="id_username">Username</label>
+    <input type="text" name="username" id="id_username"
+           value="{{ form.username.value|default:'' }}"
+           autocomplete="username" autocapitalize="none" spellcheck="false" required
+           {% if form.errors %}aria-invalid="true"{% endif %}>
+  </div>
+
+  <div class="field">
+    <label class="lbl" for="id_password">Password</label>
+    <div class="pw-wrap">
+      <input type="password" name="password" id="id_password"
+             autocomplete="current-password" required
+             {% if form.errors %}aria-invalid="true"{% endif %}>
+    </div>
+  </div>
+
+  <button class="btn brand full" type="submit">Sign in</button>
+  <input type="hidden" name="next" value="{{ next }}">
+</form>
+
+{% if show_demo_logins %}
+  <div class="demo-box">
+    <span class="lbl">Accounts for assessment</span>
+    <p>One per role, so the whole workflow can be checked. Password is <b>proofolio</b> for all three.</p>
+    <div class="demo-list">
+      <button type="button" class="demo-row" data-user="student1">
+        <span class="who"><span class="u">student1</span><span class="r">Student — submits, reads feedback, holds the record</span></span>
+        <span class="go">Use</span>
+      </button>
+      <button type="button" class="demo-row" data-user="tutor1">
+        <span class="who"><span class="u">tutor1</span><span class="r">Sessional marker — judges criteria and releases</span></span>
+        <span class="go">Use</span>
+      </button>
+      <button type="button" class="demo-row" data-user="coord1">
+        <span class="who"><span class="u">coord1</span><span class="r">Coordinator — owns criteria, sees the cohort, also /admin</span></span>
+        <span class="go">Use</span>
+      </button>
+    </div>
+    <p>Open a second role in a private window, or the first one gets signed out.</p>
+  </div>
+{% endif %}
+
+<div class="auth-rule"><span>or</span></div>
+
+<p class="auth-foot">
+  New here? <a href="{% url 'signup' %}">Create an account</a> with your course join code.
+</p>
+{% endblock %}

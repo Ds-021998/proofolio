@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}What an employer sees{% endblock %}
+
+{% comment %}
+  Student — the export preview.
+
+  Context
+    capabilities      only CLOSED ones, each .name .first_verdict_date
+                      .first_verdict .closed_date .assessment_span
+    withheld_count    how many open criteria stayed behind
+
+  The privacy rule is on the screen, not in a policy document. The trajectory
+  travels with the capability on purpose: the improvement is the point, so
+  "not met in August, met in September" is the claim, not "met".
+{% endcomment %}
+
+{% block content %}
+<div class="head">
+  <p class="kicker">Preview</p>
+  <h2>What an employer sees</h2>
+  <p>A preview, not a file. Nothing has been sent anywhere.</p>
+</div>
+
+<div class="stack">
+  {% for cap in capabilities %}
+    <article class="card">
+      <div class="crit-top">
+        <div>
+          <h4>{{ cap.name }}</h4>
+          <span class="cap">Verified by the {{ course.code }} teaching team</span>
+        </div>
+        <span class="attest"><svg width="13" height="13" aria-hidden="true"><use href="#ico-seal"></use></svg>Verified</span>
+      </div>
+      <p class="sm muted" style="margin-top:8px">
+        Not met {{ cap.first_verdict_date|date:"j M Y" }} → met {{ cap.closed_date|date:"j M Y" }},
+        across {{ cap.assessment_span }}.
+      </p>
+    </article>
+  {% empty %}
+    {% include "includes/_empty_state.html" with message="Nothing would travel yet." detail="A capability appears here once a marker has judged it met." %}
+  {% endfor %}
+
+  <p class="note">
+    {{ withheld_count }} open criteri{{ withheld_count|pluralize:"on,a" }} stayed behind. Open criteria are
+    visible only to you and this course's teaching team.
+  </p>
+
+  <p class="xs">
+    You can exclude a whole course from what you share. You can't delete a single judgement —
+    a record you can edit one line at a time is a CV again.
+  </p>
+</div>
+{% endblock %}

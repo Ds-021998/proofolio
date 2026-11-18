@@ -1,0 +1,151 @@
+/* =========================================================================
+   Proofolio — sign in and sign up.
+
+   Loaded after app.css, so it inherits the same tokens, buttons and form
+   controls. This file only lays out the page: a two-column shell with the
+   product on the left and the form on the right.
+   ========================================================================= */
+
+.auth-body {
+  min-height: 100vh;
+  display: grid;
+  align-items: center;
+  background: var(--ground);
+}
+
+.auth-glow { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+.auth-glow i { position: absolute; display: block; border-radius: 50%; filter: blur(90px); }
+.auth-glow i:nth-child(1) {
+  width: 46vmax; height: 46vmax; top: -20vmax; left: -12vmax;
+  background: color-mix(in srgb, var(--brand-2) 26%, transparent);
+  animation: authDrift 32s ease-in-out infinite;
+}
+.auth-glow i:nth-child(2) {
+  width: 32vmax; height: 32vmax; bottom: -14vmax; right: -10vmax;
+  background: color-mix(in srgb, var(--brand) 16%, transparent);
+  animation: authDrift 40s ease-in-out infinite reverse;
+}
+@keyframes authDrift {
+  0%, 100% { transform: translate3d(0, 0, 0) }
+  50%      { transform: translate3d(5vmax, 4vmax, 0) scale(1.08) }
+}
+
+.auth-wrap {
+  width: 100%;
+  max-width: 1020px;
+  margin: 0 auto;
+  display: grid;
+  gap: clamp(28px, 5vw, 56px);
+  grid-template-columns: 1fr;
+  align-items: center;
+  padding-block: clamp(28px, 6vw, 64px);
+  padding-left: max(18px, env(safe-area-inset-left, 0px));
+  padding-right: max(18px, env(safe-area-inset-right, 0px));
+}
+@media (min-width: 900px) { .auth-wrap { grid-template-columns: 1fr 420px; } }
+
+/* ---- left: what this is ------------------------------------------------ */
+
+.auth-aside { display: grid; gap: 20px; min-width: 0; }
+
+.auth-mark { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; width: fit-content; }
+.auth-mark .seal { color: var(--brand); display: grid; place-items: center; }
+.auth-mark b { font-family: var(--display); font-weight: 700; font-size: 21px; letter-spacing: -.04em; display: block; }
+.auth-mark small { font-family: var(--mono); font-size: 8.6px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-2); display: block; margin-top: 1px; }
+
+.auth-aside h1 {
+  font-family: var(--display);
+  font-size: clamp(27px, 4.2vw, 42px);
+  font-weight: 700;
+  letter-spacing: -.042em;
+  line-height: 1.04;
+  max-width: 15ch;
+}
+.auth-aside h1 em { font-style: normal; color: var(--brand); }
+.auth-aside > p { font-size: 15.5px; color: var(--ink-2); max-width: 46ch; }
+
+/* a small, honest sample of the thing being signed into */
+.auth-proof { display: grid; gap: 8px; max-width: 420px; }
+.auth-proof .row {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  padding: 11px 14px; border-radius: 12px;
+  border: 1px solid var(--line); background: var(--surface);
+  box-shadow: 0 1px 2px rgba(11, 26, 46, .04);
+  font-size: 13.5px;
+}
+.auth-proof .row span:first-child { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* ---- right: the form --------------------------------------------------- */
+
+.auth-card {
+  display: grid;
+  gap: 15px;
+  align-content: start;
+  padding: clamp(22px, 3vw, 30px);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .9), var(--sh-2);
+  min-width: 0;
+}
+:root[data-theme="dark"] .auth-card { box-shadow: inset 0 1px 0 rgba(255, 255, 255, .06), var(--sh-2); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .auth-card { box-shadow: inset 0 1px 0 rgba(255, 255, 255, .06), var(--sh-2); }
+}
+
+.auth-card h2 { font-size: 23px; letter-spacing: -.03em; }
+.auth-card .sub { font-size: 13.5px; color: var(--ink-2); margin-top: 4px; }
+
+/* password field with a reveal button inside it */
+.pw-wrap { position: relative; }
+.pw-wrap input { padding-right: 56px; }
+.pw-toggle {
+  position: absolute; right: 6px; top: 50%; transform: translateY(-50%);
+  min-height: 30px; padding: 0 10px;
+  border: 0; border-radius: 8px; background: transparent;
+  font-family: var(--mono); font-size: 10px; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--ink-3); cursor: pointer;
+}
+.pw-toggle:hover { color: var(--brand); background: var(--surface-3); }
+
+.auth-foot { font-size: 13px; color: var(--ink-3); text-align: center; }
+.auth-foot a { color: var(--brand); font-weight: 600; }
+
+.auth-rule { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 12px; }
+.auth-rule::before, .auth-rule::after { content: ""; height: 1px; background: var(--line); }
+.auth-rule span { font-family: var(--mono); font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3); }
+
+/* ---- demo accounts, for whoever is assessing this ---------------------- */
+
+.demo-box {
+  display: grid; gap: 10px;
+  padding: 15px 16px;
+  border: 1px dashed var(--line-2);
+  border-radius: var(--r);
+  background: var(--surface-2);
+}
+.demo-box .lbl { margin-bottom: 0; }
+.demo-box > p { font-size: 12px; color: var(--ink-3); }
+
+.demo-list { display: grid; gap: 7px; }
+
+.demo-row {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  width: 100%;
+  padding: 9px 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  background: var(--surface);
+  text-align: left;
+  cursor: pointer;
+  transition: border-color .2s ease, transform .15s ease, box-shadow .2s ease;
+}
+.demo-row:hover { border-color: var(--brand); transform: translateY(-1px); box-shadow: var(--sh-1); }
+.demo-row .who { display: grid; gap: 1px; min-width: 0; }
+.demo-row .u { font-family: var(--mono); font-size: 12.5px; color: var(--ink); }
+.demo-row .r { font-size: 11.5px; color: var(--ink-3); }
+.demo-row .go { font-family: var(--mono); font-size: 9.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--brand); white-space: nowrap; }
+
+@media (prefers-reduced-motion: reduce) {
+  .auth-glow i { animation: none !important; }
+}

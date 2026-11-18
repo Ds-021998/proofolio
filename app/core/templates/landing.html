@@ -1,0 +1,533 @@
+{% load static %}<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Proofolio — the criteria you were marked on</title>
+  <meta name="description" content="Proofolio keeps the judgement a marker makes against a criterion, instead of throwing it away when the mark is released.">
+  <meta property="og:title" content="Proofolio">
+  <meta property="og:description" content="The criteria you were marked on, when it counts.">
+  <meta property="og:type" content="website">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;500&family=Schibsted+Grotesk:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="{% static 'css/landing.css' %}">
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+<div class="rules" aria-hidden="true"></div>
+<div class="glow" aria-hidden="true"><i class="g1"></i><i class="g2"></i></div>
+
+<header class="top" id="top">
+  <div class="wrap top-in">
+    <a class="mark" href="{% url 'landing' %}">
+      <span class="seal" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 16 16" fill="none">
+          <path d="M8 1.4l1.7 1.2 2-.2.7 1.9 1.7 1.1-.7 1.9.7 1.9-1.7 1.1-.7 1.9-2-.2L8 14.2l-1.7-1.2-2 .2-.7-1.9L1.9 10l.7-1.9-.7-1.9 1.7-1.1.7-1.9 2 .2L8 1.4z" stroke="currentColor" stroke-width="1.15" stroke-linejoin="round"/>
+          <path d="M5.6 8.1l1.7 1.7 3.1-3.3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <span><b>Proofolio</b><small>A record of what you were judged on</small></span>
+    </a>
+    <span class="spacer"></span>
+    {% if user.is_authenticated %}
+      <a class="btn solid" href="{% url 'post_login' %}">Open the app</a>
+    {% else %}
+      <a class="btn ghost" href="{% url 'login' %}">Log in</a>
+      <a class="btn solid" href="{% url 'signup' %}">Sign up</a>
+    {% endif %}
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="wrap hero">
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <span class="pill"><i aria-hidden="true"></i> Live prototype · COMP7110</span>
+        <h1>
+          <span class="ln"><span>The criteria</span></span>
+          <span class="ln"><span>you were</span></span>
+          <span class="ln"><span>marked on,</span></span>
+          <span class="ln"><span><em>when it counts</em></span></span>
+        </h1>
+        <p class="lede">
+          Every time a marker judges your work against a criterion, they make a judgement that
+          someone with standing has vouched for. The moment the mark is released, it's thrown away.
+          Proofolio keeps it.
+        </p>
+        <div class="cta-row">
+          <a class="btn solid lg" href="{% url 'signup' %}">Create an account
+            <span class="arrow" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M4 12L12 4M12 4H6M12 4v6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </a>
+          <a class="btn ghost lg" href="{% url 'login' %}">Log in</a>
+        </div>
+        <p class="cta-note">Students join with a course code. Markers are added by their coordinator.</p>
+      </div>
+
+      <div class="marquee" aria-hidden="true">
+        <div class="col down">
+          <article class="tile accent"><div class="tile-top"><h3>States the trade-off behind each design decision</h3><span class="chip met">Met</span></div><p class="cap">Design judgement · SFIA DESN 4</p><div class="ticks"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></div></article>
+          <article class="tile"><div class="tile-top"><h3>Evidence is traceable to a named source</h3><span class="chip part">Still open</span></div><p class="when">Carried into Assignment 3</p></article>
+          <article class="tile"><div class="tile-top"><h3>Names what would change the conclusion</h3><span class="chip not">Not met</span></div><p class="when">Newly open · 24 Sep</p></article>
+          <article class="tile"><div class="tile-top"><h3>Scopes the recommendation to the evidence</h3><span class="chip met">Met</span></div><p class="cap">Verified by the teaching team</p></article>
+          <article class="tile"><div class="tile-top"><h3>Distinguishes a finding from an interpretation</h3><span class="chip met">Met</span></div><p class="when">Closed 12 Sep</p></article>
+          <article class="tile accent"><div class="tile-top"><h3>States the trade-off behind each design decision</h3><span class="chip met">Met</span></div><p class="cap">Design judgement · SFIA DESN 4</p><div class="ticks"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></div></article>
+          <article class="tile"><div class="tile-top"><h3>Evidence is traceable to a named source</h3><span class="chip part">Still open</span></div><p class="when">Carried into Assignment 3</p></article>
+          <article class="tile"><div class="tile-top"><h3>Names what would change the conclusion</h3><span class="chip not">Not met</span></div><p class="when">Newly open · 24 Sep</p></article>
+          <article class="tile"><div class="tile-top"><h3>Scopes the recommendation to the evidence</h3><span class="chip met">Met</span></div><p class="cap">Verified by the teaching team</p></article>
+          <article class="tile"><div class="tile-top"><h3>Distinguishes a finding from an interpretation</h3><span class="chip met">Met</span></div><p class="when">Closed 12 Sep</p></article>
+        </div>
+        <div class="col up">
+          <article class="tile"><div class="tile-top"><h3>Assignment 1 — 12 Aug</h3><span class="chip not">Not met</span></div><p class="when">Names the decision, not who it affects</p></article>
+          <article class="tile"><div class="tile-top"><h3>Assignment 2 — 03 Sep</h3><span class="chip part">Partly met</span></div><p class="when">One trade-off named, three implied</p></article>
+          <article class="tile accent"><div class="tile-top"><h3>Assignment 3 — 24 Sep</h3><span class="chip met">Met</span></div><p class="when">Every decision names its stakeholder</p><div class="ticks"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="warn"></i></div></article>
+          <article class="tile"><div class="tile-top"><h3>Tutorial brief · your group</h3><span class="chip part">8 of 12</span></div><p class="when">Counted from your own marking</p></article>
+          <article class="tile"><div class="tile-top"><h3>Handover note</h3><span class="chip met">Saved</span></div><p class="when">Attached to the criterion, not the marker</p></article>
+          <article class="tile"><div class="tile-top"><h3>Assignment 1 — 12 Aug</h3><span class="chip not">Not met</span></div><p class="when">Names the decision, not who it affects</p></article>
+          <article class="tile"><div class="tile-top"><h3>Assignment 2 — 03 Sep</h3><span class="chip part">Partly met</span></div><p class="when">One trade-off named, three implied</p></article>
+          <article class="tile accent"><div class="tile-top"><h3>Assignment 3 — 24 Sep</h3><span class="chip met">Met</span></div><p class="when">Every decision names its stakeholder</p><div class="ticks"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="warn"></i></div></article>
+          <article class="tile"><div class="tile-top"><h3>Tutorial brief · your group</h3><span class="chip part">8 of 12</span></div><p class="when">Counted from your own marking</p></article>
+          <article class="tile"><div class="tile-top"><h3>Handover note</h3><span class="chip met">Saved</span></div><p class="when">Attached to the criterion, not the marker</p></article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== skills band: named, judged, verified ===== -->
+  <section class="skills" aria-labelledby="skills-cap">
+    <div class="wrap">
+      <p class="skills-cap" id="skills-cap">Skills named by the course · judged on real work · verified or still open</p>
+    </div>
+    <div class="lane" aria-hidden="true">
+      <div class="lane-row ltr">
+        <span class="skill ok"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3.2 3.2L13 5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Design judgement<span class="state">Verified</span></span>
+        <span class="skill pending"><svg width="14" height="14" viewBox="0 0 16 16"><circle cx="8" cy="8" r="4" fill="currentColor"/></svg>Research synthesis<span class="state">Open</span></span>
+        <span class="skill ok"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3.2 3.2L13 5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Analysis<span class="state">Verified</span></span>
+        <span class="skill pending"><svg width="14" height="14" viewBox="0 0 16 16"><circle cx="8" cy="8" r="4" fill="currentColor"/></svg>Critical reasoning<span class="state">Open</span></span>
+        <span class="skill ok"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3.2 3.2L13 5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Scoping<span class="state">Verified</span></span>
+        <span class="skill pending"><svg width="14" height="14" viewBox="0 0 16 16"><circle cx="8" cy="8" r="4" fill="currentColor"/></svg>Stakeholder framing<span class="state">Open</span></span>
+
+        <span class="skill ok"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3.2 3.2L13 5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Design judgement<span class="state">Verified</span></span>
+        <span class="skill pending"><svg width="14" height="14" viewBox="0 0 16 16"><circle cx="8" cy="8" r="4" fill="currentColor"/></svg>Research synthesis<span class="state">Open</span></span>
+        <span class="skill ok"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3.2 3.2L13 5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Analysis<span class="state">Verified</span></span>
+        <span class="skill pending"><svg width="14" height="14" viewBox="0 0 16 16"><circle cx="8" cy="8" r="4" fill="currentColor"/></svg>Critical reasoning<span class="state">Open</span></span>
+        <span class="skill ok"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3.2 3.2L13 5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Scoping<span class="state">Verified</span></span>
+        <span class="skill pending"><svg width="14" height="14" viewBox="0 0 16 16"><circle cx="8" cy="8" r="4" fill="currentColor"/></svg>Stakeholder framing<span class="state">Open</span></span>
+      </div>
+    </div>
+    <div class="lane" aria-hidden="true">
+      <div class="lane-row rtl">
+        <span class="skill ok"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3.2 3.2L13 5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Evidence handling<span class="state">Verified</span></span>
+        <span class="skill pending"><svg width="14" height="14" viewBox="0 0 16 16"><circle cx="8" cy="8" r="4" fill="currentColor"/></svg>Argument structure<span class="state">Open</span></span>
+        <span class="skill ok"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3.2 3.2L13 5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Interview practice<span class="state">Verified</span></span>
+        <span class="skill pending"><svg width="14" height="14" viewBox="0 0 16 16"><circle cx="8" cy="8" r="4" fill="currentColor"/></svg>Prototyping<span class="state">Open</span></span>
+        <span class="skill ok"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3.2 3.2L13 5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Synthesis writing<span class="state">Verified</span></span>
+
+        <span class="skill ok"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3.2 3.2L13 5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Evidence handling<span class="state">Verified</span></span>
+        <span class="skill pending"><svg width="14" height="14" viewBox="0 0 16 16"><circle cx="8" cy="8" r="4" fill="currentColor"/></svg>Argument structure<span class="state">Open</span></span>
+        <span class="skill ok"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3.2 3.2L13 5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Interview practice<span class="state">Verified</span></span>
+        <span class="skill pending"><svg width="14" height="14" viewBox="0 0 16 16"><circle cx="8" cy="8" r="4" fill="currentColor"/></svg>Prototyping<span class="state">Open</span></span>
+        <span class="skill ok"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3.2 3.2L13 5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Synthesis writing<span class="state">Verified</span></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== why now ===== -->
+  <section class="wrap band why">
+    <div class="band-head reveal">
+      <p class="eyebrow">Why now</p>
+      <h2 class="wordy" data-split>AI made explaining feedback free. It made <span class="hl">proof of ability</span> scarce.</h2>
+      <p class="lede">Two things a student can get. Only one of them is scarce.</p>
+    </div>
+
+    <div class="versus">
+      <div class="vpanel reveal">
+        <div class="vhead">
+          <span class="lbl">Any model, any time</span>
+          <span class="verdict free">Free</span>
+        </div>
+        <div class="clip" aria-hidden="true">
+          <div class="bar-row">
+            <span class="fake-input">Explain this marking criterion to me</span>
+            <span class="go">Ask</span>
+          </div>
+          <div class="stream">
+            <span class="ln2" style="--w: 96%; animation-delay: 0s"></span>
+            <span class="ln2" style="--w: 88%; animation-delay: .22s"></span>
+            <span class="ln2" style="--w: 93%; animation-delay: .44s"></span>
+            <span class="ln2" style="--w: 61%; animation-delay: .66s"></span>
+          </div>
+          <p class="caption">Instant · unlimited · anyone</p>
+          <span class="ripple2" aria-hidden="true"></span>
+          <svg class="cursor" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M5 2.5l13.2 8.3-5.6.9 3.1 6.3-2.6 1.3-3.1-6.3-3.9 4.1z" stroke="rgba(0,0,0,.35)" stroke-width=".8"/></svg>
+        </div>
+        <p class="note">An explanation is now a commodity. It costs nothing, it arrives in seconds, and it is the same for everybody who asks.</p>
+      </div>
+
+      <div class="vpanel keep reveal" tabindex="0">
+        <div class="vhead">
+          <span class="lbl">Only a marker</span>
+          <span class="verdict rare">Scarce</span>
+        </div>
+        <div class="keepcard">
+          <div class="k1">
+            <h4>Design judgement</h4>
+            <span class="seal2">
+              <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M8 1.4l1.7 1.2 2-.2.7 1.9 1.7 1.1-.7 1.9.7 1.9-1.7 1.1-.7 1.9-2-.2L8 14.2l-1.7-1.2-2 .2-.7-1.9L1.9 10l.7-1.9-.7-1.9 1.7-1.1.7-1.9 2 .2L8 1.4z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/><path d="M5.6 8.1l1.7 1.7 3.1-3.3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Verified
+            </span>
+          </div>
+          <div class="trail3" aria-hidden="true">
+            <span class="t3"><i class="d bad"></i>12 Aug · not met</span>
+            <span class="t3"><i class="d mid"></i>03 Sep · partly met</span>
+            <span class="t3"><i class="d ok"></i>24 Sep · met</span>
+          </div>
+          <p class="meta">Judged by the COMP7110 teaching team, on work you submitted</p>
+          <p class="meta">Carries the course behind it, not your own say-so</p>
+          <p class="seal-hint">Hover the seal</p>
+        </div>
+        <p class="note">No model can make this. It needs someone with standing to look at your actual work and put their name behind it. That is what we keep.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== what leaves the course ===== -->
+  <section class="wrap">
+    <div class="navy" id="navy">
+      <span class="spot" aria-hidden="true"></span>
+      <div class="wrap band" style="padding-inline: clamp(20px, 4vw, 46px)">
+        <div class="band-head reveal">
+          <p class="eyebrow">What leaves the course</p>
+          <h2>Not a transcript. What a marker actually signed off.</h2>
+          <p class="lede">
+            A grade says 68. It doesn't say what you can do. Watch one criterion go from not met, to
+            judged met by a marker, to closed — and only then does it travel.
+          </p>
+        </div>
+
+        <div class="travel reveal" id="travel" data-s="0">
+          <div class="panel">
+            <p class="ph">Marking · the teaching team's view</p>
+            <div class="line hero-row" id="heroRow">
+              <span class="nm">Design judgement</span>
+              <span class="st swap"><b class="was bad">Not met</b><b class="now good">Met · closed</b></span>
+            </div>
+            <div class="seg3" aria-hidden="true">
+              <span class="sbtn">Not met</span><span class="sbtn">Partly</span><span class="sbtn" id="metBtn">Met</span>
+            </div>
+            <p class="seg-cap">The only place a judgement is written</p>
+            <div class="line openx"><span class="nm">Evidence handling</span><span class="st">Open</span></div>
+            <div class="line openx"><span class="nm">Critical reasoning</span><span class="st">Open</span></div>
+            <div class="line openx"><span class="nm">Stakeholder framing</span><span class="st">Open</span></div>
+          </div>
+
+          <div class="funnel" aria-hidden="true">
+            <svg width="34" height="34" viewBox="0 0 24 24" fill="none"><path d="M4 12h15M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Closed, so<br>it travels</span>
+          </div>
+
+          <div class="panel out-panel">
+            <span class="stamp">
+              <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 1.4l1.7 1.2 2-.2.7 1.9 1.7 1.1-.7 1.9.7 1.9-1.7 1.1-.7 1.9-2-.2L8 14.2l-1.7-1.2-2 .2-.7-1.9L1.9 10l.7-1.9-.7-1.9 1.7-1.1.7-1.9 2 .2L8 1.4z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M5.6 8.1l1.7 1.7 3.1-3.3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Verified
+            </span>
+            <p class="ph">Your record · what someone else sees</p>
+            <div class="line out-row"><span class="nm">Design judgement</span><span class="st good">Not met → met</span></div>
+            <div class="line later"><span class="nm">Analysis</span><span class="st good">Partly → met</span></div>
+            <div class="line later"><span class="nm">Scoping</span><span class="st good">Not met → met</span></div>
+            <p class="honest">
+              The three still-open criteria stayed behind. You can leave a whole course out — you
+              can't delete one judgement, because a record you can edit line by line is a CV again.
+            </p>
+          </div>
+
+          <div class="pointer" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M5 2.5l13.2 8.3-5.6.9 3.1 6.3-2.6 1.3-3.1-6.3-3.9 4.1z" stroke="rgba(0,0,0,.4)" stroke-width=".8"/></svg>
+            <span class="who">Teaching team</span>
+          </div>
+          <span class="ripple" aria-hidden="true"></span>
+        </div>
+
+        <p class="honest reveal" style="margin-top: 20px; border-style: solid">
+          <b style="color: var(--on-navy)">Where this claim comes from.</b> Two of the students we
+          interviewed asked for a record of their skills unprompted, before we showed them anything
+          like it. We have not interviewed an employer, so we are not claiming recruiters use these
+          today — only that the people being assessed asked for it first.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== the mechanic ===== -->
+  <section class="wrap band">
+    <div class="band-head reveal">
+      <p class="eyebrow">The mechanic</p>
+      <h2>One criterion, used four times instead of once.</h2>
+      <p class="lede">We don't add an artefact. Your coordinator already writes these — we stop throwing them away after marking.</p>
+    </div>
+    <div class="flow">
+      <article class="step reveal" tabindex="0">
+        <span class="badge" aria-hidden="true">01</span>
+        <p class="n">Before you write</p>
+        <h3>You see the standard</h3>
+        <p>Published before you write, on the submission page itself. Not buried in a notification you'd have to remember.</p>
+        <span class="tip" aria-hidden="true"></span>
+      </article>
+      <article class="step reveal" tabindex="0">
+        <span class="badge" aria-hidden="true">02</span>
+        <p class="n">While marking</p>
+        <h3>The marker clicks, doesn't type</h3>
+        <p>Three buttons. The comment written once at setup attaches itself, edited only where your script differs.</p>
+        <span class="tip" aria-hidden="true"></span>
+      </article>
+      <article class="step reveal" tabindex="0">
+        <span class="badge" aria-hidden="true">03</span>
+        <p class="n">When you ask</p>
+        <h3>Your question arrives anchored</h3>
+        <p>Attached to the criterion, so the reply is already drafted from the standard. Your script is never reopened.</p>
+        <span class="tip" aria-hidden="true"></span>
+      </article>
+      <article class="step reveal" tabindex="0">
+        <span class="badge" aria-hidden="true">04</span>
+        <p class="n">Next assessment</p>
+        <h3>It carries forward until it closes</h3>
+        <p>Still open, so it meets you at your next submission. It closes only when a marker judges it met.</p>
+        <span class="tip" aria-hidden="true"></span>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===== roles ===== -->
+  <section class="wrap band" style="padding-top: 0">
+    <div class="band-head reveal">
+      <p class="eyebrow">Who it's for</p>
+      <h2>Three roles, and nobody does extra work.</h2>
+    </div>
+    <div class="roles">
+      <article class="role reveal" tabindex="0">
+        <span class="ring" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3.6" stroke="currentColor" stroke-width="1.8"/><path d="M4.8 20c.6-3.7 3.6-5.6 7.2-5.6s6.6 1.9 7.2 5.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+        <p class="tag">Role 01</p>
+        <h3>Students</h3>
+        <p class="hint">Hover to see</p>
+        <div class="more">
+          <p>The criteria before you write, the open ones carried into your next submission, and a capability record that shows where you started as well as where you finished.</p>
+        </div>
+      </article>
+
+      <article class="role reveal" tabindex="0">
+        <span class="ring" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 20l4.2-1.1L19 8.1a2.1 2.1 0 0 0 0-3l-.1-.1a2.1 2.1 0 0 0-3 0L5.1 15.8 4 20z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></span>
+        <p class="tag">Role 02</p>
+        <h3>Tutors</h3>
+        <p class="hint">Hover to see</p>
+        <div class="more">
+          <p>A tutorial brief counted from your own marking — the three things your group missed most. Nobody wrote it. And no timer runs while you mark.</p>
+        </div>
+      </article>
+
+      <article class="role reveal" tabindex="0">
+        <span class="ring" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="3.5" y="3.5" width="7" height="7" rx="2" stroke="currentColor" stroke-width="1.8"/><rect x="13.5" y="3.5" width="7" height="7" rx="2" stroke="currentColor" stroke-width="1.8"/><rect x="3.5" y="13.5" width="7" height="7" rx="2" stroke="currentColor" stroke-width="1.8"/><rect x="13.5" y="13.5" width="7" height="7" rx="2" stroke="currentColor" stroke-width="1.8"/></svg></span>
+        <p class="tag">Role 03</p>
+        <h3>Coordinators</h3>
+        <p class="hint">Hover to see</p>
+        <div class="more">
+          <p>Where the cohort is failing with weeks of teaching left, and a handover built from what markers noticed — attached to the criterion, not the marker.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===== guardrails ===== -->
+  <section class="wrap band" style="padding-top: 0">
+    <div class="band-head reveal">
+      <p class="eyebrow">Guardrails</p>
+      <h2>What it will never do.</h2>
+      <p class="lede">Written down before the first line of code, because the easiest version of this product is the one nobody should build.</p>
+    </div>
+    <div class="never" id="never">
+      <div class="never-item" style="--d: 0s"><span class="x" aria-hidden="true">×</span> Produce text a student could submit as their own</div>
+      <div class="never-item" style="--d: .09s"><span class="x" aria-hidden="true">×</span> Rank students publicly, or run a leaderboard on assessment</div>
+      <div class="never-item" style="--d: .18s"><span class="x" aria-hidden="true">×</span> Put a label on a student's own submitted work</div>
+      <div class="never-item" style="--d: .27s"><span class="x" aria-hidden="true">×</span> Grade, re-grade, or predict a grade</div>
+      <div class="never-item" style="--d: .36s"><span class="x" aria-hidden="true">×</span> Let anything leave the course that a marker hasn't closed</div>
+    </div>
+  </section>
+
+  <section class="wrap band" id="cta" style="padding-top: 0">
+    <div class="close-cta reveal">
+      <h2>Start with one course.</h2>
+      <p>Students join with a code from their coordinator. Markers and coordinators are added from inside the course.</p>
+      <div class="cta-row" style="justify-content: center">
+        <a class="btn solid lg" href="{% url 'signup' %}">Create an account</a>
+        <a class="btn ghost lg" href="{% url 'login' %}">Log in</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="wrap foot">
+  <p>Proofolio is a student project, not a commercial product. Built by <b>Thundering Qilins</b> — Group 35, COMP7110 Introduction to Software Innovation, University of Queensland.</p>
+  <p>The product design came out of our own participant research across two iterations, including the decisions we reversed: student self-certification was removed because a coordinator told us it wasn't acceptable, and the marking timer was hidden because a tutor read it as surveillance.</p>
+</footer>
+
+<script>
+  document.documentElement.classList.add("js");
+  (function () {
+    var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    // Split the thesis heading into words so each can rise on its own.
+    document.querySelectorAll("[data-split]").forEach(function (h) {
+      var walk = function (node) {
+        Array.prototype.slice.call(node.childNodes).forEach(function (n) {
+          if (n.nodeType === 3) {
+            var frag = document.createDocumentFragment();
+            n.textContent.split(/(\s+)/).forEach(function (part) {
+              if (!part) return;
+              if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(part)); return; }
+              var w = document.createElement("span"); w.className = "w";
+              var i = document.createElement("i"); i.textContent = part;
+              w.appendChild(i); frag.appendChild(w);
+            });
+            node.replaceChild(frag, n);
+          } else if (n.nodeType === 1) { walk(n); }
+        });
+      };
+      walk(h);
+      h.querySelectorAll(".w > i").forEach(function (i, k) { i.style.transitionDelay = (k * 0.035) + "s"; });
+    });
+
+    var travel = document.getElementById("travel");
+    var heroRow = document.getElementById("heroRow");
+    var heroSlot = document.getElementById("heroSlot");
+    var never = document.getElementById("never");
+    var items = document.querySelectorAll(".reveal, .wordy");
+
+    /* One criterion, closed in front of you:
+         1  the pointer arrives at the marker's Met button
+         2  it clicks — the verdict flips to met and closed
+         3  the row appears on the record side, glowing
+         4  the verified stamp slams on
+         5  a shine runs across it
+       Nothing leaves its panel; the pointer position is measured so it lands
+       on the real button at any width. */
+    function measure() {
+      var metBtn = document.getElementById("metBtn");
+      if (!travel || !metBtn) return;
+      var t = travel.getBoundingClientRect();
+      var m = metBtn.getBoundingClientRect();
+      travel.style.setProperty("--px", Math.round(m.left - t.left + m.width * 0.5) + "px");
+      travel.style.setProperty("--py", Math.round(m.top - t.top + m.height * 0.55) + "px");
+    }
+
+    /* It loops while it is on screen, so whoever looks at it sees it running
+       rather than a finished still. It stops the moment it scrolls away. */
+    var timers = [], looping = false, onScreen = false;
+    function clearRun() { timers.forEach(clearTimeout); timers = []; }
+
+    function runOnce() {
+      if (!travel) return;
+      measure();
+      travel.dataset.s = "0";
+      [[1, 500], [2, 1600], [3, 2350], [4, 3200], [5, 4000]].forEach(function (st) {
+        timers.push(setTimeout(function () { travel.dataset.s = st[0]; }, st[1]));
+      });
+      // hold the finished state, then run it again
+      timers.push(setTimeout(function () { if (onScreen) runOnce(); }, 8200));
+    }
+
+    function playTravel() {
+      if (looping || !travel) return;
+      looping = true;
+      runOnce();
+    }
+
+    function stopTravel() { looping = false; clearRun(); }
+
+    var runAll = function () {
+      items.forEach(function (el) { el.classList.add("in"); });
+      if (never) never.classList.add("in");
+    };
+
+    if (reduce || !("IntersectionObserver" in window)) {
+      items.forEach(function (el) { el.classList.add("in"); });
+      if (never) never.classList.add("in");
+      if (travel) travel.dataset.s = "5";
+    } else {
+      var io = new IntersectionObserver(function (es) {
+        es.forEach(function (e) {
+          if (!e.isIntersecting) return;
+          e.target.classList.add("in");
+          io.unobserve(e.target);
+        });
+      }, { rootMargin: "0px 0px -10% 0px", threshold: 0.12 });
+
+      items.forEach(function (el) { io.observe(el); });
+      if (never) io.observe(never);
+
+      // Run the sequence only while it is actually visible.
+      if (travel) {
+        new IntersectionObserver(function (es) {
+          es.forEach(function (e) {
+            onScreen = e.isIntersecting;
+            if (onScreen) { playTravel(); } else { stopTravel(); }
+          });
+        }, { threshold: 0.25 }).observe(travel);
+      }
+
+      // Safety net: a reveal is decoration, invisible content is a bug.
+      setTimeout(runAll, 3600);
+      window.addEventListener("beforeprint", runAll);
+
+      // Re-measure if the layout changes before the flight happens.
+      var rt;
+      window.addEventListener("resize", function () {
+        clearTimeout(rt);
+        rt = setTimeout(function () { if (travel && Number(travel.dataset.s || 0) < 2) measure(); }, 160);
+      }, { passive: true });
+    }
+
+    // Touch devices have no hover, so a tap opens the role card.
+    var keep = document.querySelector(".vpanel.keep");
+    if (keep) {
+      keep.addEventListener("click", function () { keep.classList.toggle("lit"); });
+      keep.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" || e.key === " ") { e.preventDefault(); keep.classList.toggle("lit"); }
+      });
+    }
+
+    document.querySelectorAll(".role").forEach(function (card) {
+      card.addEventListener("click", function () {
+        var was = card.classList.contains("open");
+        document.querySelectorAll(".role.open").forEach(function (o) { o.classList.remove("open"); });
+        if (!was) card.classList.add("open");
+      });
+      card.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" || e.key === " ") { e.preventDefault(); card.click(); }
+      });
+    });
+
+    // The spotlight follows the pointer across the dark band only.
+    var navy = document.getElementById("navy");
+    if (navy && !reduce && window.matchMedia("(hover: hover)").matches) {
+      navy.addEventListener("mousemove", function (e) {
+        var r = navy.getBoundingClientRect();
+        navy.style.setProperty("--mx", Math.round(e.clientX - r.left) + "px");
+        navy.style.setProperty("--my", Math.round(e.clientY - r.top) + "px");
+      }, { passive: true });
+    }
+
+    var top = document.getElementById("top");
+    var ticking = false;
+    var onScroll = function () {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function () { top.dataset.stuck = window.scrollY > 8 ? "true" : "false"; ticking = false; });
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+  })();
+</script>
+</body>
+</html>

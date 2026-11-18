@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %}Edit criterion{% endblock %}
+
+{% comment %}
+  Coordinator — write a criterion once. Five fields, and four of them get
+  reused somewhere else in the product:
+
+    clause             → shown to the student before they write
+    good_looks_like    → shown to the student, and seeds the question reply
+    prefilled_comment  → attaches itself when a marker judges partly / not met
+    capability_name    → the line in the student's record
+
+  That reuse is the argument. One object, used at four moments instead of one.
+
+  Context: criterion (or None for a new one)
+{% endcomment %}
+
+{% block content %}
+<div class="head">
+  <p class="kicker">{{ assessment.title }}</p>
+  <h2>{% if criterion %}Edit criterion{% else %}New criterion{% endif %}</h2>
+  <p>Write it once. It's published to students, clicked by markers, and carried into the next assessment.</p>
+</div>
+
+<form method="post" class="stack">
+  {% csrf_token %}
+
+  <div class="field">
+    <label class="lbl" for="id_title">Criterion</label>
+    <input type="text" id="id_title" name="title" value="{{ criterion.title|default:'' }}" required
+           placeholder="States the trade-off behind each design decision">
+  </div>
+
+  <div class="field">
+    <label class="lbl" for="id_capability">Capability name</label>
+    <input type="text" id="id_capability" name="capability_name" value="{{ criterion.capability_name|default:'' }}" required
+           aria-describedby="help-cap" placeholder="Design judgement">
+    <p class="xs" id="help-cap">This is the line that appears in a student's record, so write it as a capability, not as a task.</p>
+  </div>
+
+  <div class="field">
+    <label class="lbl" for="id_sfia">SFIA code (optional)</label>
+    <input type="text" id="id_sfia" name="sfia_code" value="{{ criterion.sfia_code|default:'' }}" placeholder="DESN 4">
+  </div>
+
+  <div class="field">
+    <label class="lbl" for="id_clause">What the student has to do</label>
+    <textarea id="id_clause" name="clause" rows="2" required>{{ criterion.clause|default:'' }}</textarea>
+  </div>
+
+  <div class="field">
+    <label class="lbl" for="id_good">Good looks like</label>
+    <textarea id="id_good" name="good_looks_like" rows="2" required>{{ criterion.good_looks_like|default:'' }}</textarea>
+  </div>
+
+  <div class="field">
+    <label class="lbl" for="id_comment">Comment that attaches when a marker judges this partly or not met</label>
+    <textarea id="id_comment" name="prefilled_comment" rows="3" required
+              aria-describedby="help-comment">{{ criterion.prefilled_comment|default:'' }}</textarea>
+    <p class="xs" id="help-comment">Write it to a student, not about one. Markers edit it only where a script differs.</p>
+  </div>
+
+  <div class="row">
+    <input type="checkbox" id="id_published" name="is_published" style="width:auto"
+           {% if criterion.is_published %}checked{% endif %}>
+    <label for="id_published" class="sm">Published to students</label>
+  </div>
+
+  <button class="btn brand full" type="submit">Save criterion</button>
+</form>
+{% endblock %}

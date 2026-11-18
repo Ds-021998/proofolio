@@ -1,0 +1,25 @@
+{% comment %}
+  The top row of a criterion card: title, capability line, status chip.
+  Used inside an <article class="crit"> on five different screens, so the
+  identity of a criterion looks the same everywhere.
+
+      <article class="crit">
+        {% include "includes/_criterion_head.html" with criterion=c verdict=c.verdict %}
+        ... screen-specific body ...
+      </article>
+
+  criterion    a Criterion (needs .title, .capability_name, optional .sfia_code)
+  verdict      "met" | "partly" | "not_met" | None
+  chip_label   optional chip text override
+  meta         optional extra text appended to the capability line
+{% endcomment %}
+<div class="crit-top">
+  <div>
+    <h4>{{ criterion.title }}</h4>
+    <span class="cap">
+      <svg width="13" height="13" aria-hidden="true"><use href="#ico-seal"></use></svg>
+      <b>{{ criterion.capability_name }}</b>{% if criterion.sfia_code %} · SFIA {{ criterion.sfia_code }}{% endif %}{% if meta %} · {{ meta }}{% endif %}
+    </span>
+  </div>
+  {% include "includes/_status_chip.html" with verdict=verdict label=chip_label %}
+</div>

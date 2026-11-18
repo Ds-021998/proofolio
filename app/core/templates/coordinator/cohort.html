@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Cohort{% endblock %}
+
+{% comment %}
+  Coordinator — the whole cohort, aggregated. Never a named student, never a
+  named marker: this view exists to change what gets taught in the weeks that
+  remain, not to manage people.
+
+  Context
+    cohort_size, weeks_remaining
+    bars       each .label .value .total .percent .sub
+    covered    list of criterion titles tutors have marked as covered
+{% endcomment %}
+
+{% block content %}
+<div class="head">
+  <p class="kicker">{{ cohort_size }} students · {{ weeks_remaining }} weeks of teaching left</p>
+  <h2>What the cohort missed</h2>
+  <p>Aggregated from marking. No student and no marker is named on this screen.</p>
+</div>
+
+<div class="stack">
+
+  <div class="card">
+    <div class="bars">
+      {% for b in bars %}
+        {% include "includes/_bar.html" with label=b.label value=b.value total=b.total percent=b.percent sub=b.sub %}
+      {% empty %}
+        <p class="sm muted">Nothing released yet.</p>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="card-2 stack-sm">
+    <h3 style="font-weight:600;font-size:15px">Covered in tutorials</h3>
+    {% for t in covered %}
+      <p class="sm">
+        <span class="chip ok"><svg width="12" height="12" aria-hidden="true"><use href="#ico-check"></use></svg>Covered</span>
+        {{ t }}
+      </p>
+    {% empty %}
+      <p class="sm muted">No tutor has marked a criterion as covered yet.</p>
+    {% endfor %}
+    <p class="xs">Marked by tutors from their own tutorial brief. You see that it happened, not who taught what.</p>
+  </div>
+
+</div>
+{% endblock %}

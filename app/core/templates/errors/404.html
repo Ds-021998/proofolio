@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Not found{% endblock %}
+
+{% comment %}
+  404 — also what a student gets when they guess another student's URL.
+  Returning 404 rather than 403 is deliberate: a 403 confirms the row exists.
+{% endcomment %}
+
+{% block content %}
+<div class="head">
+  <p class="kicker">404</p>
+  <h2>Nothing here</h2>
+  <p>That page doesn't exist, or it isn't yours.</p>
+</div>
+{% include "includes/_empty_state.html" with message="Head back to where your work is." action_url=home_url action_label="Go home" %}
+{% endblock %}
